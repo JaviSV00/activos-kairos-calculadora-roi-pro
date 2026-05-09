@@ -1,10 +1,9 @@
 <!-- =========================================================
-     CALCULADORA ROI · ACTIVOS KAIROS (PRO INTERNA) · v5
-     · Logo K via path SVG (con fallback PNG)
-     · Switch ancho dinámico
-     · Métricas con descripción · Sin grupo Núcleo en selector
-     · Toggle €/h encima del grid
-     · Acordeón multi-abierto
+     CALCULADORA ROI · ACTIVOS KAIROS (PRO INTERNA) · v6
+     · Duplicidades movida a Operativas (3 chips)
+     · Filosofía Kairos: Densidad Kairós (refundida) + Momentum + Autonomía del Activo
+     · "Foco en alto valor" eliminado como chip (absorbido en Densidad Kairós)
+     · Bug cascade unchecking resuelto
      ========================================================= -->
 <!DOCTYPE html>
 <html lang="es">
@@ -123,7 +122,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kairos-roi__meta-input::placeholder { color:var(--kr-muted); font-weight:500; }
 .kairos-roi__meta-input:focus { border-bottom-color:var(--kr-accent); }
 
-/* SWITCH ancho dinámico */
+/* SWITCH */
 .kr-switch {
   position:relative; display:inline-flex; padding:3px;
   background:var(--kr-surface-2); border:1px solid var(--kr-border-2);
@@ -146,7 +145,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-switch__btn[aria-pressed="true"] { color:#0a0a0a; }
 .kr-switch__btn:focus-visible { outline:2px solid var(--kr-accent); outline-offset:2px; }
 
-/* STEPS — multi-abierto */
+/* STEPS */
 .kr-step {
   background:var(--kr-surface); border:1px solid var(--kr-border);
   border-radius:var(--kr-radius-sm);
@@ -204,7 +203,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 
 .kr-section-sub { font-size:.82rem; color:var(--kr-text-soft); margin:0 0 1rem 0; font-family:var(--kr-font-body); }
 
-/* MÉTRICAS — 3 columnas */
+/* MÉTRICAS */
 .kr-metric-groups { display:grid; grid-template-columns:1fr; gap:.85rem; }
 @media (min-width:720px){ .kr-metric-groups { grid-template-columns:repeat(3, 1fr); } }
 .kr-metric-group {
@@ -362,7 +361,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   margin-top:.2rem; letter-spacing:.02em;
 }
 
-/* TOGGLE €/h ENCIMA del grid */
+/* TOGGLE €/h */
 .kr-money-bar {
   display:flex; align-items:center; flex-wrap:wrap; gap:.6rem;
   margin:0 0 1rem 0;
@@ -538,6 +537,14 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
                 <span class="kr-metric-chip-desc">Tiempo que antes se iba en retrabajo, correcciones y verificaciones, y ahora vuelve al equipo.</span>
               </span>
             </label>
+            <label class="kr-metric-chip" data-metric="duplicidades">
+              <span class="kr-metric-chip-dot"></span>
+              <input type="checkbox">
+              <span class="kr-metric-chip-text">
+                <span class="kr-metric-chip-name">Eliminación de duplicidades</span>
+                <span class="kr-metric-chip-desc">Trabajo que se hacía dos o tres veces (mismo dato, mismo proceso) y ahora ocurre una sola vez gracias a la fuente única de verdad.</span>
+              </span>
+            </label>
           </div>
         </div>
 
@@ -579,23 +586,23 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
               <input type="checkbox">
               <span class="kr-metric-chip-text">
                 <span class="kr-metric-chip-name">Densidad Kairós</span>
-                <span class="kr-metric-chip-desc">Qué porcentaje del tiempo liberado se reinvierte en trabajo de alto valor (Kairós) frente a operativo (Cronos).</span>
+                <span class="kr-metric-chip-desc">Horas/año que el equipo dedica a lo que mueve el negocio (alto valor) frente al tiempo operativo. Tiempo Kairós sobre Tiempo Cronos.</span>
               </span>
             </label>
-            <label class="kr-metric-chip" data-metric="duplicidades">
+            <label class="kr-metric-chip" data-metric="momentum">
               <span class="kr-metric-chip-dot"></span>
               <input type="checkbox">
               <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Eliminación de duplicidades</span>
-                <span class="kr-metric-chip-desc">Trabajo que se hacía dos o tres veces (mismo dato, mismo proceso) y ahora ocurre una sola vez gracias a la fuente única de verdad.</span>
+                <span class="kr-metric-chip-name">Momentum</span>
+                <span class="kr-metric-chip-desc">Cuántas veces más rápido aprende el equipo. Ciclos completos de probar → aprender → ajustar por trimestre.</span>
               </span>
             </label>
-            <label class="kr-metric-chip" data-metric="foco">
+            <label class="kr-metric-chip" data-metric="autonomiaActivo">
               <span class="kr-metric-chip-dot"></span>
               <input type="checkbox">
               <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Foco en alto valor</span>
-                <span class="kr-metric-chip-desc">Horas/año que el equipo dedica a lo que mueve el negocio, una vez liberado del trabajo repetitivo. Deriva de Densidad Kairós.</span>
+                <span class="kr-metric-chip-name">Autonomía del Activo</span>
+                <span class="kr-metric-chip-desc">Cuánto del Activo vive en el sistema (no en personas) y cuánto puede escalar sin sumar dependencia humana. El valor intrínseco del Activo.</span>
               </span>
             </label>
           </div>
@@ -731,6 +738,23 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           </div>
         </div>
 
+        <div class="kr-field" data-input="pct_duplicidades" data-needs-metric="duplicidades" hidden>
+          <div class="kr-field-head">
+            <div>
+              <div class="kr-label">% del tiempo que era trabajo duplicado</div>
+              <div class="kr-hint">Mismo dato/proceso hecho varias veces.</div>
+            </div>
+            <div class="kr-current">
+              <span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span>
+            </div>
+          </div>
+          <div class="kr-slider-wrap">
+            <div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
+            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo que era trabajo duplicado" />
+            <div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+          </div>
+        </div>
+
         <div class="kr-field" data-input="coste_FTE_anual" data-needs-metric="capacidadFTE" hidden>
           <div class="kr-field-head">
             <div>
@@ -816,11 +840,48 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           </div>
         </div>
 
-        <div class="kr-field" data-input="pct_duplicidades" data-needs-metric="duplicidades" hidden>
+        <!-- MOMENTUM · ciclos antes -->
+        <div class="kr-field" data-input="ciclos_antes" data-needs-metric="momentum" hidden>
           <div class="kr-field-head">
             <div>
-              <div class="kr-label">% del tiempo que era trabajo duplicado</div>
-              <div class="kr-hint">Mismo dato/proceso hecho varias veces.</div>
+              <div class="kr-label">Ciclos de aprendizaje · antes</div>
+              <div class="kr-hint">Iteraciones probar → aprender → ajustar por trimestre.</div>
+            </div>
+            <div class="kr-current">
+              <span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">ciclos/Q</span>
+            </div>
+          </div>
+          <div class="kr-slider-wrap">
+            <div class="kr-bubble" data-format="int">0</div>
+            <input class="kr-slider" type="range" min="0" max="50" step="1" value="0" aria-label="Ciclos de aprendizaje antes" />
+            <div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></div>
+          </div>
+        </div>
+
+        <!-- MOMENTUM · ciclos después -->
+        <div class="kr-field" data-input="ciclos_despues" data-needs-metric="momentum" hidden>
+          <div class="kr-field-head">
+            <div>
+              <div class="kr-label">Ciclos de aprendizaje · después</div>
+              <div class="kr-hint">Iteraciones por trimestre tras el Activo.</div>
+            </div>
+            <div class="kr-current">
+              <span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">ciclos/Q</span>
+            </div>
+          </div>
+          <div class="kr-slider-wrap">
+            <div class="kr-bubble" data-format="int">0</div>
+            <input class="kr-slider" type="range" min="0" max="50" step="1" value="0" aria-label="Ciclos de aprendizaje después" />
+            <div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></div>
+          </div>
+        </div>
+
+        <!-- AUTONOMÍA · % conocimiento en sistema -->
+        <div class="kr-field" data-input="pct_conocimiento_sistema" data-needs-metric="autonomiaActivo" hidden>
+          <div class="kr-field-head">
+            <div>
+              <div class="kr-label">% del know-how en el sistema</div>
+              <div class="kr-hint">Documentado, automatizado, no en cabezas.</div>
             </div>
             <div class="kr-current">
               <span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span>
@@ -828,8 +889,26 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           </div>
           <div class="kr-slider-wrap">
             <div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
-            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo que era trabajo duplicado" />
+            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del know-how en el sistema" />
             <div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+          </div>
+        </div>
+
+        <!-- AUTONOMÍA · factor escalabilidad -->
+        <div class="kr-field" data-input="factor_escalabilidad" data-needs-metric="autonomiaActivo" hidden>
+          <div class="kr-field-head">
+            <div>
+              <div class="kr-label">Factor de escalabilidad</div>
+              <div class="kr-hint">Cuántas veces más volumen sin sumar personas.</div>
+            </div>
+            <div class="kr-current">
+              <span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">×</span>
+            </div>
+          </div>
+          <div class="kr-slider-wrap">
+            <div class="kr-bubble" data-format="num1" data-suffix="×">1×</div>
+            <input class="kr-slider" type="range" min="1" max="20" step="0.5" value="1" aria-label="Factor de escalabilidad" />
+            <div class="kr-scale"><span>1×</span><span>5×</span><span>10×</span><span>15×</span><span>20×</span><span></span></div>
           </div>
         </div>
 
@@ -912,6 +991,15 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
         </article>
       </div>
 
+      <div data-result-for="duplicidades" class="kr-result-group" hidden>
+        <p class="kr-group-title">Eliminación de duplicidades</p>
+        <article class="kr-card">
+          <p class="kr-card-label">Horas / año duplicadas eliminadas</p>
+          <p class="kr-card-value" data-output="horasDuplicidades" data-format="int">0</p>
+          <p class="kr-card-unit">trabajo que ahora se hace una sola vez</p>
+        </article>
+      </div>
+
       <div data-result-for="capacidadFTE" class="kr-result-group" hidden>
         <p class="kr-group-title">Capacidad sin contratar</p>
         <article class="kr-card">
@@ -947,9 +1035,9 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       <div data-result-for="densidadKairos" class="kr-result-group" hidden>
         <p class="kr-group-title">Densidad Kairós</p>
         <article class="kr-card" style="grid-column:1 / -1;">
-          <p class="kr-card-label">Tiempo Kairós vs Cronos</p>
-          <p class="kr-card-value" data-output="horasKairos" data-format="int">0</p>
-          <p class="kr-card-unit">horas/año reinvertidas en alto valor</p>
+          <p class="kr-card-label">Tiempo en alto valor (Kairós)</p>
+          <p class="kr-card-value kr-card-value--accent" data-output="horasKairos" data-format="int">0</p>
+          <p class="kr-card-unit">horas/año dedicadas a lo que mueve el negocio · <span data-output="pctEstrategico" data-format="int">0</span>% del tiempo liberado</p>
           <div class="kr-kc-bar">
             <div data-bar="kairos" style="width:0%"></div>
             <div data-bar="cronos" style="width:100%"></div>
@@ -961,21 +1049,36 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
         </article>
       </div>
 
-      <div data-result-for="duplicidades" class="kr-result-group" hidden>
-        <p class="kr-group-title">Eliminación de duplicidades</p>
+      <div data-result-for="momentum" class="kr-result-group" hidden>
+        <p class="kr-group-title">Momentum</p>
+        <article class="kr-card kr-card--accent">
+          <p class="kr-card-label">Aceleración del aprendizaje</p>
+          <p class="kr-card-value kr-card-value--accent"><span data-output="factorMomentum" data-format="num1">0</span>×</p>
+          <p class="kr-card-unit">veces más rápido aprende el equipo</p>
+        </article>
         <article class="kr-card">
-          <p class="kr-card-label">Horas / año duplicadas eliminadas</p>
-          <p class="kr-card-value" data-output="horasDuplicidades" data-format="int">0</p>
-          <p class="kr-card-unit">trabajo que ahora se hace una sola vez</p>
+          <p class="kr-card-label">Δ Ciclos por trimestre</p>
+          <p class="kr-card-value" data-output="deltaCiclos" data-format="signed">0</p>
+          <p class="kr-card-unit">iteraciones probar → aprender → ajustar</p>
         </article>
       </div>
 
-      <div data-result-for="foco" class="kr-result-group" hidden>
-        <p class="kr-group-title">Foco en alto valor</p>
+      <div data-result-for="autonomiaActivo" class="kr-result-group" hidden>
+        <p class="kr-group-title">Autonomía del Activo</p>
+        <article class="kr-card kr-card--accent">
+          <p class="kr-card-label">Know-how en el sistema</p>
+          <p class="kr-card-value kr-card-value--accent"><span data-output="pctConocimiento" data-format="int">0</span>%</p>
+          <p class="kr-card-unit">documentado, no en cabezas</p>
+        </article>
+        <article class="kr-card kr-card--accent">
+          <p class="kr-card-label">Capacidad de escalar</p>
+          <p class="kr-card-value kr-card-value--accent"><span data-output="factorEscala" data-format="num1">1</span>×</p>
+          <p class="kr-card-unit">volumen soportable sin sumar personas</p>
+        </article>
         <article class="kr-card">
-          <p class="kr-card-label">Horas / año en alto valor</p>
-          <p class="kr-card-value" data-output="horasAltoValor" data-format="int">0</p>
-          <p class="kr-card-unit">deriva del % Densidad Kairós</p>
+          <p class="kr-card-label">Score de autonomía</p>
+          <p class="kr-card-value" data-output="scoreAutonomia" data-format="int">0</p>
+          <p class="kr-card-unit">% conocimiento × factor escala (valor intrínseco)</p>
         </article>
       </div>
 
@@ -1001,9 +1104,11 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     metrics: new Set(),
     inputs: {
       M_total: 0, P: 0, Cu_mes: 0, eh: 0,
-      pct_aceleracion_lt: 0, pct_errores: 0,
+      pct_aceleracion_lt: 0, pct_errores: 0, pct_duplicidades: 0,
       coste_FTE_anual: 0, n_criticas_antes: 0, n_criticas_despues: 0,
-      pct_aceleracion_decision: 0, pct_estrategico: 0, pct_duplicidades: 0
+      pct_aceleracion_decision: 0, pct_estrategico: 0,
+      ciclos_antes: 0, ciclos_despues: 0,
+      pct_conocimiento_sistema: 0, factor_escalabilidad: 1
     }
   };
   const S = 48, H_FTE = 1760;
@@ -1020,7 +1125,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     return nfInt.format(val) + suffix;
   };
 
-  /* -------- SWITCH (ancho dinámico) -------- */
+  /* -------- SWITCH -------- */
   const switchEl = root.querySelector('.kr-switch');
   const switchInd = switchEl.querySelector('.kr-switch__indicator');
   const moveSwitch = () => {
@@ -1028,7 +1133,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     if (!active) return;
     const rect = active.getBoundingClientRect();
     const parentRect = switchEl.getBoundingClientRect();
-    const left = rect.left - parentRect.left - 3; /* compensa padding */
+    const left = rect.left - parentRect.left - 3;
     switchInd.style.width = rect.width + 'px';
     switchInd.style.transform = `translateX(${left}px)`;
   };
@@ -1040,13 +1145,10 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       moveSwitch();
     });
   });
-  /* posición inicial cuando todo esté pintado */
   requestAnimationFrame(() => requestAnimationFrame(moveSwitch));
   window.addEventListener('resize', moveSwitch);
 
-  /* -------- ACCORDION (multi-abierto: NO auto-cerrar) -------- */
-  /* Por defecto los <details> ya permiten abrir varios; no hace falta lógica extra. */
-
+  /* -------- ACCORDION (multi-abierto) -------- */
   root.querySelectorAll('[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = root.querySelector(`.kr-step[data-step="${btn.dataset.next}"]`);
@@ -1068,16 +1170,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       const m = chip.dataset.metric;
       if (cb.checked) state.metrics.add(m); else state.metrics.delete(m);
       chip.dataset.checked = cb.checked ? 'true' : 'false';
-
-      /* Foco depende de Densidad Kairós */
-      if (m === 'densidadKairos') {
-        const focoChip = root.querySelector('.kr-metric-chip[data-metric="foco"]');
-        if (focoChip && !cb.checked) {
-          focoChip.querySelector('input').checked = false;
-          focoChip.dataset.checked = 'false';
-          state.metrics.delete('foco');
-        }
-      }
       syncFieldsVisibility();
       syncResultsVisibility();
       compute();
@@ -1114,7 +1206,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const min = +slider.min, max = +slider.max;
     let v = Math.max(min, Math.min(max, +raw || 0));
     slider.value = v;
-    state.inputs[getKey(field)] = v;
+    state.inputs[getKey(field)] = +slider.value;
     paintField(field);
   }
   function paintField(field) {
@@ -1124,14 +1216,12 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const pct = max > min ? ((v - min) / (max - min)) * 100 : 0;
     slider.style.setProperty('--kr-fill', pct);
 
-    /* Bubble position */
     const bubble = field.querySelector('.kr-bubble');
     if (bubble) {
       bubble.style.left = pct + '%';
       const suffix = bubble.dataset.suffix || '';
       bubble.textContent = fmt(v, bubble.dataset.format || 'int', suffix);
     }
-    /* Current number */
     const num = field.querySelector('.kr-current-num');
     if (num && !num.classList.contains('is-editing')) {
       num.textContent = fmt(v, num.dataset.format || 'int');
@@ -1141,6 +1231,8 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   root.querySelectorAll('.kr-field').forEach(field => {
     const slider = field.querySelector('.kr-slider');
     const wrap = field.querySelector('.kr-slider-wrap');
+    /* init state from default value */
+    state.inputs[getKey(field)] = +slider.value;
     slider.addEventListener('input', () => {
       state.inputs[getKey(field)] = +slider.value;
       paintField(field);
@@ -1150,7 +1242,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     slider.addEventListener('pointerup',   () => wrap.dataset.active = 'false');
     slider.addEventListener('blur',        () => wrap.dataset.active = 'false');
 
-    /* Editable number */
     const num = field.querySelector('.kr-current-num');
     if (num) {
       num.addEventListener('focus', () => {
@@ -1200,39 +1291,40 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     setOut('euros24', capacidadNeta * 2);
     setOut('euros36', capacidadNeta * 3);
 
-    /* M5 Aceleración */
+    /* Operativas */
     setOut('pctAcelLT', i.pct_aceleracion_lt);
+    setOut('horasErrores', horasAnio * (i.pct_errores / 100));
+    setOut('horasDuplicidades', horasAnio * (i.pct_duplicidades / 100));
 
-    /* M6 Errores */
-    const horasErrores = horasAnio * (i.pct_errores / 100);
-    setOut('horasErrores', horasErrores);
-
-    /* M7 Capacidad sin contratar */
+    /* Estratégicas */
     const fte = horasAnio / H_FTE;
     setOut('fteEquiv', fte);
     setOut('capacidadFTE', fte * i.coste_FTE_anual);
-
-    /* M8 Factor bus */
     setOut('deltaBus', i.n_criticas_despues - i.n_criticas_antes);
-
-    /* M9 Velocidad */
     setOut('pctAcelDec', i.pct_aceleracion_decision);
 
-    /* M10 Densidad Kairós */
+    /* Filosofía Kairos */
+    /* Densidad Kairós (refundida — headline son las horas absolutas en alto valor) */
     const horasKairos = horasAnio * (i.pct_estrategico / 100);
     const horasCronos = horasAnio - horasKairos;
     setOut('horasKairos', horasKairos);
     setOut('horasCronos', horasCronos);
-    /* barra Kairós/Cronos */
+    setOut('pctEstrategico', i.pct_estrategico);
     const kPct = horasAnio > 0 ? (horasKairos / horasAnio) * 100 : 0;
     root.querySelectorAll('[data-bar="kairos"]').forEach(b => b.style.width = kPct + '%');
     root.querySelectorAll('[data-bar="cronos"]').forEach(b => b.style.width = (100 - kPct) + '%');
 
-    /* M11 Duplicidades */
-    setOut('horasDuplicidades', horasAnio * (i.pct_duplicidades / 100));
+    /* Momentum */
+    const factorMomentum = i.ciclos_antes > 0 ? (i.ciclos_despues / i.ciclos_antes) : 0;
+    setOut('factorMomentum', factorMomentum);
+    setOut('deltaCiclos', i.ciclos_despues - i.ciclos_antes);
 
-    /* M12 Foco (deriva de M10) */
-    setOut('horasAltoValor', horasKairos);
+    /* Autonomía del Activo */
+    setOut('pctConocimiento', i.pct_conocimiento_sistema);
+    setOut('factorEscala', i.factor_escalabilidad);
+    /* Score = % conocimiento × factor escala, normalizado a 0-100 (factor 20× = 100) */
+    const scoreAutonomia = (i.pct_conocimiento_sistema / 100) * (i.factor_escalabilidad / 20) * 100;
+    setOut('scoreAutonomia', scoreAutonomia);
 
     /* Validación */
     const warn = root.querySelector('[data-warn]');
@@ -1248,7 +1340,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     });
   }
 
-  /* -------- EXPORT (resumen ejecutivo a portapapeles) -------- */
+  /* -------- EXPORT -------- */
   root.querySelector('[data-export]').addEventListener('click', async () => {
     const i = state.inputs;
     const nombre = root.querySelector('[data-meta="nombreActivo"]').value.trim() || 'Activo Kairos';
@@ -1264,14 +1356,18 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     lines.push(`• Valor compuesto 36m: ${fmt(horasAnio * 3, 'int')} h${state.money ? ` · ${fmt(capNeta * 3, 'eur')}` : ''}`);
 
     state.metrics.forEach(m => {
-      if (m === 'aceleracion')     lines.push(`• Lead time: −${i.pct_aceleracion_lt}%`);
-      if (m === 'errores')         lines.push(`• Retrabajo recuperado: ${fmt(horasAnio * i.pct_errores / 100, 'int')} h/año`);
-      if (m === 'capacidadFTE')    lines.push(`• Capacidad sin contratar: ${fmt(horasAnio / H_FTE, 'num1')} FTE · ${fmt((horasAnio / H_FTE) * i.coste_FTE_anual, 'eur')}`);
-      if (m === 'factorBus')       lines.push(`• Factor bus: ${fmt(i.n_criticas_despues - i.n_criticas_antes, 'signed')} personas críticas`);
-      if (m === 'velocidad')       lines.push(`• Velocidad decisión→ejecución: −${i.pct_aceleracion_decision}%`);
-      if (m === 'densidadKairos')  lines.push(`• Densidad Kairós: ${i.pct_estrategico}% del tiempo en alto valor`);
-      if (m === 'duplicidades')    lines.push(`• Duplicidades eliminadas: ${fmt(horasAnio * i.pct_duplicidades / 100, 'int')} h/año`);
-      if (m === 'foco')            lines.push(`• Foco alto valor: ${fmt(horasAnio * i.pct_estrategico / 100, 'int')} h/año`);
+      if (m === 'aceleracion')      lines.push(`• Lead time: −${i.pct_aceleracion_lt}%`);
+      if (m === 'errores')          lines.push(`• Retrabajo recuperado: ${fmt(horasAnio * i.pct_errores / 100, 'int')} h/año`);
+      if (m === 'duplicidades')     lines.push(`• Duplicidades eliminadas: ${fmt(horasAnio * i.pct_duplicidades / 100, 'int')} h/año`);
+      if (m === 'capacidadFTE')     lines.push(`• Capacidad sin contratar: ${fmt(horasAnio / H_FTE, 'num1')} FTE · ${fmt((horasAnio / H_FTE) * i.coste_FTE_anual, 'eur')}`);
+      if (m === 'factorBus')        lines.push(`• Factor bus: ${fmt(i.n_criticas_despues - i.n_criticas_antes, 'signed')} personas críticas`);
+      if (m === 'velocidad')        lines.push(`• Velocidad decisión→ejecución: −${i.pct_aceleracion_decision}%`);
+      if (m === 'densidadKairos')   lines.push(`• Densidad Kairós: ${fmt(horasAnio * i.pct_estrategico / 100, 'int')} h/año en alto valor (${i.pct_estrategico}% del tiempo liberado)`);
+      if (m === 'momentum') {
+        const f = i.ciclos_antes > 0 ? (i.ciclos_despues / i.ciclos_antes) : 0;
+        lines.push(`• Momentum: ${fmt(f, 'num1')}× más rápido aprende el equipo (${i.ciclos_antes}→${i.ciclos_despues} ciclos/Q)`);
+      }
+      if (m === 'autonomiaActivo')  lines.push(`• Autonomía del Activo: ${i.pct_conocimiento_sistema}% know-how en sistema · ${fmt(i.factor_escalabilidad, 'num1')}× escalabilidad sin sumar personas`);
     });
     const text = lines.join('\n');
     try {
