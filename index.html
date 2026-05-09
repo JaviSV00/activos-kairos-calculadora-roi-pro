@@ -1,14 +1,13 @@
 <!-- =========================================================
-     CALCULADORA ROI PRO — ACTIVOS KAIROS · v1
-     · Hereda motor data-driven de v7 Sencilla
-     · Extiende: SELECTOR de métricas + bloques reactivos
-     · Reframe "lentes sobre M_total" (12 métricas, 4 familias)
+     CALCULADORA ROI · ACTIVOS KAIROS (PRO INTERNA) · v2
+     · Bloque siempre abierto · 3 columnas · 1180 px
+     · Sin códigos M1/M2/M3 · Logo reloj de arena
+     · Métricas-selector arriba · Inputs reactivos al lado
      ========================================================= -->
 
 <!-- ⚠️ SOLO PREVIEW LOCAL / GITHUB PAGES — eliminar en WP -->
 <style>html,body{margin:0;padding:0;background:#191919;min-height:100%}</style>
 
-<!-- Fuentes corporativas -->
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,35 +17,33 @@
 <style>
 @property --kr-fill { syntax: '<number>'; inherits: true; initial-value: 0; }
 
-/* ============ VARIABLES (idénticas a v7 Sencilla) ============ */
+/* ============ VARIABLES ============ */
 .kairos-roi {
-  --kr-bg:#191919; --kr-surface:#1f1f1f; --kr-surface-2:#252525;
+  --kr-bg:#191919; --kr-surface:#1f1f1f; --kr-surface-2:#242424;
   --kr-text:#fff; --kr-text-soft:#d6d6d6; --kr-muted:#8a8a8a;
   --kr-accent:#F96302; --kr-accent-2:#ff7a26;
+  --kr-warn:#ffb547;
   --kr-border:#2a2a2a; --kr-border-2:#3a3a3a;
-  --kr-warn:#e0b32d;
 
-  --kr-font-display:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-  --kr-font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --kr-font-display:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --kr-font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 
-  --kr-fs-h1:clamp(1.7rem, 1.8vw + 1.1rem, 2.3rem);
-  --kr-fs-iter:clamp(1.05rem, 0.7vw + 0.95rem, 1.35rem);
-  --kr-fs-sub:clamp(0.95rem, 0.4vw + 0.85rem, 1.05rem);
-  --kr-fs-out:clamp(1.7rem, 2vw + .9rem, 2.4rem);
-  --kr-fs-out-big:clamp(2.2rem, 3vw + 1rem, 3.4rem);
+  --kr-fs-h1:clamp(1.6rem, 1.4vw + 1.05rem, 2.1rem);
+  --kr-fs-h3:clamp(.95rem, .3vw + .85rem, 1.05rem);
+  --kr-fs-out:clamp(1.7rem, 2.2vw + .8rem, 2.6rem);
 
-  --kr-radius:28px; --kr-radius-sm:20px; --kr-radius-btn:12px; --kr-radius-pill:999px;
-  --kr-gap:1.25rem; --kr-pad:clamp(1.5rem, 2vw + 0.75rem, 2.75rem);
-  --kr-maxw:1080px;
+  --kr-radius:28px; --kr-radius-sm:18px; --kr-radius-btn:12px; --kr-radius-pill:999px;
+  --kr-gap:1rem; --kr-pad:clamp(1.4rem, 1.8vw + .7rem, 2.4rem);
+  --kr-maxw:1180px;
   --kr-shadow:0 20px 60px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.04) inset;
 
-  --kr-thumb:30px; --kr-track-h:8px;
+  --kr-thumb:22px; --kr-track-h:6px;
   --kr-ease:cubic-bezier(.32,.72,.16,1);
   --kr-t-fast:160ms; --kr-t-med:240ms;
 }
 .kairos-roi, .kairos-roi *, .kairos-roi *::before, .kairos-roi *::after { box-sizing:border-box; }
 
-/* ============ CONTENEDOR + ORB (idéntico a v7) ============ */
+/* ============ CONTENEDOR ============ */
 .kairos-roi {
   font-family:var(--kr-font-display); color:var(--kr-text);
   background:
@@ -55,219 +52,233 @@
     var(--kr-bg);
   border:1px solid var(--kr-border); border-radius:var(--kr-radius);
   padding:var(--kr-pad); max-width:var(--kr-maxw); margin:2.5rem auto;
-  box-shadow:var(--kr-shadow); line-height:1.55;
+  box-shadow:var(--kr-shadow); line-height:1.5;
   position:relative; overflow:hidden; isolation:isolate;
-  interpolate-size: allow-keywords;
 }
 .kairos-roi::before {
-  content:""; position:absolute;
-  width:380px; height:380px; border-radius:50%;
-  background:radial-gradient(circle, rgba(249,99,2,.35) 0%, rgba(249,99,2,.10) 40%, transparent 70%);
+  content:""; position:absolute; width:380px; height:380px; border-radius:50%;
+  background:radial-gradient(circle, rgba(249,99,2,.32) 0%, rgba(249,99,2,.10) 40%, transparent 70%);
   top:-120px; right:-120px; filter:blur(40px);
   animation:kairos-orb 18s ease-in-out infinite alternate;
   z-index:-1; pointer-events:none;
 }
 @keyframes kairos-orb {
-  0%   { transform:translate(0,0)        scale(1);    opacity:.85; }
+  0%   { transform:translate(0,0) scale(1); opacity:.85; }
   50%  { transform:translate(-40px,30px) scale(1.08); opacity:1; }
-  100% { transform:translate(20px,60px)  scale(.95);  opacity:.7; }
+  100% { transform:translate(20px,60px) scale(.95); opacity:.7; }
 }
-@media (prefers-reduced-motion: reduce) { .kairos-roi::before { animation:none; } }
+@media (prefers-reduced-motion: reduce){.kairos-roi::before{animation:none}}
 
 /* ============ HEADER ============ */
-.kairos-roi__header { display:flex; align-items:center; gap:1rem; flex-wrap:nowrap; margin-bottom:.5rem; }
-.kairos-roi__logo {
-  position:relative; display:inline-flex; align-items:center; justify-content:center;
-  width:56px; height:56px; flex-shrink:0;
+.kairos-roi__header {
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  margin-bottom:1.75rem;
 }
-.kairos-roi__logo-img { display:block; width:100%; height:100%; object-fit:contain; }
-.kairos-roi__logo-svg { display:none; }
-.kairos-roi__logo--fallback .kairos-roi__logo-img { display:none; }
-.kairos-roi__logo--fallback .kairos-roi__logo-svg { display:block; }
-
+.kairos-roi__logo {
+  width:52px; height:52px; flex-shrink:0;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.kairos-roi__logo svg { width:100%; height:100%; display:block; }
 .kairos-roi__h1 {
-  font-family:var(--kr-font-display); font-size:var(--kr-fs-h1); font-weight:900;
-  letter-spacing:-.025em; line-height:1.1; margin:0;
+  font-size:var(--kr-fs-h1); font-weight:900; letter-spacing:-.025em;
+  line-height:1.1; margin:0; flex:1; min-width:200px;
 }
 .kairos-roi__h1 em { color:var(--kr-accent); font-style:normal; }
-.kairos-roi__pro-tag {
-  display:inline-block; margin-left:.6rem; padding:.18rem .5rem;
-  background:rgba(249,99,2,.12); border:1px solid rgba(249,99,2,.4);
-  color:var(--kr-accent); font-size:.7rem; font-weight:800;
-  border-radius:6px; vertical-align:middle; letter-spacing:.04em;
-}
-.kairos-roi__intro {
-  font-family:var(--kr-font-body); font-size:var(--kr-fs-sub);
-  color:var(--kr-text-soft); margin:0 0 2rem 0;
-}
 
-/* ============ DETAILS / ITER (heredado v7) ============ */
-.kairos-roi__iter::details-content {
-  height: 0; opacity: 0; overflow: clip;
-  transition: height var(--kr-t-med) var(--kr-ease),
-              opacity var(--kr-t-med) var(--kr-ease),
-              content-visibility var(--kr-t-med) allow-discrete;
-}
-.kairos-roi__iter[open]::details-content { height: auto; opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .kairos-roi__iter::details-content { transition: none; }
-}
-.kairos-roi__iter { border-top:1px solid var(--kr-border); padding-top:1.5rem; }
-.kairos-roi__iter + .kairos-roi__iter { margin-top:1.5rem; }
-.kairos-roi__iter[open] { padding-bottom:.5rem; }
-.kairos-roi__iter > summary {
-  list-style:none; cursor:pointer;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:1rem; padding:.25rem 0; outline:none;
-  transition:opacity 180ms var(--kr-ease);
-}
-.kairos-roi__iter > summary::-webkit-details-marker { display:none; }
-.kairos-roi__iter > summary:hover { opacity:.92; }
-.kairos-roi__iter > summary:focus-visible { outline:2px solid var(--kr-accent); outline-offset:6px; border-radius:8px; }
-.kairos-roi__title {
-  font-family:var(--kr-font-display); font-size:var(--kr-fs-iter); font-weight:800;
-  letter-spacing:-.02em; line-height:1.2; margin:0; flex:1;
-}
-.kairos-roi__title em { color:var(--kr-accent); font-style:normal; }
-.kairos-roi__iter-chevron {
-  flex-shrink:0; width:36px; height:36px;
-  display:inline-flex; align-items:center; justify-content:center;
-  border-radius:999px; border:1px solid var(--kr-border-2);
-  color:var(--kr-text-soft); font-size:.9rem; line-height:1;
-  transition:transform var(--kr-t-med) var(--kr-ease),
-             border-color var(--kr-t-med) var(--kr-ease),
-             color var(--kr-t-med) var(--kr-ease),
-             background var(--kr-t-med) var(--kr-ease);
-}
-.kairos-roi__iter[open] > summary .kairos-roi__iter-chevron {
-  transform:rotate(180deg); border-color:var(--kr-accent);
-  color:var(--kr-accent); background:rgba(249,99,2,.08);
-}
-.kairos-roi__iter-stat {
-  flex-shrink:0; display:inline-flex; align-items:baseline; gap:.3rem;
-  padding:.4rem .8rem; border-radius:999px;
+.kairos-roi__hero-stat {
+  display:inline-flex; align-items:baseline; gap:.45rem;
+  padding:.6rem 1rem; border-radius:999px;
   background:rgba(249,99,2,.10); border:1px solid rgba(249,99,2,.30);
   font-variant-numeric:tabular-nums; white-space:nowrap;
-  transition:background 200ms var(--kr-ease), border-color 200ms var(--kr-ease);
 }
-.kairos-roi__iter[open] > summary .kairos-roi__iter-stat {
-  background:transparent; border-color:var(--kr-border-2);
+.kairos-roi__hero-stat-num {
+  font-weight:900; font-size:1.25rem; color:var(--kr-accent); letter-spacing:-.02em;
 }
-.kairos-roi__iter-stat-num {
-  font-family:var(--kr-font-display); font-weight:900;
-  font-size:1.05rem; color:var(--kr-accent); letter-spacing:-.02em; line-height:1;
-}
-.kairos-roi__iter-stat-unit {
-  font-family:var(--kr-font-display); font-size:.72rem;
-  font-weight:600; color:var(--kr-text-soft); letter-spacing:.02em;
-}
-@media (max-width:480px) { .kairos-roi__iter-stat { display:none; } }
+.kairos-roi__hero-stat-unit { font-size:.78rem; font-weight:600; color:var(--kr-text-soft); }
+.kairos-roi__hero-sep { color:var(--kr-border-2); margin:0 .25rem; }
+.kairos-roi__hero-money[hidden] { display:none; }
 
-.kairos-roi__iter-body { padding-top:1.25rem; }
-.kairos-roi__subtitle {
-  font-family:var(--kr-font-body); font-size:var(--kr-fs-sub);
-  color:var(--kr-text-soft); margin:0 0 2rem 0;
+/* ============ META: Nombre + Tipo ============ */
+.kairos-roi__meta {
+  display:grid; grid-template-columns:1fr; gap:.85rem;
+  padding:1rem 1.1rem; margin-bottom:1.75rem;
+  background:var(--kr-surface); border:1px solid var(--kr-border);
+  border-radius:var(--kr-radius-sm);
 }
-.kairos-roi__subtitle strong { color:var(--kr-text); font-weight:700; }
+@media (min-width:720px){
+  .kairos-roi__meta { grid-template-columns:1fr auto; align-items:center; }
+}
+.kairos-roi__meta-name {
+  display:flex; flex-direction:column; gap:.3rem; min-width:0;
+}
+.kairos-roi__meta-label {
+  font-size:.72rem; font-weight:600; color:var(--kr-muted);
+  letter-spacing:.06em; text-transform:uppercase;
+}
+.kairos-roi__meta-input {
+  background:transparent; border:none; outline:none;
+  font-family:var(--kr-font-display); font-size:1.15rem; font-weight:700;
+  color:var(--kr-text); padding:.1rem 0;
+  border-bottom:1px solid transparent; transition:border-color var(--kr-t-fast) var(--kr-ease);
+}
+.kairos-roi__meta-input::placeholder { color:var(--kr-muted); font-weight:500; }
+.kairos-roi__meta-input:focus { border-bottom-color:var(--kr-accent); }
 
-/* ============ FIELDSET (bloques nuevos · Pro) ============ */
-.kairos-roi__fset {
-  border:1px solid var(--kr-border); border-radius:var(--kr-radius-sm);
-  background:rgba(255,255,255,.01); padding:1.4rem 1.5rem;
-  margin:0 0 1.4rem 0;
+.kairos-roi__segmented {
+  display:inline-flex; padding:3px; border-radius:999px;
+  background:var(--kr-surface-2); border:1px solid var(--kr-border-2);
 }
-.kairos-roi__fset-legend {
-  font-family:var(--kr-font-display); font-weight:800;
-  font-size:.95rem; letter-spacing:.02em; color:var(--kr-text);
-  padding:0 .6rem; margin-left:-.6rem;
+.kairos-roi__seg-btn {
+  padding:.45rem 1rem; border:none; background:transparent;
+  font-family:var(--kr-font-display); font-size:.85rem; font-weight:600;
+  color:var(--kr-text-soft); border-radius:999px; cursor:pointer;
+  transition:background var(--kr-t-fast) var(--kr-ease), color var(--kr-t-fast) var(--kr-ease);
 }
-.kairos-roi__fset-legend span { color:var(--kr-accent); }
-
-/* ============ META BLOCK ============ */
-.kairos-roi__meta { display:grid; grid-template-columns:1fr; gap:1rem; }
-@media (min-width:640px) { .kairos-roi__meta { grid-template-columns:2fr 1fr; } }
-.kairos-roi__meta input, .kairos-roi__meta select {
-  width:100%; padding:.7rem .9rem;
-  font-family:var(--kr-font-display); font-size:.95rem; font-weight:600;
-  background:var(--kr-surface); color:var(--kr-text);
-  border:1px solid var(--kr-border-2); border-radius:var(--kr-radius-btn);
-  outline:none; transition:border-color 180ms var(--kr-ease), box-shadow 180ms var(--kr-ease);
-}
-.kairos-roi__meta input:focus, .kairos-roi__meta select:focus {
-  border-color:var(--kr-accent); box-shadow:0 0 0 3px rgba(249,99,2,.18);
-}
-.kairos-roi__meta select { appearance:none; cursor:pointer;
-  background-image: linear-gradient(45deg, transparent 50%, var(--kr-text-soft) 50%),
-                    linear-gradient(135deg, var(--kr-text-soft) 50%, transparent 50%);
-  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
-  background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
+.kairos-roi__seg-btn[aria-pressed="true"] {
+  background:var(--kr-accent); color:#0a0a0a;
 }
 
-/* ============ FORM (sliders) — heredado v7 ============ */
-.kairos-roi__form { display:grid; grid-template-columns:1fr; gap:1.75rem; }
-@media (min-width:640px) {
-  .kairos-roi__form { grid-template-columns:1fr 1fr; }
-  .kairos-roi__field--full { grid-column:1 / -1; }
+/* ============ SECCIONES ============ */
+.kairos-roi__section { margin-bottom:1.75rem; }
+.kairos-roi__section-title {
+  font-size:var(--kr-fs-h3); font-weight:700; letter-spacing:-.01em;
+  margin:0 0 .9rem 0; color:var(--kr-text);
+  display:flex; align-items:center; gap:.5rem;
 }
-.kairos-roi__field { display:flex; flex-direction:column; gap:1rem; min-width:0; }
+.kairos-roi__section-title::before {
+  content:""; display:inline-block; width:4px; height:14px;
+  background:var(--kr-accent); border-radius:2px;
+}
+
+/* ============ MÉTRICAS A MOSTRAR ============ */
+.kairos-roi__metric-groups {
+  display:grid; grid-template-columns:1fr; gap:.85rem;
+}
+@media (min-width:720px){
+  .kairos-roi__metric-groups { grid-template-columns:repeat(2, 1fr); }
+}
+@media (min-width:1024px){
+  .kairos-roi__metric-groups { grid-template-columns:repeat(4, 1fr); }
+}
+.kairos-roi__metric-group {
+  background:var(--kr-surface); border:1px solid var(--kr-border);
+  border-radius:var(--kr-radius-sm); padding:.85rem .9rem;
+}
+.kairos-roi__metric-group-title {
+  font-size:.72rem; font-weight:700; color:var(--kr-muted);
+  letter-spacing:.06em; text-transform:uppercase; margin:0 0 .55rem 0;
+}
+.kairos-roi__metric-list {
+  display:flex; flex-direction:column; gap:.35rem;
+}
+.kairos-roi__metric-chip {
+  display:flex; align-items:center; gap:.5rem;
+  padding:.4rem .6rem; border-radius:8px;
+  background:transparent; border:1px solid var(--kr-border-2);
+  color:var(--kr-text-soft); font-size:.84rem; font-weight:500;
+  cursor:pointer; user-select:none;
+  transition:background var(--kr-t-fast) var(--kr-ease),
+             border-color var(--kr-t-fast) var(--kr-ease),
+             color var(--kr-t-fast) var(--kr-ease);
+}
+.kairos-roi__metric-chip:hover { border-color:var(--kr-accent); color:var(--kr-text); }
+.kairos-roi__metric-chip input { display:none; }
+.kairos-roi__metric-chip-dot {
+  width:14px; height:14px; border-radius:4px;
+  border:1.5px solid var(--kr-border-2);
+  display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:background var(--kr-t-fast) var(--kr-ease),
+             border-color var(--kr-t-fast) var(--kr-ease);
+}
+.kairos-roi__metric-chip-dot::after {
+  content:""; width:6px; height:6px; border-radius:1px;
+  background:#0a0a0a; opacity:0;
+  transition:opacity var(--kr-t-fast) var(--kr-ease);
+}
+.kairos-roi__metric-chip[data-checked="true"] {
+  background:rgba(249,99,2,.10); border-color:var(--kr-accent); color:var(--kr-text);
+}
+.kairos-roi__metric-chip[data-checked="true"] .kairos-roi__metric-chip-dot {
+  background:var(--kr-accent); border-color:var(--kr-accent);
+}
+.kairos-roi__metric-chip[data-checked="true"] .kairos-roi__metric-chip-dot::after { opacity:1; }
+.kairos-roi__metric-chip[data-locked="true"] { cursor:default; opacity:.95; }
+.kairos-roi__metric-chip[data-locked="true"] .kairos-roi__metric-chip-dot::before {
+  content:""; position:absolute; width:8px; height:8px; border-radius:50%;
+}
+
+/* ============ INPUTS GRID ============ */
+.kairos-roi__inputs {
+  display:grid; grid-template-columns:1fr; gap:1.25rem;
+}
+@media (min-width:640px){ .kairos-roi__inputs { grid-template-columns:repeat(2, 1fr); } }
+@media (min-width:960px){ .kairos-roi__inputs { grid-template-columns:repeat(3, 1fr); } }
+
+.kairos-roi__field {
+  display:flex; flex-direction:column; gap:.65rem; min-width:0;
+  padding:.95rem 1rem;
+  background:var(--kr-surface); border:1px solid var(--kr-border);
+  border-radius:var(--kr-radius-sm);
+}
+.kairos-roi__field[hidden] { display:none; }
 .kairos-roi__field-head {
   display:flex; align-items:baseline; justify-content:space-between;
-  gap:.75rem; flex-wrap:wrap;
+  gap:.5rem; flex-wrap:wrap;
 }
 .kairos-roi__label {
-  font-family:var(--kr-font-display); font-size:.95rem; font-weight:700;
-  color:var(--kr-text); letter-spacing:-.01em;
+  font-size:.85rem; font-weight:700; color:var(--kr-text); letter-spacing:-.01em;
 }
-.kairos-roi__hint {
-  font-family:var(--kr-font-display); font-size:.78rem;
-  color:var(--kr-muted); font-weight:400; margin-top:.15rem;
-}
+.kairos-roi__hint { font-size:.72rem; color:var(--kr-muted); margin-top:.1rem; }
+
 .kairos-roi__current {
-  font-family:var(--kr-font-display); font-size:1.4rem; font-weight:900;
-  color:var(--kr-accent); letter-spacing:-.025em; line-height:1;
-  white-space:nowrap; font-variant-numeric:tabular-nums;
+  font-size:1.05rem; font-weight:900; color:var(--kr-accent);
+  letter-spacing:-.02em; line-height:1; white-space:nowrap;
+  font-variant-numeric:tabular-nums;
   display:inline-flex; align-items:baseline;
 }
 .kairos-roi__current-num {
-  cursor:text; padding:2px 4px; margin:-2px -4px;
-  border-radius:6px; min-width:1ch; outline:none;
+  cursor:text; padding:1px 3px; margin:-1px -3px;
+  border-radius:5px; min-width:1ch; outline:none;
   transition:background var(--kr-t-fast) var(--kr-ease),
              box-shadow var(--kr-t-fast) var(--kr-ease);
 }
-.kairos-roi__current-num:hover { background:rgba(249,99,2,.10); box-shadow:inset 0 -2px 0 rgba(249,99,2,.45); }
+.kairos-roi__current-num:hover {
+  background:rgba(249,99,2,.10); box-shadow:inset 0 -2px 0 rgba(249,99,2,.45);
+}
 .kairos-roi__current-num.is-editing {
-  background:rgba(249,99,2,.12); box-shadow:0 0 0 2px var(--kr-accent); caret-color:var(--kr-accent);
+  background:rgba(249,99,2,.12); box-shadow:0 0 0 2px var(--kr-accent);
+  caret-color:var(--kr-accent);
 }
 .kairos-roi__current-unit {
-  font-family:var(--kr-font-display); font-size:.75rem;
-  color:var(--kr-muted); font-weight:500; margin-left:.3rem;
+  font-size:.65rem; color:var(--kr-muted); font-weight:500; margin-left:.25rem;
 }
 
-.kairos-roi__slider-wrap { position:relative; padding:26px 0 8px 0; }
+.kairos-roi__slider-wrap { position:relative; padding:18px 0 4px 0; }
 .kairos-roi__bubble {
   position:absolute; bottom:100%; left:0;
-  transform:translate(-50%, 6px);
+  transform:translate(-50%, 4px);
   background:var(--kr-accent); color:#0a0a0a;
-  font-family:var(--kr-font-display); font-weight:800; font-size:.78rem;
-  padding:4px 10px; border-radius:999px;
+  font-weight:800; font-size:.7rem;
+  padding:3px 7px; border-radius:999px;
   pointer-events:none; opacity:0;
-  transition:opacity var(--kr-t-fast) var(--kr-ease), transform var(--kr-t-fast) var(--kr-ease);
-  box-shadow:0 6px 16px rgba(249,99,2,.45); white-space:nowrap;
+  transition:opacity var(--kr-t-fast) var(--kr-ease),
+             transform var(--kr-t-fast) var(--kr-ease);
+  box-shadow:0 5px 12px rgba(249,99,2,.4); white-space:nowrap;
 }
 .kairos-roi__bubble::after {
   content:""; position:absolute; top:100%; left:50%;
   transform:translateX(-50%);
-  border:5px solid transparent; border-top-color:var(--kr-accent);
+  border:4px solid transparent; border-top-color:var(--kr-accent);
 }
 .kairos-roi__slider-wrap:hover .kairos-roi__bubble,
 .kairos-roi__slider-wrap:focus-within .kairos-roi__bubble,
 .kairos-roi__slider-wrap[data-active="true"] .kairos-roi__bubble {
   opacity:1; transform:translate(-50%, 0);
 }
+
 .kairos-roi__slider {
   -webkit-appearance:none; appearance:none;
-  width:100%; height:var(--kr-thumb);
-  background:transparent; cursor:pointer; margin:0; position:relative;
+  width:100%; height:var(--kr-thumb); background:transparent; cursor:pointer; margin:0;
 }
 .kairos-roi__slider::-webkit-slider-runnable-track {
   height:var(--kr-track-h); border-radius:999px;
@@ -280,855 +291,741 @@
 .kairos-roi__slider::-webkit-slider-thumb {
   -webkit-appearance:none; appearance:none;
   width:var(--kr-thumb); height:var(--kr-thumb); border-radius:50%;
-  background:var(--kr-accent); border:4px solid var(--kr-bg);
+  background:var(--kr-accent); border:3px solid var(--kr-bg);
   margin-top:calc((var(--kr-track-h) - var(--kr-thumb)) / 2);
-  box-shadow:0 4px 14px rgba(249,99,2,.45);
-  transition:transform var(--kr-t-fast) var(--kr-ease), box-shadow var(--kr-t-fast) var(--kr-ease);
+  box-shadow:0 3px 10px rgba(249,99,2,.4);
+  transition:transform var(--kr-t-fast) var(--kr-ease),
+             box-shadow var(--kr-t-fast) var(--kr-ease);
 }
-.kairos-roi__slider:hover::-webkit-slider-thumb { transform:scale(1.12); box-shadow:0 6px 18px rgba(249,99,2,.55), 0 0 0 8px rgba(249,99,2,.12); }
-.kairos-roi__slider:active::-webkit-slider-thumb { transform:scale(1.22); box-shadow:0 6px 20px rgba(249,99,2,.6), 0 0 0 12px rgba(249,99,2,.16); }
-.kairos-roi__slider:focus-visible::-webkit-slider-thumb { box-shadow:0 4px 14px rgba(249,99,2,.45), 0 0 0 6px rgba(249,99,2,.35); }
+.kairos-roi__slider:hover::-webkit-slider-thumb {
+  transform:scale(1.15); box-shadow:0 4px 14px rgba(249,99,2,.55), 0 0 0 6px rgba(249,99,2,.12);
+}
+.kairos-roi__slider:active::-webkit-slider-thumb { transform:scale(1.25); }
+.kairos-roi__slider:focus-visible::-webkit-slider-thumb {
+  box-shadow:0 3px 10px rgba(249,99,2,.4), 0 0 0 5px rgba(249,99,2,.32);
+}
 .kairos-roi__slider::-moz-range-track { height:var(--kr-track-h); border-radius:999px; background:var(--kr-border-2); }
 .kairos-roi__slider::-moz-range-progress { height:var(--kr-track-h); border-radius:999px; background:var(--kr-accent); }
 .kairos-roi__slider::-moz-range-thumb {
   width:var(--kr-thumb); height:var(--kr-thumb); border-radius:50%;
-  background:var(--kr-accent); border:4px solid var(--kr-bg);
-  box-shadow:0 4px 14px rgba(249,99,2,.45); cursor:pointer;
-  transition:transform var(--kr-t-fast) var(--kr-ease);
+  background:var(--kr-accent); border:3px solid var(--kr-bg);
+  box-shadow:0 3px 10px rgba(249,99,2,.4); cursor:pointer;
 }
-.kairos-roi__slider:hover::-moz-range-thumb { transform:scale(1.12); }
-.kairos-roi__slider:active::-moz-range-thumb { transform:scale(1.22); }
 .kairos-roi__slider:focus { outline:none; }
 .kairos-roi__scale {
   display:flex; justify-content:space-between;
-  font-family:var(--kr-font-display); font-size:.7rem; font-weight:500;
-  color:var(--kr-muted); margin-top:.35rem; letter-spacing:.02em;
+  font-size:.62rem; font-weight:500; color:var(--kr-muted);
+  margin-top:.2rem; letter-spacing:.02em;
 }
 
-/* ============ TOGGLE (heredado v7) ============ */
+/* Toggle €/hora dentro del field */
+.kairos-roi__field--money-toggle {
+  display:flex; align-items:center; justify-content:center;
+  background:transparent; border:1px dashed var(--kr-border-2);
+}
 .kairos-roi__toggle {
-  display:inline-flex; align-items:center; gap:.6rem;
-  padding:.55rem 1rem;
-  background:transparent; border:1px solid var(--kr-border-2);
-  color:var(--kr-text-soft); border-radius:999px; cursor:pointer;
-  font-family:var(--kr-font-display); font-weight:600; font-size:.88rem;
-  align-self:flex-start; justify-self:start;
-  transition:background 180ms var(--kr-ease), border-color 180ms var(--kr-ease), color 180ms var(--kr-ease);
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.5rem .9rem;
+  background:transparent; border:1px solid var(--kr-border-2); color:var(--kr-text-soft);
+  border-radius:999px; cursor:pointer;
+  font-weight:600; font-size:.82rem;
+  transition:background var(--kr-t-fast) var(--kr-ease),
+             border-color var(--kr-t-fast) var(--kr-ease),
+             color var(--kr-t-fast) var(--kr-ease);
 }
 .kairos-roi__toggle:hover { border-color:var(--kr-accent); color:var(--kr-text); }
-.kairos-roi__toggle[aria-pressed="true"] { background:rgba(249,99,2,.12); border-color:var(--kr-accent); color:var(--kr-accent); }
+.kairos-roi__toggle[aria-pressed="true"] {
+  background:rgba(249,99,2,.12); border-color:var(--kr-accent); color:var(--kr-accent);
+}
 .kairos-roi__toggle-dot {
-  width:8px; height:8px; border-radius:50%;
-  background:var(--kr-border-2);
-  transition:background 180ms var(--kr-ease), box-shadow 180ms var(--kr-ease);
+  width:8px; height:8px; border-radius:50%; background:var(--kr-border-2);
+  transition:background var(--kr-t-fast) var(--kr-ease), box-shadow var(--kr-t-fast) var(--kr-ease);
 }
-.kairos-roi__toggle[aria-pressed="true"] .kairos-roi__toggle-dot { background:var(--kr-accent); box-shadow:0 0 10px rgba(249,99,2,.7); }
-.kairos-roi__field--money { display:none; animation:kairos-fadein 320ms var(--kr-ease); }
-.kairos-roi__field--money[data-visible="true"] { display:flex; }
-@keyframes kairos-fadein {
-  from { opacity:0; transform:translateY(-4px); }
-  to   { opacity:1; transform:translateY(0); }
+.kairos-roi__toggle[aria-pressed="true"] .kairos-roi__toggle-dot {
+  background:var(--kr-accent); box-shadow:0 0 8px rgba(249,99,2,.7);
 }
 
-/* ============ SELECTOR DE MÉTRICAS (nuevo · Pro) ============ */
-.kairos-roi__selector {
-  display:grid; grid-template-columns:1fr; gap:1.25rem;
-}
-@media (min-width:740px) { .kairos-roi__selector { grid-template-columns:1fr 1fr; } }
-.kairos-roi__metric-group h4 {
-  font-family:var(--kr-font-display); font-size:.85rem; font-weight:800;
-  letter-spacing:.05em; text-transform:uppercase;
-  color:var(--kr-text-soft); margin:0 0 .7rem 0;
-}
-.kairos-roi__metric-group--core h4 { color:var(--kr-accent); }
-.kairos-roi__metric-list { display:flex; flex-direction:column; gap:.5rem; }
-.kairos-roi__metric {
-  display:flex; align-items:center; gap:.7rem;
-  padding:.6rem .8rem;
-  background:var(--kr-surface); border:1px solid var(--kr-border);
-  border-radius:var(--kr-radius-btn);
-  cursor:pointer; transition:border-color 160ms var(--kr-ease), background 160ms var(--kr-ease);
-  font-family:var(--kr-font-display); font-size:.9rem; font-weight:600;
-  color:var(--kr-text-soft);
-}
-.kairos-roi__metric:hover { border-color:var(--kr-accent-2); }
-.kairos-roi__metric input[type="checkbox"] {
-  appearance:none; -webkit-appearance:none;
-  width:18px; height:18px; flex-shrink:0;
-  border:1.5px solid var(--kr-border-2); border-radius:5px;
-  background:var(--kr-bg); cursor:pointer; position:relative;
-  transition:border-color 160ms var(--kr-ease), background 160ms var(--kr-ease);
-}
-.kairos-roi__metric input[type="checkbox"]:checked {
-  background:var(--kr-accent); border-color:var(--kr-accent);
-}
-.kairos-roi__metric input[type="checkbox"]:checked::after {
-  content:""; position:absolute;
-  left:5px; top:1px; width:5px; height:10px;
-  border:solid #0a0a0a; border-width:0 2px 2px 0;
-  transform:rotate(45deg);
-}
-.kairos-roi__metric input[type="checkbox"]:disabled { opacity:.7; cursor:not-allowed; }
-.kairos-roi__metric input[type="checkbox"]:checked + .kairos-roi__metric-label,
-.kairos-roi__metric:has(input:checked) { color:var(--kr-text); border-color:var(--kr-accent); background:rgba(249,99,2,.06); }
-.kairos-roi__metric-id {
-  font-family:var(--kr-font-display); font-size:.7rem; font-weight:800;
-  color:var(--kr-accent); letter-spacing:.05em;
-  background:rgba(249,99,2,.10); padding:.1rem .35rem;
-  border-radius:4px; margin-right:.1rem;
-}
-
-/* ============ INPUTS POR MÉTRICA (reactivos) ============ */
-.kairos-roi__metric-input { display:none; }
-.kairos-roi__metric-input[data-active="true"] { display:flex; animation:kairos-fadein 320ms var(--kr-ease); }
+/* Warning de validación */
 .kairos-roi__warn {
-  margin:1rem 0 0 0; padding:.7rem 1rem;
-  background:rgba(224,179,45,.08); border:1px solid rgba(224,179,45,.4);
-  border-radius:var(--kr-radius-btn);
-  color:var(--kr-warn); font-family:var(--kr-font-display); font-size:.85rem; font-weight:600;
+  margin-top:.85rem; padding:.6rem .85rem;
+  background:rgba(255,181,71,.08); border:1px solid rgba(255,181,71,.35);
+  border-radius:10px; color:var(--kr-warn); font-size:.8rem;
   display:none;
 }
 .kairos-roi__warn[data-visible="true"] { display:block; }
 
-/* ============ RESULTADOS (Pro) ============ */
-.kairos-roi__results { display:grid; grid-template-columns:1fr; gap:var(--kr-gap); }
-.kairos-roi__block {
-  background:var(--kr-surface); border:1px solid var(--kr-border);
-  border-radius:var(--kr-radius-sm); padding:1.4rem 1.5rem;
+/* ============ RESULTADOS ============ */
+.kairos-roi__results {
+  display:grid; grid-template-columns:1fr; gap:var(--kr-gap);
 }
-.kairos-roi__block--core {
+.kairos-roi__result-group {
+  display:grid; grid-template-columns:1fr; gap:var(--kr-gap);
+}
+@media (min-width:720px){ .kairos-roi__result-group { grid-template-columns:repeat(2, 1fr); } }
+@media (min-width:1024px){ .kairos-roi__result-group { grid-template-columns:repeat(3, 1fr); } }
+
+.kairos-roi__group-title {
+  grid-column:1 / -1;
+  font-size:.72rem; font-weight:700; color:var(--kr-muted);
+  letter-spacing:.06em; text-transform:uppercase; margin:.5rem 0 0 0;
+}
+
+.kairos-roi__card {
+  background:var(--kr-surface); border:1px solid var(--kr-border);
+  border-radius:var(--kr-radius-sm); padding:1.1rem 1.2rem; position:relative;
+}
+.kairos-roi__card[hidden] { display:none; }
+.kairos-roi__card--accent {
   border-color:rgba(249,99,2,.35);
   background:linear-gradient(180deg, rgba(249,99,2,.10) 0%, var(--kr-surface) 80%);
 }
-.kairos-roi__block[hidden] { display:none; }
-.kairos-roi__block-head { display:flex; align-items:baseline; gap:.6rem; margin:0 0 1rem 0; }
-.kairos-roi__block-id {
-  font-family:var(--kr-font-display); font-size:.7rem; font-weight:800;
-  color:var(--kr-accent); letter-spacing:.05em;
-  background:rgba(249,99,2,.10); padding:.15rem .45rem; border-radius:4px;
+.kairos-roi__card-label {
+  font-size:.78rem; font-weight:600; color:var(--kr-text-soft); margin:0 0 .35rem 0;
 }
-.kairos-roi__block-title {
-  font-family:var(--kr-font-display); font-size:1.1rem; font-weight:800;
-  letter-spacing:-.02em; color:var(--kr-text); margin:0;
+.kairos-roi__card-value {
+  font-size:var(--kr-fs-out); font-weight:900; letter-spacing:-.03em;
+  color:var(--kr-text); line-height:1; margin:0; font-variant-numeric:tabular-nums;
 }
-.kairos-roi__block-grid {
-  display:grid; grid-template-columns:1fr; gap:1rem;
+.kairos-roi__card-value--accent { color:var(--kr-accent); }
+.kairos-roi__card-unit {
+  font-size:.78rem; font-weight:500; color:var(--kr-muted); margin:.4rem 0 0 0;
 }
-@media (min-width:640px) {
-  .kairos-roi__block-grid--2 { grid-template-columns:1fr 1fr; }
-  .kairos-roi__block-grid--3 { grid-template-columns:1fr 1fr 1fr; }
-  .kairos-roi__block-grid--4 { grid-template-columns:1fr 1fr 1fr 1fr; }
-}
-.kairos-roi__mini { padding:.2rem 0; }
-.kairos-roi__mini-value {
-  font-family:var(--kr-font-display); font-size:var(--kr-fs-out); font-weight:900;
-  letter-spacing:-.035em; color:var(--kr-text); line-height:1; margin:0;
-  font-variant-numeric:tabular-nums;
-}
-.kairos-roi__mini-value--accent { color:var(--kr-accent); }
-.kairos-roi__mini-unit {
-  font-family:var(--kr-font-display); font-size:.85rem; font-weight:500;
-  color:var(--kr-text-soft); margin:.4rem 0 0 0;
+.kairos-roi__card-sub {
+  font-family:var(--kr-font-body); font-size:.78rem; color:var(--kr-text-soft);
+  margin:.55rem 0 0 0;
 }
 
-/* Tabla Valor Compuesto */
-.kairos-roi__compound { margin-top:1.2rem; padding-top:1.2rem; border-top:1px dashed var(--kr-border-2); }
-.kairos-roi__compound-title {
-  font-family:var(--kr-font-display); font-size:.8rem; font-weight:800;
-  color:var(--kr-text-soft); letter-spacing:.04em; text-transform:uppercase;
-  margin:0 0 .7rem 0;
+/* Mini-tabla Valor compuesto */
+.kairos-roi__compound {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:.5rem;
+  margin-top:.6rem;
 }
-.kairos-roi__compound-table { width:100%; border-collapse:collapse; }
-.kairos-roi__compound-table th, .kairos-roi__compound-table td {
-  text-align:left; padding:.55rem .4rem;
-  font-family:var(--kr-font-display); font-size:.95rem;
-  border-bottom:1px solid var(--kr-border);
+.kairos-roi__compound-cell {
+  background:rgba(255,255,255,.03); border:1px solid var(--kr-border);
+  border-radius:10px; padding:.45rem .5rem; text-align:center;
 }
-.kairos-roi__compound-table th {
-  font-weight:600; color:var(--kr-muted);
-  font-size:.75rem; letter-spacing:.04em; text-transform:uppercase;
-}
-.kairos-roi__compound-table td { color:var(--kr-text); font-variant-numeric:tabular-nums; font-weight:700; }
-.kairos-roi__compound-table tr:last-child td { border-bottom:none; }
-.kairos-roi__compound-table td.accent { color:var(--kr-accent); }
+.kairos-roi__compound-h { font-size:.62rem; color:var(--kr-muted); margin:0 0 .15rem 0; letter-spacing:.04em; }
+.kairos-roi__compound-v { font-size:.95rem; font-weight:800; color:var(--kr-accent); margin:0; font-variant-numeric:tabular-nums; }
+.kairos-roi__compound-eur { font-size:.7rem; color:var(--kr-text-soft); margin-top:.1rem; }
 
-/* Bloque narrativa (M5/M8/M9) */
-.kairos-roi__narrative { font-family:var(--kr-font-body); font-size:.95rem; color:var(--kr-text-soft); margin:.6rem 0 0 0; }
-.kairos-roi__narrative strong { color:var(--kr-text); }
-
-/* Barra Kairós/Cronos (M10) */
-.kairos-roi__kairos-bar {
-  height:14px; border-radius:999px; background:var(--kr-border-2);
-  overflow:hidden; margin:.8rem 0 .4rem 0; display:flex;
+/* Barra Kairós/Cronos */
+.kairos-roi__kc-bar {
+  margin-top:.6rem; height:10px; border-radius:999px; overflow:hidden;
+  background:var(--kr-border-2); display:flex;
 }
-.kairos-roi__kairos-bar > span:first-child {
-  background:var(--kr-accent);
-  transition:width var(--kr-t-med) var(--kr-ease);
-}
-.kairos-roi__kairos-bar > span:last-child {
-  background:var(--kr-border-2);
-}
-.kairos-roi__kairos-legend {
-  display:flex; justify-content:space-between;
-  font-family:var(--kr-font-display); font-size:.78rem; color:var(--kr-muted);
+.kairos-roi__kc-bar [data-bar="kairos"] { background:var(--kr-accent); height:100%; transition:width var(--kr-t-med) var(--kr-ease); }
+.kairos-roi__kc-bar [data-bar="cronos"] { background:#555; height:100%; transition:width var(--kr-t-med) var(--kr-ease); }
+.kairos-roi__kc-legend {
+  display:flex; justify-content:space-between; font-size:.7rem; color:var(--kr-muted); margin-top:.3rem;
 }
 
-/* ============ CTA (heredado v7) ============ */
+/* ============ CTA ============ */
 .kairos-roi__cta {
-  margin-top:2.25rem; padding-top:1.85rem;
+  margin-top:1.85rem; padding-top:1.6rem;
   border-top:1px solid var(--kr-border);
-  display:flex; flex-direction:column; gap:1.1rem; align-items:flex-start;
+  display:flex; flex-direction:column; gap:1rem; align-items:flex-start;
 }
-@media (min-width:640px) {
+@media (min-width:640px){
   .kairos-roi__cta { flex-direction:row; justify-content:space-between; align-items:center; }
 }
-.kairos-roi__cta-text { font-family:var(--kr-font-body); font-size:.98rem; color:var(--kr-text-soft); margin:0; }
-.kairos-roi__cta-text strong { color:var(--kr-text); font-weight:700; }
+.kairos-roi__cta-text { font-family:var(--kr-font-body); font-size:.92rem; color:var(--kr-text-soft); margin:0; }
 .kairos-roi__cta-btn {
-  display:inline-flex; align-items:center; gap:.55rem;
-  padding:.95rem 1.7rem;
-  font-family:var(--kr-font-display); font-size:1rem; font-weight:700; letter-spacing:-.01em;
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.85rem 1.5rem;
+  font-size:.95rem; font-weight:700; letter-spacing:-.01em;
   color:var(--kr-bg); background:var(--kr-accent);
   border:1px solid var(--kr-accent); border-radius:var(--kr-radius-btn);
-  text-decoration:none; white-space:nowrap; cursor:pointer;
-  transition:background 180ms var(--kr-ease), border-color 180ms var(--kr-ease),
-             transform 180ms var(--kr-ease), box-shadow 180ms var(--kr-ease);
+  text-decoration:none; cursor:pointer; white-space:nowrap;
+  transition:background var(--kr-t-fast) var(--kr-ease),
+             transform var(--kr-t-fast) var(--kr-ease),
+             box-shadow var(--kr-t-fast) var(--kr-ease);
 }
-.kairos-roi__cta-btn:hover, .kairos-roi__cta-btn:focus {
-  background:var(--kr-accent-2); border-color:var(--kr-accent-2);
-  transform:translateY(-1px); box-shadow:0 8px 24px rgba(249,99,2,.35); outline:none;
+.kairos-roi__cta-btn:hover {
+  background:var(--kr-accent-2); transform:translateY(-1px);
+  box-shadow:0 8px 22px rgba(249,99,2,.35);
 }
-.kairos-roi__cta-btn::after { content:"→"; transition:transform 180ms var(--kr-ease); }
+.kairos-roi__cta-btn::after { content:"→"; transition:transform var(--kr-t-fast) var(--kr-ease); }
 .kairos-roi__cta-btn:hover::after { transform:translateX(3px); }
 </style>
 
 <div class="kairos-roi" role="region" aria-labelledby="kairos-roi-h1">
 
-  <!-- ============ HEADER ============ -->
+  <!-- HEADER -->
   <header class="kairos-roi__header">
     <span class="kairos-roi__logo" aria-label="Activos Kairos">
-      <img class="kairos-roi__logo-img"
-           src="./Logo-Kairos-Fondo-Transparente.png"
-           alt="" width="56" height="56" decoding="async"
-           onerror="this.parentElement.classList.add('kairos-roi__logo--fallback');" />
-      <svg class="kairos-roi__logo-svg" viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
-        <text x="50%" y="54%" text-anchor="middle" dominant-baseline="central"
-              font-family="Satoshi, system-ui, sans-serif" font-weight="900"
-              font-size="52" fill="#F96302">K</text>
+      <!-- Reloj de arena -->
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="#F96302" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="14" y1="6"  x2="50" y2="6"/>
+          <line x1="14" y1="58" x2="50" y2="58"/>
+          <path d="M18 6 V18 C18 24 32 28 32 32 C32 36 18 40 18 46 V58"/>
+          <path d="M46 6 V18 C46 24 32 28 32 32 C32 36 46 40 46 46 V58"/>
+        </g>
+        <path d="M22 10 H42 C42 16 32 22 32 26 C32 22 22 16 22 10 Z" fill="#F96302"/>
+        <path d="M22 54 H42 C42 48 32 42 32 38 C32 42 22 48 22 54 Z" fill="#F96302" opacity=".55"/>
       </svg>
     </span>
     <h1 id="kairos-roi-h1" class="kairos-roi__h1">
-      Calculadora ROI <em>Activos Kairos</em>
-      <span class="kairos-roi__pro-tag">PRO · INTERNA</span>
+      Calculadora ROI · <em>Activos Kairos</em>
     </h1>
+    <div class="kairos-roi__hero-stat" aria-live="polite">
+      <span class="kairos-roi__hero-stat-num" data-output="horasAnio" data-format="int">0</span>
+      <span class="kairos-roi__hero-stat-unit">h/año liberadas</span>
+      <span class="kairos-roi__hero-sep" data-money-only hidden>·</span>
+      <span class="kairos-roi__hero-money" data-money-only hidden>
+        <span class="kairos-roi__hero-stat-num" data-output="capacidadNeta" data-format="eur">0&nbsp;€</span>
+      </span>
+    </div>
   </header>
-  <p class="kairos-roi__intro">
-    Mide el ROI completo de un Activo Kairos: <strong>horas devueltas</strong>, capacidad neta,
-    valor compuesto y métricas estratégicas/filosóficas que reflejan el verdadero impacto.
-    Un solo input maestro de horas (<code>M_total</code>); todas las métricas son lentes sobre él.
-  </p>
 
-  <!-- ============ ITER 1 — Activo Kairos #1 ============ -->
-  <details class="kairos-roi__iter" data-iter="iter1" data-calc="activoKairos" open>
-    <summary>
-      <h2 class="kairos-roi__title">
-        Iteración <em>1</em> · <span data-output="nombreActivoTitulo">Nuevo Activo Kairos</span>
-      </h2>
-      <div class="kairos-roi__iter-stat" aria-live="polite" aria-label="Horas liberadas al año">
-        <span class="kairos-roi__iter-stat-num" data-output="horasAnio" data-format="int">0</span>
-        <span class="kairos-roi__iter-stat-unit">h/año</span>
+  <!-- META: nombre + tipo -->
+  <div class="kairos-roi__meta">
+    <label class="kairos-roi__meta-name">
+      <span class="kairos-roi__meta-label">Activo Kairos</span>
+      <input class="kairos-roi__meta-input" type="text" data-meta="nombreActivo"
+             placeholder="Ej: Sistema de Facturación Automatizado · Biventia"
+             autocomplete="off" />
+    </label>
+    <div class="kairos-roi__segmented" role="radiogroup" aria-label="Tipo de Activo Kairos">
+      <button type="button" class="kairos-roi__seg-btn" data-tipo="Automatización" aria-pressed="true">Automatización</button>
+      <button type="button" class="kairos-roi__seg-btn" data-tipo="Sistema" aria-pressed="false">Sistema</button>
+    </div>
+  </div>
+
+  <!-- ¿QUÉ MÉTRICAS QUIERES MOSTRAR? -->
+  <section class="kairos-roi__section">
+    <h3 class="kairos-roi__section-title">¿Qué métricas quieres mostrar?</h3>
+    <div class="kairos-roi__metric-groups">
+
+      <div class="kairos-roi__metric-group">
+        <p class="kairos-roi__metric-group-title">🧮 Núcleo</p>
+        <div class="kairos-roi__metric-list">
+          <label class="kairos-roi__metric-chip" data-checked="true" data-locked="true" data-metric="horasLiberadas">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox" checked disabled>
+            <span>Horas liberadas</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-checked="true" data-locked="true" data-metric="capacidadNeta">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox" checked disabled>
+            <span>Capacidad neta liberada</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-checked="true" data-locked="true" data-metric="costeUso">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox" checked disabled>
+            <span>Coste de uso del Activo</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-checked="true" data-locked="true" data-metric="valorCompuesto">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox" checked disabled>
+            <span>Valor compuesto a 12/24/36 m</span>
+          </label>
+        </div>
       </div>
-      <span class="kairos-roi__iter-chevron" aria-hidden="true">▾</span>
-    </summary>
 
-    <div class="kairos-roi__iter-body">
-
-      <!-- ============ BLOQUE 1: METADATA ============ -->
-      <fieldset class="kairos-roi__fset">
-        <legend class="kairos-roi__fset-legend"><span>📌</span> Activo Kairos</legend>
-        <div class="kairos-roi__meta">
-          <input type="text" id="kr-nombre" data-meta="nombreActivo"
-                 placeholder="Ej. Generador automático de propuestas comerciales" />
-          <select id="kr-tipologia" data-meta="tipologia">
-            <option value="automatizacion">⚙ Automatización</option>
-            <option value="sistema">🗂 Sistema Notion</option>
-          </select>
+      <div class="kairos-roi__metric-group">
+        <p class="kairos-roi__metric-group-title">⚙ Operativas</p>
+        <div class="kairos-roi__metric-list">
+          <label class="kairos-roi__metric-chip" data-metric="aceleracion">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Aceleración de procesos</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-metric="errores">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Reducción de errores</span>
+          </label>
         </div>
-      </fieldset>
+      </div>
 
-      <!-- ============ BLOQUE 2: INPUTS MAESTROS ============ -->
-      <fieldset class="kairos-roi__fset">
-        <legend class="kairos-roi__fset-legend"><span>📥</span> Inputs maestros</legend>
-        <form class="kairos-roi__form" novalidate>
-
-          <!-- M_total -->
-          <div class="kairos-roi__field" data-input="M_total">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-mtotal">M_total · min/persona/semana liberados</label>
-                <div class="kairos-roi__hint">Tiempo total que el Activo devuelve por persona y semana.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-mtotal-display"
-                      data-format="int" tabindex="0" role="spinbutton" aria-label="Editar M_total">0</span>
-                <span class="kairos-roi__current-unit">min/sem</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int">0</div>
-              <input class="kairos-roi__slider" id="kr-mtotal" type="range"
-                     min="0" max="600" step="5" value="0" aria-label="M_total minutos por persona y semana" />
-              <div class="kairos-roi__scale"><span>0</span><span>120</span><span>240</span><span>360</span><span>480</span><span>600</span></div>
-            </div>
-          </div>
-
-          <!-- P -->
-          <div class="kairos-roi__field" data-input="P">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-p">P · nº personas afectadas</label>
-                <div class="kairos-roi__hint">Quien ejecuta, supervisa o consume la salida del Activo.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-p-display"
-                      data-format="int" tabindex="0" role="spinbutton" aria-label="Editar P">0</span>
-                <span class="kairos-roi__current-unit">personas</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int">0</div>
-              <input class="kairos-roi__slider" id="kr-p" type="range"
-                     min="0" max="200" step="1" value="0" aria-label="Número de personas" />
-              <div class="kairos-roi__scale"><span>0</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
-            </div>
-          </div>
-
-          <!-- Cu_mes -->
-          <div class="kairos-roi__field kairos-roi__field--full" data-input="Cu_mes">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-cumes">Cu_mes · coste de uso del Activo (€/mes)</label>
-                <div class="kairos-roi__hint">Membresías, tokens IA, infra, mantenimiento. Se descuenta de la capacidad neta.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-cumes-display"
-                      data-format="int" tabindex="0" role="spinbutton" aria-label="Editar coste de uso">0</span>
-                <span class="kairos-roi__current-unit">€/mes</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
-              <input class="kairos-roi__slider" id="kr-cumes" type="range"
-                     min="0" max="2000" step="10" value="0" aria-label="Coste de uso del Activo en euros al mes" />
-              <div class="kairos-roi__scale"><span>0</span><span>400</span><span>800</span><span>1200</span><span>1600</span><span>2000</span></div>
-            </div>
-          </div>
-
-          <!-- Toggle €/hora -->
-          <div class="kairos-roi__field--full">
-            <button type="button" class="kairos-roi__toggle"
-                    data-money-toggle aria-pressed="false" aria-controls="kr-money-field">
-              <span class="kairos-roi__toggle-dot" aria-hidden="true"></span>
-              Activar conversión €/hora
-            </button>
-          </div>
-
-          <!-- €h -->
-          <div class="kairos-roi__field kairos-roi__field--money kairos-roi__field--full"
-               id="kr-money-field" data-input="eh" data-money-field data-visible="false">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-eh">€h · coste/hora del equipo</label>
-                <div class="kairos-roi__hint">Coste medio bruto por hora trabajada.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-eh-display"
-                      data-format="int" tabindex="0" role="spinbutton" aria-label="Editar €/hora">0</span>
-                <span class="kairos-roi__current-unit">€/hora</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
-              <input class="kairos-roi__slider" id="kr-eh" type="range"
-                     min="0" max="200" step="1" value="0" aria-label="Euros por hora del equipo" />
-              <div class="kairos-roi__scale"><span>0 €</span><span>40 €</span><span>80 €</span><span>120 €</span><span>160 €</span><span>200 €</span></div>
-            </div>
-          </div>
-
-        </form>
-      </fieldset>
-
-      <!-- ============ BLOQUE 3: SELECTOR DE MÉTRICAS ============ -->
-      <fieldset class="kairos-roi__fset">
-        <legend class="kairos-roi__fset-legend"><span>🎛</span> Métricas a mostrar</legend>
-        <div class="kairos-roi__selector">
-
-          <div class="kairos-roi__metric-group kairos-roi__metric-group--core">
-            <h4>🧮 Núcleo · siempre on</h4>
-            <div class="kairos-roi__metric-list">
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M1" checked disabled><span class="kairos-roi__metric-id">M1</span><span class="kairos-roi__metric-label">Horas liberadas</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M2" checked disabled><span class="kairos-roi__metric-id">M2</span><span class="kairos-roi__metric-label">Capacidad neta (€/año)</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M3" checked disabled><span class="kairos-roi__metric-id">M3</span><span class="kairos-roi__metric-label">Coste de uso (€/año)</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M4" checked disabled><span class="kairos-roi__metric-id">M4</span><span class="kairos-roi__metric-label">Valor Compuesto 12/24/36m</span></label>
-            </div>
-          </div>
-
-          <div class="kairos-roi__metric-group">
-            <h4>⚙ Operativas</h4>
-            <div class="kairos-roi__metric-list">
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M5"><span class="kairos-roi__metric-id">M5</span><span class="kairos-roi__metric-label">Aceleración de procesos</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M6"><span class="kairos-roi__metric-id">M6</span><span class="kairos-roi__metric-label">Errores y retrabajo</span></label>
-            </div>
-          </div>
-
-          <div class="kairos-roi__metric-group">
-            <h4>🎯 Estratégicas</h4>
-            <div class="kairos-roi__metric-list">
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M7"><span class="kairos-roi__metric-id">M7</span><span class="kairos-roi__metric-label">Capacidad sin contratar</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M8"><span class="kairos-roi__metric-id">M8</span><span class="kairos-roi__metric-label">Factor bus</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M9"><span class="kairos-roi__metric-id">M9</span><span class="kairos-roi__metric-label">Velocidad de acción</span></label>
-            </div>
-          </div>
-
-          <div class="kairos-roi__metric-group">
-            <h4>🌟 Filosofía Kairos</h4>
-            <div class="kairos-roi__metric-list">
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M10"><span class="kairos-roi__metric-id">M10</span><span class="kairos-roi__metric-label">Densidad de Tiempo Kairós</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M11"><span class="kairos-roi__metric-id">M11</span><span class="kairos-roi__metric-label">Eliminación de duplicidades</span></label>
-              <label class="kairos-roi__metric"><input type="checkbox" data-metric="M12"><span class="kairos-roi__metric-id">M12</span><span class="kairos-roi__metric-label">Foco recuperado (deriva M10)</span></label>
-            </div>
-          </div>
-
+      <div class="kairos-roi__metric-group">
+        <p class="kairos-roi__metric-group-title">🎯 Estratégicas</p>
+        <div class="kairos-roi__metric-list">
+          <label class="kairos-roi__metric-chip" data-metric="capacidadFTE">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Capacidad sin contratar</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-metric="factorBus">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Factor bus</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-metric="velocidad">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Velocidad de acción</span>
+          </label>
         </div>
-      </fieldset>
+      </div>
 
-      <!-- ============ BLOQUE 4: INPUTS POR MÉTRICA ============ -->
-      <fieldset class="kairos-roi__fset" id="kr-metric-inputs">
-        <legend class="kairos-roi__fset-legend"><span>🎚</span> Inputs por métrica activa</legend>
-        <form class="kairos-roi__form" novalidate>
-
-          <!-- M5: pct_aceleracion_lt -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M5" data-input="pct_aceleracion_lt">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m5">M5 · % aceleración del lead time</label>
-                <div class="kairos-roi__hint">El proceso pasa de X a X×(1−%/100) en duración total.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m5-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">%</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
-              <input class="kairos-roi__slider" id="kr-m5" type="range" min="0" max="100" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-            </div>
-          </div>
-
-          <!-- M6: pct_errores -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M6" data-input="pct_errores">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m6">M6 · % del ahorro que viene de errores evitados</label>
-                <div class="kairos-roi__hint">Reparte M_total entre errores, duplicidades y ejecución directa.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m6-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">%</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
-              <input class="kairos-roi__slider" id="kr-m6" type="range" min="0" max="100" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-            </div>
-          </div>
-
-          <!-- M7: coste_FTE_anual -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M7" data-input="coste_FTE_anual">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m7">M7 · coste anual de un FTE (€)</label>
-                <div class="kairos-roi__hint">Coste todo incluido (salario + cargas) de una persona/año.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m7-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">€</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
-              <input class="kairos-roi__slider" id="kr-m7" type="range" min="0" max="100000" step="1000" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>20k</span><span>40k</span><span>60k</span><span>80k</span><span>100k</span></div>
-            </div>
-          </div>
-
-          <!-- M8: n_criticas_antes -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M8" data-input="n_criticas_antes">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m8a">M8 · personas críticas antes</label>
-                <div class="kairos-roi__hint">Quién(es) podía ejecutar el proceso antes del Activo.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m8a-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">personas</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int">0</div>
-              <input class="kairos-roi__slider" id="kr-m8a" type="range" min="0" max="20" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-            </div>
-          </div>
-
-          <!-- M8: n_criticas_despues -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M8" data-input="n_criticas_despues">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m8d">M8 · personas críticas después</label>
-                <div class="kairos-roi__hint">Quién(es) puede(n) ejecutarlo ahora con el Activo en marcha.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m8d-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">personas</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int">0</div>
-              <input class="kairos-roi__slider" id="kr-m8d" type="range" min="0" max="20" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-            </div>
-          </div>
-
-          <!-- M9: pct_aceleracion_decision -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M9" data-input="pct_aceleracion_decision">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m9">M9 · % aceleración decisión → ejecución</label>
-                <div class="kairos-roi__hint">Cuánto más rápido se mueve el negocio gracias al Activo.</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m9-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">%</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
-              <input class="kairos-roi__slider" id="kr-m9" type="range" min="0" max="100" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-            </div>
-          </div>
-
-          <!-- M10: pct_estrategico -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M10" data-input="pct_estrategico">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m10">M10 · % horas reinvertidas en trabajo estratégico</label>
-                <div class="kairos-roi__hint">Cuánto del tiempo liberado es Tiempo Kairós (vs Cronos).</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m10-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">%</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
-              <input class="kairos-roi__slider" id="kr-m10" type="range" min="0" max="100" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-            </div>
-          </div>
-
-          <!-- M11: pct_duplicidades -->
-          <div class="kairos-roi__field kairos-roi__metric-input" data-metric-input="M11" data-input="pct_duplicidades">
-            <div class="kairos-roi__field-head">
-              <div>
-                <label class="kairos-roi__label" for="kr-m11">M11 · % del ahorro de duplicidades eliminadas</label>
-                <div class="kairos-roi__hint">Trabajo redundante que el Activo elimina (fuente única de verdad).</div>
-              </div>
-              <div class="kairos-roi__current">
-                <span class="kairos-roi__current-num" id="kr-m11-display" data-format="int" tabindex="0" role="spinbutton">0</span>
-                <span class="kairos-roi__current-unit">%</span>
-              </div>
-            </div>
-            <div class="kairos-roi__slider-wrap">
-              <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
-              <input class="kairos-roi__slider" id="kr-m11" type="range" min="0" max="100" step="1" value="0" />
-              <div class="kairos-roi__scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-            </div>
-          </div>
-
-        </form>
-        <div class="kairos-roi__warn" data-warn="repartoExcedido">
-          ⚠ La suma de M6 + M11 supera el 100% del ahorro. Ajusta los valores: la diferencia debería ser ejecución directa.
+      <div class="kairos-roi__metric-group">
+        <p class="kairos-roi__metric-group-title">🌟 Filosofía Kairos</p>
+        <div class="kairos-roi__metric-list">
+          <label class="kairos-roi__metric-chip" data-metric="densidadKairos">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Densidad Kairós</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-metric="duplicidades">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Eliminación de duplicidades</span>
+          </label>
+          <label class="kairos-roi__metric-chip" data-metric="foco">
+            <span class="kairos-roi__metric-chip-dot"></span>
+            <input type="checkbox">
+            <span>Foco en alto valor</span>
+          </label>
         </div>
-      </fieldset>
-
-      <!-- ============ BLOQUE 5: RESULTADOS ============ -->
-      <section class="kairos-roi__results" aria-live="polite">
-
-        <!-- 🧮 NÚCLEO -->
-        <article class="kairos-roi__block kairos-roi__block--core" data-metric-block="nucleo">
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M1-M4</span>
-            <h3 class="kairos-roi__block-title">🧮 Núcleo</h3>
-          </header>
-          <div class="kairos-roi__block-grid kairos-roi__block-grid--4">
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasSemana" data-format="num1">0</p>
-              <p class="kairos-roi__mini-unit">h/semana liberadas</p>
-            </div>
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasAnio" data-format="int">0</p>
-              <p class="kairos-roi__mini-unit">h/año (S=48)</p>
-            </div>
-            <div class="kairos-roi__mini" data-money-result>
-              <p class="kairos-roi__mini-value" data-output="capacidadNeta" data-format="eur">0 €</p>
-              <p class="kairos-roi__mini-unit">€/año capacidad neta</p>
-            </div>
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value" data-output="costeUsoAnio" data-format="eur">0 €</p>
-              <p class="kairos-roi__mini-unit">€/año coste de uso</p>
-            </div>
-          </div>
-
-          <div class="kairos-roi__compound">
-            <h4 class="kairos-roi__compound-title">📈 Valor Compuesto del Activo</h4>
-            <table class="kairos-roi__compound-table">
-              <thead><tr><th>Horizonte</th><th>Horas acum.</th><th>€ acum.</th></tr></thead>
-              <tbody>
-                <tr><td>12 meses</td><td class="accent" data-output="horas12" data-format="int">0</td><td data-output="euros12" data-format="eur">0 €</td></tr>
-                <tr><td>24 meses</td><td class="accent" data-output="horas24" data-format="int">0</td><td data-output="euros24" data-format="eur">0 €</td></tr>
-                <tr><td>36 meses</td><td class="accent" data-output="horas36" data-format="int">0</td><td data-output="euros36" data-format="eur">0 €</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- ⚙ M5 -->
-        <article class="kairos-roi__block" data-metric-block="M5" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M5</span>
-            <h3 class="kairos-roi__block-title">⚙ Aceleración de procesos</h3>
-          </header>
-          <p class="kairos-roi__mini-value kairos-roi__mini-value--accent">
-            <span data-output="pctAceleracionLt" data-format="int">0</span>%
-          </p>
-          <p class="kairos-roi__narrative">
-            El lead time se reduce un <strong data-output="pctAceleracionLtTxt" data-format="int">0</strong>%.
-            El proceso entrega antes y libera al equipo de los tiempos de espera.
-          </p>
-        </article>
-
-        <!-- ⚙ M6 -->
-        <article class="kairos-roi__block" data-metric-block="M6" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M6</span>
-            <h3 class="kairos-roi__block-title">⚙ Errores y retrabajo</h3>
-          </header>
-          <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasErroresAnio" data-format="int">0</p>
-          <p class="kairos-roi__mini-unit">horas/año recuperadas evitando retrabajo</p>
-        </article>
-
-        <!-- 🎯 M7 -->
-        <article class="kairos-roi__block" data-metric-block="M7" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M7</span>
-            <h3 class="kairos-roi__block-title">🎯 Capacidad sin contratar</h3>
-          </header>
-          <div class="kairos-roi__block-grid kairos-roi__block-grid--2">
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="fteEq" data-format="num1">0</p>
-              <p class="kairos-roi__mini-unit">FTE equivalentes liberados</p>
-            </div>
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value" data-output="capacidadFte" data-format="eur">0 €</p>
-              <p class="kairos-roi__mini-unit">€/año en capacidad sin contratar</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- 🎯 M8 -->
-        <article class="kairos-roi__block" data-metric-block="M8" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M8</span>
-            <h3 class="kairos-roi__block-title">🎯 Factor bus</h3>
-          </header>
-          <p class="kairos-roi__narrative">
-            El conocimiento crítico pasa de <strong data-output="busAntes" data-format="int">0</strong>
-            a <strong data-output="busDespues" data-format="int">0</strong> personas
-            (<strong data-output="busDelta" data-format="signed">0</strong>).
-            Reducción de la dependencia de personas clave.
-          </p>
-        </article>
-
-        <!-- 🎯 M9 -->
-        <article class="kairos-roi__block" data-metric-block="M9" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M9</span>
-            <h3 class="kairos-roi__block-title">🎯 Velocidad de Acción</h3>
-          </header>
-          <p class="kairos-roi__mini-value kairos-roi__mini-value--accent">
-            <span data-output="pctAceleracionDec" data-format="int">0</span>%
-          </p>
-          <p class="kairos-roi__narrative">
-            Las decisiones se ejecutan un <strong data-output="pctAceleracionDecTxt" data-format="int">0</strong>%
-            más rápido. <em>De bicicleta a cohete.</em>
-          </p>
-        </article>
-
-        <!-- 🌟 M10 -->
-        <article class="kairos-roi__block" data-metric-block="M10" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M10</span>
-            <h3 class="kairos-roi__block-title">🌟 Densidad de Tiempo Kairós</h3>
-          </header>
-          <div class="kairos-roi__block-grid kairos-roi__block-grid--2">
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasKairos" data-format="int">0</p>
-              <p class="kairos-roi__mini-unit">h/año en Tiempo Kairós (estratégico)</p>
-            </div>
-            <div class="kairos-roi__mini">
-              <p class="kairos-roi__mini-value" data-output="horasCronos" data-format="int">0</p>
-              <p class="kairos-roi__mini-unit">h/año en Tiempo Cronos (operativo)</p>
-            </div>
-          </div>
-          <div class="kairos-roi__kairos-bar" aria-hidden="true">
-            <span data-bar="kairos" style="width:0%"></span>
-            <span data-bar="cronos" style="width:100%"></span>
-          </div>
-          <div class="kairos-roi__kairos-legend">
-            <span>Kairós · <span data-output="pctKairos" data-format="int">0</span>%</span>
-            <span>Cronos · <span data-output="pctCronos" data-format="int">100</span>%</span>
-          </div>
-        </article>
-
-        <!-- 🌟 M11 -->
-        <article class="kairos-roi__block" data-metric-block="M11" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M11</span>
-            <h3 class="kairos-roi__block-title">🌟 Eliminación de duplicidades</h3>
-          </header>
-          <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasDuplicidades" data-format="int">0</p>
-          <p class="kairos-roi__mini-unit">horas/año eliminadas de trabajo duplicado</p>
-        </article>
-
-        <!-- 🌟 M12 -->
-        <article class="kairos-roi__block" data-metric-block="M12" hidden>
-          <header class="kairos-roi__block-head">
-            <span class="kairos-roi__block-id">M12</span>
-            <h3 class="kairos-roi__block-title">🌟 Foco recuperado</h3>
-          </header>
-          <p class="kairos-roi__mini-value kairos-roi__mini-value--accent" data-output="horasAltoValor" data-format="int">0</p>
-          <p class="kairos-roi__mini-unit">horas/año para el trabajo que solo tu equipo puede hacer</p>
-          <p class="kairos-roi__narrative">
-            Métrica derivada de M10. Si M10 está activa, este bloque refleja las mismas horas Kairós con foco en "alto valor".
-          </p>
-        </article>
-
-      </section>
-
-      <!-- ============ CTA ============ -->
-      <footer class="kairos-roi__cta">
-        <p class="kairos-roi__cta-text">
-          Genera la <strong>narrativa ejecutiva</strong> con Top 3 métricas y guarda esta simulación en
-          la BBDD <em>"Simulaciones ROI"</em> para vincularla a la propuesta del cliente.
-        </p>
-        <button type="button" class="kairos-roi__cta-btn" data-action="export">Exportar simulación</button>
-      </footer>
+      </div>
 
     </div>
-  </details>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="kairos-roi__section">
+    <h3 class="kairos-roi__section-title">Inputs</h3>
+    <div class="kairos-roi__inputs">
+
+      <!-- BASE: M_total -->
+      <div class="kairos-roi__field" data-input="M_total">
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Tiempo recuperado / persona / semana</div>
+            <div class="kairos-roi__hint">Minutos que cada persona deja de hacer gracias al Activo.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">min/sem</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int">0</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="600" step="5" value="0" aria-label="Minutos por persona y semana recuperados" />
+          <div class="kairos-roi__scale"><span>0</span><span>120</span><span>240</span><span>360</span><span>480</span><span>600</span></div>
+        </div>
+      </div>
+
+      <!-- BASE: P -->
+      <div class="kairos-roi__field" data-input="P">
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Personas afectadas</div>
+            <div class="kairos-roi__hint">Quien lo hacía antes (incluye revisión).</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">personas</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int">0</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="200" step="1" value="0" aria-label="Número de personas afectadas" />
+          <div class="kairos-roi__scale"><span>0</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
+        </div>
+      </div>
+
+      <!-- BASE: Cu_mes -->
+      <div class="kairos-roi__field" data-input="Cu_mes">
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Coste de uso del Activo</div>
+            <div class="kairos-roi__hint">Membresías, tokens IA, infra, mantenimiento (€/mes).</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">€/mes</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="2000" step="10" value="0" aria-label="Coste de uso del Activo en euros al mes" />
+          <div class="kairos-roi__scale"><span>0 €</span><span>400 €</span><span>800 €</span><span>1.2k</span><span>1.6k</span><span>2k</span></div>
+        </div>
+      </div>
+
+      <!-- TOGGLE €/hora -->
+      <div class="kairos-roi__field kairos-roi__field--money-toggle">
+        <button type="button" class="kairos-roi__toggle" data-money-toggle aria-pressed="false">
+          <span class="kairos-roi__toggle-dot"></span>
+          Activar cálculo en €
+        </button>
+      </div>
+
+      <!-- BASE: €h (oculto por defecto) -->
+      <div class="kairos-roi__field" data-input="eh" data-money-field hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">€/hora del equipo</div>
+            <div class="kairos-roi__hint">Coste medio bruto por hora trabajada.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">€/h</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="200" step="1" value="0" aria-label="Euros por hora del equipo" />
+          <div class="kairos-roi__scale"><span>0 €</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Aceleración (% lead time) -->
+      <div class="kairos-roi__field" data-input="pct_aceleracion_lt" data-needs-metric="aceleracion" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">% Aceleración del lead time</div>
+            <div class="kairos-roi__hint">Cuánto se reduce el plazo entre inicio y fin del proceso.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">%</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="100" step="1" value="0" aria-label="% aceleración del lead time" />
+          <div class="kairos-roi__scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Errores (% del tiempo recuperado que era retrabajo) -->
+      <div class="kairos-roi__field" data-input="pct_errores" data-needs-metric="errores" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">% del tiempo que era retrabajo</div>
+            <div class="kairos-roi__hint">Parte del tiempo recuperado que venía de errores.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">%</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo recuperado que era retrabajo" />
+          <div class="kairos-roi__scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Capacidad sin contratar (coste FTE anual) -->
+      <div class="kairos-roi__field" data-input="coste_FTE_anual" data-needs-metric="capacidadFTE" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Coste anual de un FTE equivalente</div>
+            <div class="kairos-roi__hint">Para traducir horas a "personas no contratadas".</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">€/año</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" €">0 €</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="80000" step="500" value="0" aria-label="Coste FTE anual" />
+          <div class="kairos-roi__scale"><span>0 €</span><span>20k</span><span>40k</span><span>60k</span><span>80k</span><span></span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Factor bus antes -->
+      <div class="kairos-roi__field" data-input="n_criticas_antes" data-needs-metric="factorBus" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Personas críticas antes</div>
+            <div class="kairos-roi__hint">¿De cuántas dependía el conocimiento clave?</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">pers.</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int">0</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas antes" />
+          <div class="kairos-roi__scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Factor bus después -->
+      <div class="kairos-roi__field" data-input="n_criticas_despues" data-needs-metric="factorBus" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">Personas críticas después</div>
+            <div class="kairos-roi__hint">Tras el Activo, ¿de cuántas?</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">pers.</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int">0</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas después" />
+          <div class="kairos-roi__scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Velocidad de acción (% aceleración decisión) -->
+      <div class="kairos-roi__field" data-input="pct_aceleracion_decision" data-needs-metric="velocidad" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">% Aceleración de decisión → ejecución</div>
+            <div class="kairos-roi__hint">Cuánto se acorta de "decidirlo" a "estar hecho".</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">%</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="100" step="1" value="0" aria-label="% aceleración de la decisión a la ejecución" />
+          <div class="kairos-roi__scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Densidad Kairós (% reinvertido en alto valor) -->
+      <div class="kairos-roi__field" data-input="pct_estrategico" data-needs-metric="densidadKairos" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">% del tiempo liberado → trabajo de alto valor</div>
+            <div class="kairos-roi__hint">Cronos vs Kairós: cuánto se reinvierte en lo que mueve el negocio.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">%</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo liberado reinvertido en alto valor" />
+          <div class="kairos-roi__scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+      <!-- POR MÉTRICA: Duplicidades (%) -->
+      <div class="kairos-roi__field" data-input="pct_duplicidades" data-needs-metric="duplicidades" hidden>
+        <div class="kairos-roi__field-head">
+          <div>
+            <div class="kairos-roi__label">% del tiempo que era trabajo duplicado</div>
+            <div class="kairos-roi__hint">Mismo dato/proceso hecho varias veces.</div>
+          </div>
+          <div class="kairos-roi__current">
+            <span class="kairos-roi__current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kairos-roi__current-unit">%</span>
+          </div>
+        </div>
+        <div class="kairos-roi__slider-wrap">
+          <div class="kairos-roi__bubble" data-format="int" data-suffix=" %">0 %</div>
+          <input class="kairos-roi__slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo recuperado que era trabajo duplicado" />
+          <div class="kairos-roi__scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="kairos-roi__warn" data-warn>
+      ⚠️ Errores + Duplicidades suman más del 100% del tiempo recuperado. Ajusta los % para que su suma no supere 100.
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="kairos-roi__section">
+    <h3 class="kairos-roi__section-title">Resultados</h3>
+
+    <!-- Núcleo (siempre) -->
+    <p class="kairos-roi__group-title">🧮 Núcleo</p>
+    <div class="kairos-roi__result-group">
+      <article class="kairos-roi__card kairos-roi__card--accent">
+        <p class="kairos-roi__card-label">Horas liberadas / año</p>
+        <p class="kairos-roi__card-value kairos-roi__card-value--accent" data-output="horasAnio" data-format="int">0</p>
+        <p class="kairos-roi__card-unit"><span data-output="horasSemana" data-format="num1">0</span> h/semana · 48 sem laborables</p>
+      </article>
+      <article class="kairos-roi__card" data-money-only hidden>
+        <p class="kairos-roi__card-label">Capacidad neta liberada</p>
+        <p class="kairos-roi__card-value kairos-roi__card-value--accent" data-output="capacidadNeta" data-format="eur">0 €</p>
+        <p class="kairos-roi__card-unit">horas × €/h − coste de uso anual</p>
+      </article>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Coste de uso del Activo</p>
+        <p class="kairos-roi__card-value" data-output="costeUsoAnio" data-format="eur">0 €</p>
+        <p class="kairos-roi__card-unit">€/año en herramientas + mantenimiento</p>
+      </article>
+      <article class="kairos-roi__card kairos-roi__card--accent" style="grid-column:1 / -1;">
+        <p class="kairos-roi__card-label">Valor compuesto del Activo</p>
+        <div class="kairos-roi__compound">
+          <div class="kairos-roi__compound-cell">
+            <p class="kairos-roi__compound-h">12 meses</p>
+            <p class="kairos-roi__compound-v"><span data-output="horas12" data-format="int">0</span> h</p>
+            <p class="kairos-roi__compound-eur" data-money-only hidden><span data-output="euros12" data-format="eur">0 €</span></p>
+          </div>
+          <div class="kairos-roi__compound-cell">
+            <p class="kairos-roi__compound-h">24 meses</p>
+            <p class="kairos-roi__compound-v"><span data-output="horas24" data-format="int">0</span> h</p>
+            <p class="kairos-roi__compound-eur" data-money-only hidden><span data-output="euros24" data-format="eur">0 €</span></p>
+          </div>
+          <div class="kairos-roi__compound-cell">
+            <p class="kairos-roi__compound-h">36 meses</p>
+            <p class="kairos-roi__compound-v"><span data-output="horas36" data-format="int">0</span> h</p>
+            <p class="kairos-roi__compound-eur" data-money-only hidden><span data-output="euros36" data-format="eur">0 €</span></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Bloques opcionales -->
+    <div data-result-for="aceleracion" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">⚙ Aceleración de procesos</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Reducción del lead time</p>
+        <p class="kairos-roi__card-value" data-output="pctAcelLT" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">% más rápido extremo a extremo</p>
+      </article>
+    </div>
+
+    <div data-result-for="errores" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">⚙ Reducción de errores</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Horas / año recuperadas de retrabajo</p>
+        <p class="kairos-roi__card-value" data-output="horasErrores" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">parte del total atribuible a errores</p>
+      </article>
+    </div>
+
+    <div data-result-for="capacidadFTE" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🎯 Capacidad sin contratar</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">FTE equivalente liberado</p>
+        <p class="kairos-roi__card-value" data-output="fteEquiv" data-format="num1">0</p>
+        <p class="kairos-roi__card-unit">personas-año (1 FTE = 1.760 h)</p>
+      </article>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Capacidad equivalente en €</p>
+        <p class="kairos-roi__card-value" data-output="capacidadFTE" data-format="eur">0 €</p>
+        <p class="kairos-roi__card-unit">coste FTE × FTE liberado</p>
+      </article>
+    </div>
+
+    <div data-result-for="factorBus" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🎯 Factor bus</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Δ Personas críticas</p>
+        <p class="kairos-roi__card-value" data-output="deltaBus" data-format="signed">0</p>
+        <p class="kairos-roi__card-unit">menos dependencia (positivo = peor)</p>
+      </article>
+    </div>
+
+    <div data-result-for="velocidad" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🎯 Velocidad de acción</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Aceleración decisión → ejecución</p>
+        <p class="kairos-roi__card-value" data-output="pctAcelDec" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">% más rápido en pasar de decidir a hacer</p>
+      </article>
+    </div>
+
+    <div data-result-for="densidadKairos" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🌟 Densidad Kairós</p>
+      <article class="kairos-roi__card" style="grid-column:1 / -1;">
+        <p class="kairos-roi__card-label">Tiempo Kairós vs Cronos</p>
+        <p class="kairos-roi__card-value" data-output="horasKairos" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">horas/año reinvertidas en alto valor</p>
+        <div class="kairos-roi__kc-bar">
+          <div data-bar="kairos" style="width:0%"></div>
+          <div data-bar="cronos" style="width:100%"></div>
+        </div>
+        <div class="kairos-roi__kc-legend">
+          <span><span data-output="horasKairos" data-format="int">0</span> h Kairós</span>
+          <span><span data-output="horasCronos" data-format="int">0</span> h Cronos</span>
+        </div>
+      </article>
+    </div>
+
+    <div data-result-for="duplicidades" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🌟 Eliminación de duplicidades</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Horas / año de trabajo duplicado eliminadas</p>
+        <p class="kairos-roi__card-value" data-output="horasDuplic" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">una sola fuente de verdad</p>
+      </article>
+    </div>
+
+    <div data-result-for="foco" class="kairos-roi__result-group" hidden>
+      <p class="kairos-roi__group-title">🌟 Foco en alto valor</p>
+      <article class="kairos-roi__card">
+        <p class="kairos-roi__card-label">Horas / año dedicadas a lo que mueve el negocio</p>
+        <p class="kairos-roi__card-value" data-output="horasKairos" data-format="int">0</p>
+        <p class="kairos-roi__card-unit">deriva de Densidad Kairós</p>
+      </article>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <footer class="kairos-roi__cta">
+    <p class="kairos-roi__cta-text">Esto es lo que ese Activo Kairos devuelve cada año. Y crece con el tiempo.</p>
+    <button type="button" class="kairos-roi__cta-btn" data-export>Exportar simulación</button>
+  </footer>
+
 </div>
 
 <script>
 (function () {
   'use strict';
+
   var ROOT = document.querySelector('.kairos-roi');
   if (!ROOT) return;
 
-  var REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var REDUCED_MOTION = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var SEMANAS_LABORABLES = 48;
   var H_FTE = 1760;
 
-  /* ============ FORMATS REGISTRY ============ */
+  /* FORMATS */
   var FORMATS = {
     int:    new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 }),
     num1:   new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }),
-    eur:    new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }),
-    signed: { format: function(v){ var n=Math.round(v); return (n>=0?'+':'')+n; } }
-  };
-  function fmt(v, id) {
-    var f = FORMATS[id] || FORMATS.int;
-    return typeof f.format === 'function' ? f.format(v) : String(v);
-  }
-
-  /* ============ CALCS REGISTRY ============ */
-  var CALCS = {
-    activoKairos: function (i, ctx) {
-      var P       = i.P || 0;
-      var M_total = i.M_total || 0;
-      var Cu_mes  = i.Cu_mes || 0;
-      var eh      = ctx.moneyOn ? (i.eh || 0) : 0;
-
-      // Núcleo (M1-M4)
-      var horasSemana    = (M_total * P) / 60;
-      var horasAnio      = horasSemana * SEMANAS_LABORABLES;
-      var costeUsoAnio   = Cu_mes * 12;
-      var capacidadNeta  = (horasAnio * eh) - costeUsoAnio;
-
-      var horas12 = horasAnio,        euros12 = capacidadNeta;
-      var horas24 = horasAnio * 2,    euros24 = capacidadNeta * 2;
-      var horas36 = horasAnio * 3,    euros36 = capacidadNeta * 3;
-
-      // Operativas
-      var pctAceleracionLt   = i.pct_aceleracion_lt   || 0;
-      var pctErrores         = i.pct_errores          || 0;
-      var horasErroresAnio   = horasAnio * pctErrores / 100;
-
-      // Estratégicas
-      var FTE_eq             = horasAnio / H_FTE;
-      var capacidadFte       = FTE_eq * (i.coste_FTE_anual || 0);
-      var busAntes           = i.n_criticas_antes     || 0;
-      var busDespues         = i.n_criticas_despues   || 0;
-      var busDelta           = busDespues - busAntes;
-      var pctAceleracionDec  = i.pct_aceleracion_decision || 0;
-
-      // Filosofía Kairos
-      var pctEstrategico     = i.pct_estrategico      || 0;
-      var horasKairos        = horasAnio * pctEstrategico / 100;
-      var horasCronos        = horasAnio - horasKairos;
-      var pctDuplicidades    = i.pct_duplicidades     || 0;
-      var horasDuplicidades  = horasAnio * pctDuplicidades / 100;
-      var horasAltoValor     = horasKairos;
-
-      return {
-        // Núcleo
-        horasSemana: horasSemana, horasAnio: horasAnio,
-        costeUsoAnio: costeUsoAnio, capacidadNeta: capacidadNeta,
-        horas12: horas12, euros12: euros12,
-        horas24: horas24, euros24: euros24,
-        horas36: horas36, euros36: euros36,
-        // Operativas
-        pctAceleracionLt: pctAceleracionLt, pctAceleracionLtTxt: pctAceleracionLt,
-        horasErroresAnio: horasErroresAnio,
-        // Estratégicas
-        fteEq: FTE_eq, capacidadFte: capacidadFte,
-        busAntes: busAntes, busDespues: busDespues, busDelta: busDelta,
-        pctAceleracionDec: pctAceleracionDec, pctAceleracionDecTxt: pctAceleracionDec,
-        // Kairos
-        horasKairos: horasKairos, horasCronos: horasCronos,
-        pctKairos: pctEstrategico, pctCronos: 100 - pctEstrategico,
-        horasDuplicidades: horasDuplicidades, horasAltoValor: horasAltoValor,
-        // Reparto (validación)
-        _repartoTotal: pctErrores + pctDuplicidades
-      };
+    eur:    new Intl.NumberFormat('es-ES', { style:'currency', currency:'EUR', maximumFractionDigits: 0 }),
+    signed: function (v) {
+      var n = (v >= 0 ? '+' : '') + FORMATS.int.format(v);
+      return n;
     }
   };
+  function fmt(v, id) {
+    var f = FORMATS[id];
+    if (typeof f === 'function') return f(v);
+    return (f || FORMATS.int).format(v);
+  }
 
-  /* ============ HELPERS ============ */
+  /* CALCS */
+  function calcActivo(i, ctx) {
+    var horasAnio   = (i.M_total * i.P * SEMANAS_LABORABLES) / 60;
+    var horasSemana = horasAnio / SEMANAS_LABORABLES;
+    var costeUsoAnio = (i.Cu_mes || 0) * 12;
+    var capacidadNeta = ctx.moneyOn ? (horasAnio * (i.eh || 0) - costeUsoAnio) : 0;
+
+    var horas12 = horasAnio,    horas24 = horasAnio * 2,    horas36 = horasAnio * 3;
+    var euros12 = capacidadNeta, euros24 = capacidadNeta * 2, euros36 = capacidadNeta * 3;
+
+    var pctAcelLT   = i.pct_aceleracion_lt || 0;
+    var pctErr      = Math.max(0, Math.min(100, i.pct_errores || 0));
+    var horasErrores = horasAnio * pctErr / 100;
+
+    var fteEquiv     = horasAnio / H_FTE;
+    var capacidadFTE = fteEquiv * (i.coste_FTE_anual || 0);
+    var deltaBus     = (i.n_criticas_despues || 0) - (i.n_criticas_antes || 0);
+    var pctAcelDec   = i.pct_aceleracion_decision || 0;
+
+    var pctEstr      = Math.max(0, Math.min(100, i.pct_estrategico || 0));
+    var horasKairos  = horasAnio * pctEstr / 100;
+    var horasCronos  = horasAnio - horasKairos;
+
+    var pctDup       = Math.max(0, Math.min(100, i.pct_duplicidades || 0));
+    var horasDuplic  = horasAnio * pctDup / 100;
+
+    return {
+      horasSemana, horasAnio, costeUsoAnio, capacidadNeta,
+      horas12, horas24, horas36, euros12, euros24, euros36,
+      pctAcelLT, horasErrores,
+      fteEquiv, capacidadFTE, deltaBus, pctAcelDec,
+      horasKairos, horasCronos, horasDuplic,
+      _warnPct: pctErr + pctDup
+    };
+  }
+
+  /* HELPERS */
   function clamp(v, mn, mx) { return Math.max(mn, Math.min(mx, v)); }
   function paintTrack(slider) {
     var min = parseFloat(slider.min), max = parseFloat(slider.max);
@@ -1137,288 +1034,276 @@
     slider.setAttribute('aria-valuenow', slider.value);
   }
   function positionBubble(slider, bubble) {
-    var trackW = slider.offsetWidth;
-    if (trackW === 0) return;
+    var trackW = slider.offsetWidth; if (trackW === 0) return;
     var min = parseFloat(slider.min), max = parseFloat(slider.max);
     var pct = max === min ? 0 : (parseFloat(slider.value) - min) / (max - min);
-    var thumbW = 30;
+    var thumbW = 22;
     bubble.style.left = (pct * (trackW - thumbW) + thumbW / 2) + 'px';
   }
   function animateNumber(el, target) {
     var formatId = el.dataset.format || 'int';
-    var formatter = function (v) { return fmt(v, formatId); };
     var start = parseFloat(el.dataset.current || '0');
     if (REDUCED_MOTION || start === target || isNaN(start)) {
-      el.textContent = formatter(target);
-      el.dataset.current = String(target);
-      return;
+      el.textContent = fmt(target, formatId);
+      el.dataset.current = String(target); return;
     }
     if (el._raf) cancelAnimationFrame(el._raf);
     var t0 = performance.now(), dur = 380;
     function tick(now) {
       var t = Math.min(1, (now - t0) / dur);
       var eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = formatter(start + (target - start) * eased);
+      el.textContent = fmt(start + (target - start) * eased, formatId);
       if (t < 1) el._raf = requestAnimationFrame(tick);
       else el.dataset.current = String(target);
     }
     el._raf = requestAnimationFrame(tick);
   }
 
-  /* ============ ENGINE: setup por iteración ============ */
-  function setupIter(iterEl) {
-    var calc = CALCS[iterEl.dataset.calc];
-    if (!calc) { console.warn('[Kairos ROI Pro] Sin CALCS para', iterEl); return null; }
-
-    /* Cache inputs */
-    var inputs = [];
-    iterEl.querySelectorAll('[data-input]').forEach(function (field) {
-      var slider = field.querySelector('input[type="range"]');
-      if (!slider) return;
-      inputs.push({
-        name:    field.dataset.input,
-        field:   field,
-        slider:  slider,
-        wrap:    field.querySelector('.kairos-roi__slider-wrap'),
-        bubble:  field.querySelector('.kairos-roi__bubble'),
-        display: field.querySelector('.kairos-roi__current-num'),
-        metricInput: field.dataset.metricInput || null  // si pertenece a una métrica
-      });
+  /* CACHE */
+  var inputs = [];
+  ROOT.querySelectorAll('[data-input]').forEach(function (field) {
+    var slider = field.querySelector('input[type="range"]');
+    if (!slider) return;
+    inputs.push({
+      name: field.dataset.input,
+      needsMetric: field.dataset.needsMetric || null,
+      field: field, slider: slider,
+      wrap: field.querySelector('.kairos-roi__slider-wrap'),
+      bubble: field.querySelector('.kairos-roi__bubble'),
+      display: field.querySelector('.kairos-roi__current-num')
     });
-
-    var metaInputs    = iterEl.querySelectorAll('[data-meta]');
-    var outputs       = iterEl.querySelectorAll('[data-output]');
-    var moneyToggle   = iterEl.querySelector('[data-money-toggle]');
-    var moneyField    = iterEl.querySelector('[data-money-field]');
-    var moneyResults  = iterEl.querySelectorAll('[data-money-result]');
-    var metricChecks  = iterEl.querySelectorAll('[data-metric]');
-    var metricBlocks  = iterEl.querySelectorAll('[data-metric-block]');
-    var warnEl        = iterEl.querySelector('[data-warn="repartoExcedido"]');
-    var titleSpan     = iterEl.querySelector('[data-output="nombreActivoTitulo"]');
-
-    function readInputs() {
-      var v = {};
-      for (var k = 0; k < inputs.length; k++) {
-        v[inputs[k].name] = parseFloat(inputs[k].slider.value) || 0;
-      }
-      return v;
-    }
-    function isMoneyOn() { return !!(moneyToggle && moneyToggle.getAttribute('aria-pressed') === 'true'); }
-    function activeMetrics() {
-      var s = new Set(['M1','M2','M3','M4']);
-      metricChecks.forEach(function(cb){ if (cb.checked) s.add(cb.dataset.metric); });
-      return s;
-    }
-
-    var queued = false;
-    function recalc() {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(function () { queued = false; doRecalc(); });
-    }
-
-    function doRecalc() {
-      var vals = readInputs();
-      var ctx  = { moneyOn: isMoneyOn() };
-      var result = calc(vals, ctx);
-      var active = activeMetrics();
-
-      // Refresca displays + burbujas
-      inputs.forEach(function (inp) {
-        var val = vals[inp.name];
-        if (inp.display && !inp.display.classList.contains('is-editing')) {
-          inp.display.textContent = fmt(val, inp.display.dataset.format || 'int');
-        }
-        if (inp.bubble) {
-          var bf = inp.bubble.dataset.format || 'int';
-          var sx = inp.bubble.dataset.suffix || '';
-          inp.bubble.textContent = fmt(val, bf) + sx;
-        }
-      });
-
-      // Outputs
-      outputs.forEach(function (out) {
-        var k = out.dataset.output;
-        if (k in result) animateNumber(out, result[k]);
-      });
-
-      // Visibilidad money cards
-      var showMoney = ctx.moneyOn && (vals.eh > 0);
-      moneyResults.forEach(function(el){ el.style.display = showMoney ? '' : 'none'; });
-
-      // Visibilidad bloques por métrica
-      metricBlocks.forEach(function(b){
-        var key = b.dataset.metricBlock;
-        if (key === 'nucleo') return;
-        b.hidden = !active.has(key);
-      });
-
-      // Validación reparto > 100
-      if (warnEl) warnEl.setAttribute('data-visible', result._repartoTotal > 100 ? 'true' : 'false');
-
-      // Barra Kairós/Cronos
-      var barKairos = iterEl.querySelector('[data-bar="kairos"]');
-      var barCronos = iterEl.querySelector('[data-bar="cronos"]');
-      if (barKairos) barKairos.style.width = result.pctKairos + '%';
-      if (barCronos) barCronos.style.width = result.pctCronos + '%';
-    }
-
-    /* Bind sliders */
-    inputs.forEach(function (inp) {
-      var update = function () {
-        paintTrack(inp.slider);
-        if (inp.bubble && inp.wrap) positionBubble(inp.slider, inp.bubble);
-        recalc();
-      };
-      inp.slider.addEventListener('input', update);
-      if (inp.wrap) {
-        var on  = function () { inp.wrap.setAttribute('data-active', 'true'); };
-        var off = function () { inp.wrap.removeAttribute('data-active'); };
-        inp.slider.addEventListener('pointerdown', on);
-        inp.slider.addEventListener('pointerup',   off);
-        inp.slider.addEventListener('pointercancel', off);
-        inp.slider.addEventListener('focus', on);
-        inp.slider.addEventListener('blur',  off);
-      }
-      update();
-    });
-
-    /* Override numérico (click en display) */
-    inputs.forEach(function (inp) {
-      if (!inp.display) return;
-      var d = inp.display, s = inp.slider;
-      function startEdit() {
-        if (d.classList.contains('is-editing')) return;
-        d.classList.add('is-editing');
-        d.contentEditable = 'plaintext-only';
-        d.textContent = String(s.value);
-        var range = document.createRange(); range.selectNodeContents(d);
-        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-        d.focus();
-      }
-      function commitEdit() {
-        if (!d.classList.contains('is-editing')) return;
-        var raw = (d.textContent || '').replace(/[^\d.-]/g, '');
-        var v = parseFloat(raw);
-        if (isNaN(v)) v = parseFloat(s.value) || 0;
-        v = clamp(Math.round(v), parseFloat(s.min), parseFloat(s.max));
-        d.classList.remove('is-editing'); d.contentEditable = 'false';
-        s.value = v; s.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      function cancelEdit() {
-        if (!d.classList.contains('is-editing')) return;
-        d.classList.remove('is-editing'); d.contentEditable = 'false';
-        s.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      d.addEventListener('click', startEdit);
-      d.addEventListener('blur',  commitEdit);
-      d.addEventListener('keydown', function (e) {
-        if (!d.classList.contains('is-editing')) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startEdit(); }
-          return;
-        }
-        if (e.key === 'Enter')  { e.preventDefault(); commitEdit(); }
-        else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
-      });
-      d.addEventListener('paste', function (e) {
-        e.preventDefault();
-        var text = ((e.clipboardData || window.clipboardData).getData('text') || '');
-        var clean = text.replace(/[^\d.-]/g, '');
-        var sel = window.getSelection();
-        if (sel && sel.rangeCount) {
-          var r = sel.getRangeAt(0);
-          r.deleteContents();
-          r.insertNode(document.createTextNode(clean));
-          r.collapse(false);
-          sel.removeAllRanges(); sel.addRange(r);
-        } else { d.textContent = clean; }
-      });
-    });
-
-    /* Money toggle */
-    if (moneyToggle && moneyField) {
-      moneyToggle.addEventListener('click', function () {
-        var next = moneyToggle.getAttribute('aria-pressed') !== 'true';
-        moneyToggle.setAttribute('aria-pressed', next ? 'true' : 'false');
-        moneyField.setAttribute('data-visible', next ? 'true' : 'false');
-        if (next) {
-          requestAnimationFrame(function () {
-            var ec = inputs.filter(function (x) { return x.field === moneyField; })[0];
-            if (ec) { paintTrack(ec.slider); if (ec.bubble) positionBubble(ec.slider, ec.bubble); }
-          });
-        }
-        recalc();
-      });
-    }
-
-    /* Metric checkboxes — show/hide inputs y blocks */
-    function syncMetricInputs() {
-      var active = activeMetrics();
-      iterEl.querySelectorAll('[data-metric-input]').forEach(function(el){
-        var on = active.has(el.dataset.metricInput);
-        el.setAttribute('data-active', on ? 'true' : 'false');
-        if (on) {
-          requestAnimationFrame(function(){
-            var s = el.querySelector('input[type="range"]');
-            var b = el.querySelector('.kairos-roi__bubble');
-            if (s) { paintTrack(s); if (b) positionBubble(s, b); }
-          });
-        }
-      });
-    }
-    metricChecks.forEach(function(cb){
-      cb.addEventListener('change', function(){
-        syncMetricInputs();
-        recalc();
-      });
-    });
-    syncMetricInputs();
-
-    /* Metadata: nombre del Activo en el título */
-    metaInputs.forEach(function(el){
-      if (el.dataset.meta === 'nombreActivo') {
-        el.addEventListener('input', function(){
-          if (titleSpan) titleSpan.textContent = el.value.trim() || 'Nuevo Activo Kairos';
-        });
-      }
-    });
-
-    /* Repaint hook */
-    function repaint() {
-      inputs.forEach(function (inp) {
-        paintTrack(inp.slider);
-        if (inp.bubble) positionBubble(inp.slider, inp.bubble);
-      });
-    }
-    iterEl.addEventListener('toggle', function () {
-      if (iterEl.open) requestAnimationFrame(repaint);
-    });
-
-    return repaint;
-  }
-
-  /* ============ INIT ============ */
-  var repaintHooks = [];
-  ROOT.querySelectorAll('.kairos-roi__iter').forEach(function (iterEl) {
-    var hook = setupIter(iterEl);
-    if (hook) repaintHooks.push(hook);
   });
 
-  /* Resize throttled */
+  var outputs = ROOT.querySelectorAll('[data-output]');
+  var moneyToggle = ROOT.querySelector('[data-money-toggle]');
+  var moneyField  = ROOT.querySelector('[data-money-field]');
+  var moneyOnlyEls = ROOT.querySelectorAll('[data-money-only]');
+  var resultGroups = ROOT.querySelectorAll('[data-result-for]');
+  var metricChips  = ROOT.querySelectorAll('.kairos-roi__metric-chip[data-metric]');
+  var warnEl       = ROOT.querySelector('[data-warn]');
+  var nameInput    = ROOT.querySelector('[data-meta="nombreActivo"]');
+  var segBtns      = ROOT.querySelectorAll('[data-tipo]');
+  var exportBtn    = ROOT.querySelector('[data-export]');
+
+  function readInputs() {
+    var v = {};
+    inputs.forEach(function (inp) { v[inp.name] = parseFloat(inp.slider.value) || 0; });
+    return v;
+  }
+  function isMoneyOn() {
+    return !!(moneyToggle && moneyToggle.getAttribute('aria-pressed') === 'true');
+  }
+  function activeMetrics() {
+    var set = {};
+    metricChips.forEach(function (c) {
+      if (c.dataset.checked === 'true') set[c.dataset.metric] = true;
+    });
+    return set;
+  }
+
+  /* recalc batched */
+  var queued = false;
+  function recalc() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; doRecalc(); });
+  }
+
+  function doRecalc() {
+    var vals = readInputs();
+    var ctx = { moneyOn: isMoneyOn() };
+    var result = calcActivo(vals, ctx);
+
+    /* Inputs displays + bubbles */
+    inputs.forEach(function (inp) {
+      var val = vals[inp.name];
+      if (inp.display && !inp.display.classList.contains('is-editing')) {
+        inp.display.textContent = fmt(val, inp.display.dataset.format || 'int');
+      }
+      if (inp.bubble) {
+        var bf = inp.bubble.dataset.format || 'int';
+        var sx = inp.bubble.dataset.suffix || '';
+        inp.bubble.textContent = fmt(val, bf) + sx;
+      }
+    });
+
+    /* Outputs */
+    outputs.forEach(function (out) {
+      var k = out.dataset.output;
+      if (k in result) animateNumber(out, result[k]);
+    });
+
+    /* Money visibility */
+    moneyOnlyEls.forEach(function (el) {
+      if (ctx.moneyOn) el.removeAttribute('hidden');
+      else el.setAttribute('hidden', '');
+    });
+
+    /* Kairós/Cronos bar */
+    var bar = ROOT.querySelector('[data-bar="kairos"]');
+    var bar2 = ROOT.querySelector('[data-bar="cronos"]');
+    if (bar && bar2 && result.horasAnio > 0) {
+      var p = (result.horasKairos / result.horasAnio) * 100;
+      bar.style.width  = p.toFixed(2) + '%';
+      bar2.style.width = (100 - p).toFixed(2) + '%';
+    } else if (bar && bar2) {
+      bar.style.width = '0%'; bar2.style.width = '100%';
+    }
+
+    /* Warn */
+    if (warnEl) {
+      warnEl.dataset.visible = (result._warnPct > 100) ? 'true' : 'false';
+    }
+  }
+
+  /* Bind sliders */
+  inputs.forEach(function (inp) {
+    var update = function () {
+      paintTrack(inp.slider);
+      if (inp.bubble && inp.wrap) positionBubble(inp.slider, inp.bubble);
+      recalc();
+    };
+    inp.slider.addEventListener('input', update);
+    if (inp.wrap) {
+      var on  = function () { inp.wrap.setAttribute('data-active', 'true'); };
+      var off = function () { inp.wrap.removeAttribute('data-active'); };
+      inp.slider.addEventListener('pointerdown', on);
+      inp.slider.addEventListener('pointerup',   off);
+      inp.slider.addEventListener('pointercancel', off);
+      inp.slider.addEventListener('focus', on);
+      inp.slider.addEventListener('blur',  off);
+    }
+    update();
+  });
+
+  /* Override numérico click-to-edit */
+  inputs.forEach(function (inp) {
+    if (!inp.display) return;
+    var d = inp.display, s = inp.slider;
+    function startEdit() {
+      if (d.classList.contains('is-editing')) return;
+      d.classList.add('is-editing');
+      d.contentEditable = 'plaintext-only';
+      d.textContent = String(s.value);
+      var range = document.createRange(); range.selectNodeContents(d);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range); d.focus();
+    }
+    function commitEdit() {
+      if (!d.classList.contains('is-editing')) return;
+      var raw = (d.textContent || '').replace(/[^\d.-]/g, '');
+      var v = parseFloat(raw); if (isNaN(v)) v = parseFloat(s.value) || 0;
+      var step = parseFloat(s.step) || 1;
+      v = clamp(v, parseFloat(s.min), parseFloat(s.max));
+      v = Math.round(v / step) * step;
+      d.classList.remove('is-editing'); d.contentEditable = 'false';
+      s.value = v; s.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    function cancelEdit() {
+      if (!d.classList.contains('is-editing')) return;
+      d.classList.remove('is-editing'); d.contentEditable = 'false';
+      s.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    d.addEventListener('click', startEdit);
+    d.addEventListener('blur', commitEdit);
+    d.addEventListener('keydown', function (e) {
+      if (!d.classList.contains('is-editing')) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startEdit(); } return;
+      }
+      if (e.key === 'Enter')  { e.preventDefault(); commitEdit(); }
+      else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
+    });
+    d.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var text = ((e.clipboardData || window.clipboardData).getData('text') || '');
+      var clean = text.replace(/[^\d.-]/g, '');
+      var sel = window.getSelection();
+      if (sel && sel.rangeCount) {
+        var r = sel.getRangeAt(0); r.deleteContents();
+        r.insertNode(document.createTextNode(clean)); r.collapse(false);
+        sel.removeAllRanges(); sel.addRange(r);
+      } else { d.textContent = clean; }
+    });
+  });
+
+  /* Money toggle */
+  if (moneyToggle && moneyField) {
+    moneyToggle.addEventListener('click', function () {
+      var next = moneyToggle.getAttribute('aria-pressed') !== 'true';
+      moneyToggle.setAttribute('aria-pressed', next ? 'true' : 'false');
+      if (next) moneyField.removeAttribute('hidden');
+      else      moneyField.setAttribute('hidden', '');
+      requestAnimationFrame(function () {
+        var ec = inputs.filter(function (x) { return x.field === moneyField; })[0];
+        if (ec) { paintTrack(ec.slider); if (ec.bubble) positionBubble(ec.slider, ec.bubble); }
+        recalc();
+      });
+    });
+  }
+
+  /* Métricas → toggle inputs por métrica + bloques de resultados */
+  function syncMetricVisibility() {
+    var active = activeMetrics();
+    inputs.forEach(function (inp) {
+      if (!inp.needsMetric) return;
+      if (active[inp.needsMetric]) {
+        inp.field.removeAttribute('hidden');
+        requestAnimationFrame(function () {
+          paintTrack(inp.slider);
+          if (inp.bubble) positionBubble(inp.slider, inp.bubble);
+        });
+      } else {
+        inp.field.setAttribute('hidden', '');
+      }
+    });
+    resultGroups.forEach(function (g) {
+      if (active[g.dataset.resultFor]) g.removeAttribute('hidden');
+      else g.setAttribute('hidden', '');
+    });
+  }
+  metricChips.forEach(function (chip) {
+    if (chip.dataset.locked === 'true') return;
+    chip.addEventListener('click', function (e) {
+      e.preventDefault();
+      var next = chip.dataset.checked !== 'true';
+      chip.dataset.checked = next ? 'true' : 'false';
+      var cb = chip.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = next;
+      syncMetricVisibility();
+      recalc();
+    });
+  });
+  syncMetricVisibility();
+
+  /* Tipo segmented */
+  segBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      segBtns.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    });
+  });
+
+  /* Nombre → no afecta cálculo, sólo se exporta */
+  /* Export placeholder */
+  if (exportBtn) {
+    exportBtn.addEventListener('click', function () {
+      var nombre = nameInput && nameInput.value ? nameInput.value : '(sin nombre)';
+      var tipo = '';
+      segBtns.forEach(function (b) { if (b.getAttribute('aria-pressed') === 'true') tipo = b.dataset.tipo; });
+      alert('Exportación pendiente · iter2.\nActivo: ' + nombre + '\nTipo: ' + tipo);
+    });
+  }
+
+  /* Resize repaint */
   var resizeRaf = null;
   window.addEventListener('resize', function () {
     if (resizeRaf) cancelAnimationFrame(resizeRaf);
     resizeRaf = requestAnimationFrame(function () {
-      repaintHooks.forEach(function (fn) { fn(); });
+      inputs.forEach(function (inp) {
+        if (!inp.field.hasAttribute('hidden')) {
+          paintTrack(inp.slider);
+          if (inp.bubble) positionBubble(inp.slider, inp.bubble);
+        }
+      });
     });
   });
-
-  /* CTA Exportar (placeholder iter1) */
-  ROOT.querySelectorAll('[data-action="export"]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      alert('iter1: la exportación se implementa en iter2 (sync con BBDD "Simulaciones ROI" + narrativa Claude).');
-    });
-  });
-
 })();
 </script>
