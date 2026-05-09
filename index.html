@@ -309,7 +309,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
             <li><b>FTE liberado</b> = Horas/año ÷ 1.760</li>
             <li><b>Capacidad € sin contratar</b> = FTE × Coste FTE anual</li>
             <li><b>Δ Factor bus</b> = Críticas después − Críticas antes <i>(negativo = mejor)</i></li>
-            <li><b>Apalancamiento operativo</b> = (40 − h_después_sem) ÷ (40 − h_antes_sem) <i>(jornada de referencia: 40 h/sem)</i></li>
           </ul>
           <p class="kr-formulas__group">Filosofía Kairos</p>
           <ul class="kr-formulas__list">
@@ -368,13 +367,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
                 <span class="kr-metric-chip-desc">Personas críticas que dejan de ser punto único de fallo.</span>
               </span>
             </label>
-               <label class="kr-metric-chip" data-metric="apalancamiento">
-                 <span class="kr-metric-chip-dot"></span><input type="checkbox">
-                 <span class="kr-metric-chip-text">
-                   <span class="kr-metric-chip-name">Apalancamiento operativo</span>
-                   <span class="kr-metric-chip-desc">Multiplicador de tiempo disponible del equipo tras la implementación. Sobre jornada de 40 h/sem.</span>
-                 </span>
-               </label>
           </div>
         </div>
 
@@ -755,15 +747,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
                 <span><b>Después:</b> <span data-output="critDespues" data-format="int">0</span></span>
               </div>
             </article>
-          <article class="kr-block kr-block--accent" data-block-for="apalancamiento" hidden>
-            <p class="kr-block__title">Apalancamiento operativo</p>
-            <p class="kr-block__value kr-block__value--accent"><span data-output="apalancamiento" data-format="num1">1</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
-            <p class="kr-block__unit">tiempo disponible del equipo tras el Activo</p>
-            <div class="kr-block__delta">
-              <span><b>Antes libre:</b> <span data-output="libreAntes" data-format="num1">40</span> h/sem</span>
-              <span><b>Ahora libre:</b> <span data-output="libreDespues" data-format="num1">40</span> h/sem</span>
-            </div>
-          </article>
           </div>
         </section>
 
@@ -902,7 +885,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     /* secciones (visibles si al menos un bloque dentro está activo) */
     const sectionMap = {
       operativas: ['aceleracion','errores','duplicidades'],
-      estrategicas: ['capacidadFTE','factorBus', 'apalancamiento'],
+      estrategicas: ['capacidadFTE','factorBus'],
       kairos: ['densidadKairos','momentum','autonomiaActivo']
     };
     Object.entries(sectionMap).forEach(([key, metrics]) => {
@@ -1018,14 +1001,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     setOut('deltaBus', i.criticas_despues - i.criticas_antes);
     setOut('critAntes', i.criticas_antes);
     setOut('critDespues', i.criticas_despues);
-    /* Apalancamiento operativo */
-     const J_SEM = 40;
-     const libreAntes   = Math.max(0, J_SEM - i.h_antes_sem);
-     const libreDespues = Math.max(0, J_SEM - i.h_despues_sem);
-     const apalancamiento = libreAntes > 0 ? (libreDespues / libreAntes) : 0;
-     setOut('libreAntes', libreAntes);
-     setOut('libreDespues', libreDespues);
-     setOut('apalancamiento', apalancamiento);
 
     /* FILOSOFÍA KAIROS */
     const horasKairos = horasAnio * (i.pct_estrategico / 100);
@@ -1085,13 +1060,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
         lines.push(`• Capacidad sin contratar: ${fmt(fte, 'num1')} FTE · ${fmt(fte * i.coste_FTE_anual, 'eur')}`);
       }
       if (m === 'factorBus') lines.push(`• Factor bus: ${fmt(i.criticas_despues - i.criticas_antes, 'signed')} personas críticas (${i.criticas_antes}→${i.criticas_despues})`);
-      if (m === 'apalancamiento') {
-            const J = 40;
-            const la = Math.max(0, J - i.h_antes_sem);
-            const ld = Math.max(0, J - i.h_despues_sem);
-            const v = la > 0 ? ld / la : 0;
-            lines.push(`• Apalancamiento operativo: ${fmt(v, 'num1')}× tiempo disponible (${fmt(la,'num1')}h → ${fmt(ld,'num1')}h libres/sem)`);
-          };
       if (m === 'densidadKairos') {
         const k = horasAnio * (i.pct_estrategico / 100);
         lines.push(`• Densidad Kairós: ${fmt(k, 'int')} h/año en alto valor (${i.pct_estrategico}% del tiempo liberado)`);
