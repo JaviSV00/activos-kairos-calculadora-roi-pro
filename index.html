@@ -459,6 +459,45 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 }
 .kairos-roi__cta-btn::after { content:"→"; transition:transform var(--kr-t-fast) var(--kr-ease); }
 .kairos-roi__cta-btn:hover::after { transform:translateX(3px); }
+/* MINI-DESPLEGABLE DE FÓRMULAS */
+.kr-formulas {
+  background:var(--kr-surface-2); border:1px dashed var(--kr-border-2);
+  border-radius:12px; margin:0 0 1rem 0; overflow:hidden;
+}
+.kr-formulas > summary {
+  list-style:none; cursor:pointer;
+  display:flex; align-items:center; gap:.6rem;
+  padding:.6rem .9rem; font-size:.8rem; font-weight:700;
+  color:var(--kr-text-soft);
+  transition:background var(--kr-t-fast) var(--kr-ease);
+}
+.kr-formulas > summary::-webkit-details-marker { display:none; }
+.kr-formulas > summary:hover { background:rgba(255,255,255,.02); color:var(--kr-text); }
+.kr-formulas__icon {
+  width:22px; height:22px; border-radius:6px;
+  background:rgba(249,99,2,.12); border:1px solid rgba(249,99,2,.30);
+  color:var(--kr-accent); font-style:italic; font-weight:900;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:.78rem; flex-shrink:0;
+}
+.kr-formulas__chev { margin-left:auto; font-size:.7rem; transition:transform var(--kr-t-med) var(--kr-ease); }
+.kr-formulas[open] .kr-formulas__chev { transform:rotate(180deg); }
+.kr-formulas__body {
+  padding:.2rem 1rem 1rem 1rem;
+  font-family:var(--kr-font-body);
+  font-size:.78rem; color:var(--kr-text-soft); line-height:1.55;
+}
+.kr-formulas__group {
+  font-family:var(--kr-font-display);
+  font-size:.68rem; font-weight:800; color:var(--kr-accent);
+  letter-spacing:.08em; text-transform:uppercase;
+  margin:.9rem 0 .35rem 0;
+}
+.kr-formulas__list { margin:0; padding-left:1.1rem; }
+.kr-formulas__list li { margin:.18rem 0; }
+.kr-formulas__list b { color:var(--kr-text); font-weight:700; }
+.kr-formulas__list i { color:var(--kr-muted); font-style:normal; font-size:.72rem; }
+.kr-formulas__note { margin:.9rem 0 0 0; font-size:.7rem; color:var(--kr-muted); }
 </style>
 </head>
 <body>
@@ -515,7 +554,49 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     </summary>
     <div class="kr-step__body">
       <p class="kr-section-sub">Activa las métricas que cuentan la historia de este Activo en este cliente. No marques las que no apliquen.</p>
+      <details class="kr-formulas">
+  <summary>
+    <span class="kr-formulas__icon" aria-hidden="true">ƒ</span>
+    <span>Ver fórmulas matemáticas</span>
+    <span class="kr-formulas__chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="kr-formulas__body">
 
+    <p class="kr-formulas__group">Núcleo</p>
+    <ul class="kr-formulas__list">
+      <li><b>Horas/semana</b> = (Min·persona·sem × Personas) ÷ 60</li>
+      <li><b>Horas/año</b> = Horas/semana × 48</li>
+      <li><b>Coste uso/año</b> = Coste mensual × 12</li>
+      <li><b>Capacidad neta €</b> = (Horas/año × €/h) − Coste uso/año</li>
+      <li><b>Valor 12/24/36m</b> = Horas/año × {1, 2, 3}</li>
+    </ul>
+
+    <p class="kr-formulas__group">Operativas</p>
+    <ul class="kr-formulas__list">
+      <li><b>Aceleración procesos</b> = % aceleración lead time <i>(input directo)</i></li>
+      <li><b>Horas retrabajo recuperadas</b> = Horas/año × % retrabajo</li>
+      <li><b>Horas duplicidades eliminadas</b> = Horas/año × % duplicado</li>
+    </ul>
+
+    <p class="kr-formulas__group">Estratégicas</p>
+    <ul class="kr-formulas__list">
+      <li><b>FTE liberado</b> = Horas/año ÷ 1.760</li>
+      <li><b>Capacidad € sin contratar</b> = FTE liberado × Coste FTE anual</li>
+      <li><b>Δ Factor bus</b> = Personas críticas después − antes <i>(negativo = mejor)</i></li>
+      <li><b>Velocidad acción</b> = % aceleración decisión→ejecución <i>(input directo)</i></li>
+    </ul>
+
+    <p class="kr-formulas__group">Filosofía Kairos</p>
+    <ul class="kr-formulas__list">
+      <li><b>Tiempo Kairós</b> = Horas/año × % alto valor</li>
+      <li><b>Tiempo Cronos</b> = Horas/año − Tiempo Kairós</li>
+      <li><b>Momentum</b> = Ciclos/Q después ÷ Ciclos/Q antes</li>
+      <li><b>Autonomía Score</b> = (% know-how ÷ 100) × (Factor escala ÷ 20) × 100</li>
+    </ul>
+
+    <p class="kr-formulas__note">Constantes: 48 semanas laborables/año · 1 FTE = 1.760 h/año.</p>
+  </div>
+</details>
       <div class="kr-metric-groups">
 
         <div class="kr-metric-group">
