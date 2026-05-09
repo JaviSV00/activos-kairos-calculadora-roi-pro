@@ -1,8 +1,8 @@
 <!-- =========================================================
-     CALCULADORA ROI · ACTIVOS KAIROS · v9
-     · Step 4 Propuesta rápida + export PDF
-     · ROI año 1 con benchmark sector + payback
-     · Fix definitivo de alturas (chips y campos)
+     CALCULADORA ROI · ACTIVOS KAIROS · v10
+     · Acordeón secuencial: cada "siguiente" cierra la fase actual
+     · Fase 3 → botón "Plantear propuesta"
+     · Fase 4 limpia (CTA único al final)
      ========================================================= -->
 <!DOCTYPE html>
 <html lang="es">
@@ -154,8 +154,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-step-next:hover { background:var(--kr-accent-2); transform:translateY(-1px); }
 .kr-step-next::after { content:"→"; transition:transform var(--kr-t-fast) var(--kr-ease); }
 .kr-step-next:hover::after { transform:translateX(3px); }
-[data-export-pdf] { padding:.75rem 1.4rem; font-size:.95rem; }
-[data-export-pdf]::after { content:"⤓"; }
 
 /* INPUTS · campos de altura uniforme */
 .kr-inputs { display:grid; grid-template-columns:1fr; grid-auto-rows: minmax(11.5rem, auto); gap:1rem; align-items:stretch; }
@@ -793,6 +791,8 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
         </section>
 
       </div>
+
+      <div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="propuesta">Plantear propuesta</button></div>
     </div>
   </details>
 
@@ -847,8 +847,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           <p class="kr-block__unit">vs media del sector (<span data-output="roiMedioRef">250</span>%)</p>
         </article>
       </div>
-
-      <div class="kr-step-nav"><button type="button" class="kr-step-next" data-export-pdf>Generar propuesta PDF</button></div>
     </div>
   </details>
 
@@ -915,11 +913,20 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   requestAnimationFrame(() => requestAnimationFrame(moveSwitch));
   window.addEventListener('resize', moveSwitch);
 
-  /* NAV step buttons */
+  /* NAV step buttons · ACORDEÓN SECUENCIAL
+     Cierra la fase actual antes de abrir la siguiente. */
   root.querySelectorAll('[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const t = root.querySelector(`.kr-step[data-step="${btn.dataset.next}"]`);
-      if (t) { t.open = true; t.querySelector('summary').scrollIntoView({ behavior:'smooth', block:'start' }); }
+      const current = btn.closest('.kr-step');
+      const target = root.querySelector(`.kr-step[data-step="${btn.dataset.next}"]`);
+      if (current && current !== target) current.open = false;
+      if (target) {
+        target.open = true;
+        // Pequeño delay para que el cierre de la actual no pelee con el scroll a la nueva
+        setTimeout(() => {
+          target.querySelector('summary').scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 60);
+      }
     });
   });
 
