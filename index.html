@@ -1,8 +1,8 @@
 <!-- =========================================================
-     CALCULADORA ROI · ACTIVOS KAIROS · v10
-     · Acordeón secuencial: cada "siguiente" cierra la fase actual
-     · Fase 3 → botón "Plantear propuesta"
-     · Fase 4 limpia (CTA único al final)
+     CALCULADORA ROI · ACTIVOS KAIROS · v11
+     · Núcleo: Capital Neto Ahorrado (sustituye ROI año 1)
+     · Fase 4: Precio propuesta + ROI objetivo + Capital 3 años
+     · PDF: columna estrecha, fondo #191919, logo Kairos, Satoshi
      ========================================================= -->
 <!DOCTYPE html>
 <html lang="es">
@@ -214,7 +214,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-warn { margin-top:.85rem; padding:.55rem .85rem; background:rgba(255,181,71,.08); border:1px solid rgba(255,181,71,.35); border-radius:10px; color:var(--kr-warn); font-size:.78rem; display:none; }
 .kr-warn[data-visible="true"] { display:block; }
 
-/* STEP 4 · BENCHMARKS */
+/* STEP 4 · PROPUESTA */
 .kr-bench-grid { display:grid; grid-template-columns:1fr; gap:.85rem; }
 @media (min-width:640px){ .kr-bench-grid { grid-template-columns:repeat(2, 1fr); } }
 .kr-bench { padding:.95rem 1.05rem; background:var(--kr-surface-2); border:1px solid var(--kr-border); border-radius:14px; display:flex; flex-direction:column; gap:.55rem; }
@@ -227,6 +227,14 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-bench-unit { font-size:.85rem; font-weight:700; color:var(--kr-accent); flex-shrink:0; }
 .kr-bench-help { font-family:var(--kr-font-body); font-size:.72rem; color:var(--kr-muted); line-height:1.4; }
 .kr-bench-help b { color:var(--kr-text-soft); font-weight:700; }
+
+/* ROI target selector */
+.kr-roi-target { display:inline-flex; gap:.25rem; padding:3px; background:var(--kr-bg); border:1px solid var(--kr-border-2); border-radius:10px; align-self:flex-start; }
+.kr-roi-btn { padding:.4rem .75rem; border:none; background:transparent; color:var(--kr-text-soft); font-family:var(--kr-font-display); font-weight:700; font-size:.85rem; border-radius:7px; cursor:pointer; transition:background var(--kr-t-fast) var(--kr-ease), color var(--kr-t-fast) var(--kr-ease); font-variant-numeric:tabular-nums; }
+.kr-roi-btn:hover { color:var(--kr-text); }
+.kr-roi-btn[aria-pressed="true"] { background:var(--kr-accent); color:#0a0a0a; }
+.kr-link { background:none; border:none; padding:0; color:var(--kr-accent); font-family:var(--kr-font-display); font-weight:700; font-size:inherit; cursor:pointer; text-decoration:underline; text-underline-offset:3px; transition:color var(--kr-t-fast) var(--kr-ease); }
+.kr-link:hover { color:var(--kr-accent-2); }
 
 .kairos-roi__cta { margin-top:1.5rem; padding-top:1.4rem; border-top:1px solid var(--kr-border); display:flex; flex-direction:column; gap:1rem; align-items:flex-start; }
 @media (min-width:640px){ .kairos-roi__cta { flex-direction:row; justify-content:space-between; align-items:center; } }
@@ -291,9 +299,10 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           <ul class="kr-formulas__list">
             <li><b>Horas liberadas/año</b> = (h_antes_sem − h_después_sem) × Personas × 48</li>
             <li><b>Variación coste de uso/año</b> = (Coste_antes − Coste_después) × 12</li>
-            <li><b>Retorno anual (€)</b> = Horas/año × €/h + Variación coste de uso/año</li>
-            <li><b>ROI año 1 (%)</b> = Retorno anual ÷ Precio facturado × 100</li>
-            <li><b>Payback (meses)</b> = Precio facturado ÷ Retorno anual × 12</li>
+            <li><b>Capital neto ahorrado/año</b> = Horas/año × €/h + Variación coste de uso/año</li>
+            <li><b>ROI año 1 (%)</b> = Capital neto ÷ Precio propuesta × 100</li>
+            <li><b>Payback (meses)</b> = Precio propuesta ÷ Capital neto × 12</li>
+            <li><b>Capital neto a 3 años</b> = Capital neto/año × 3 <i>(el Activo se sigue amortizando)</i></li>
           </ul>
           <p class="kr-formulas__group">Operativas</p>
           <ul class="kr-formulas__list">
@@ -671,12 +680,12 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
               <p class="kr-block__unit"><span data-output="horasSemana" data-format="num1">0</span> h/semana · 48 sem laborables</p>
             </article>
             <article class="kr-block kr-block--accent" data-money-only hidden>
-              <p class="kr-block__title">ROI · año 1</p>
-              <p class="kr-block__value kr-block__value--accent"><span data-output="roiPct" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
-              <p class="kr-block__unit">retorno sobre la inversión del Activo</p>
+              <p class="kr-block__title">Capital neto ahorrado / año</p>
+              <p class="kr-block__value kr-block__value--accent" data-output="ahorroNeto" data-format="eur">0 €</p>
+              <p class="kr-block__unit">valor anual generado por el Activo</p>
               <div class="kr-block__delta">
-                <span><b>Retorno:</b> <span data-output="ahorroNeto" data-format="eur">0 €</span>/año</span>
-                <span><b>Inversión:</b> <span data-output="precioRef" data-format="eur">3.500 €</span></span>
+                <span><b>Tiempo:</b> <span data-output="valorTiempo" data-format="eur">0 €</span></span>
+                <span><b>Coste de uso:</b> <span data-output="varCoste" data-format="eur">0 €</span></span>
               </div>
             </article>
             <article class="kr-block">
@@ -800,51 +809,53 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   <details class="kr-step" data-step="propuesta">
     <summary>
       <span class="kr-step__num">4</span>
-      <span class="kr-step__title">Propuesta rápida</span>
-      <span class="kr-step__hint">Genera el PDF para el cliente</span>
+      <span class="kr-step__title">Propuesta</span>
+      <span class="kr-step__hint">Pon precio · genera el PDF</span>
       <span class="kr-step__chevron" aria-hidden="true">▾</span>
     </summary>
     <div class="kr-step__body">
-      <p class="kr-section-sub">Compara el ROI de este Activo con la media del sector y exporta una propuesta lista para enviar.</p>
+      <p class="kr-section-sub">Fija el precio que vas a facturar y comprueba ROI, payback y capital acumulado a 3 años. El selector de ROI objetivo te sugiere precio en directo.</p>
 
       <div class="kr-bench-grid">
         <div class="kr-bench">
-          <div class="kr-bench-label">Precio facturado por el Activo</div>
+          <div class="kr-bench-label">Precio propuesta</div>
           <div class="kr-bench-control">
             <input type="number" class="kr-bench-input" data-bench="precio" value="3500" min="0" step="100" inputmode="numeric">
             <span class="kr-bench-unit">€</span>
           </div>
-          <div class="kr-bench-help">Media España · SMB · automatización: <b>~3.500 €</b></div>
+          <div class="kr-bench-help">Precio al que vas a facturar este Activo al cliente.</div>
         </div>
         <div class="kr-bench">
-          <div class="kr-bench-label">ROI medio del sector (referencia)</div>
-          <div class="kr-bench-control">
-            <input type="number" class="kr-bench-input" data-bench="roiMedio" value="250" min="0" step="10" inputmode="numeric">
-            <span class="kr-bench-unit">%</span>
+          <div class="kr-bench-label">ROI objetivo · sugerencia de precio</div>
+          <div class="kr-roi-target" role="radiogroup" aria-label="ROI objetivo">
+            <button type="button" class="kr-roi-btn" data-roi-target="3" aria-pressed="false">3×</button>
+            <button type="button" class="kr-roi-btn" data-roi-target="4" aria-pressed="true">4×</button>
+            <button type="button" class="kr-roi-btn" data-roi-target="5" aria-pressed="false">5×</button>
+            <button type="button" class="kr-roi-btn" data-roi-target="6" aria-pressed="false">6×</button>
           </div>
-          <div class="kr-bench-help">Año 1 · Forrester / McKinsey / Bain: <b>~250 %</b></div>
+          <div class="kr-bench-help">A <b><span data-output="roiTargetX">4</span>×</b> facturarías <b><span data-output="precioSugerido" data-format="eur">0 €</span></b> · <button type="button" class="kr-link" data-apply-suggested>aplicar</button></div>
         </div>
       </div>
 
       <div class="kr-blocks" style="margin-top:1.1rem;">
         <article class="kr-block kr-block--accent">
-          <p class="kr-block__title">ROI de este Activo</p>
+          <p class="kr-block__title">ROI año 1</p>
           <p class="kr-block__value kr-block__value--accent"><span data-output="roiPct" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
-          <p class="kr-block__unit">año 1 sobre la inversión</p>
+          <p class="kr-block__unit">sobre la inversión propuesta</p>
           <div class="kr-block__delta">
-            <span><b>Retorno:</b> <span data-output="ahorroNeto" data-format="eur">0 €</span></span>
+            <span><b>Capital neto:</b> <span data-output="ahorroNeto" data-format="eur">0 €</span></span>
             <span><b>Inversión:</b> <span data-output="precioRef" data-format="eur">3.500 €</span></span>
           </div>
         </article>
         <article class="kr-block">
-          <p class="kr-block__title">Tiempo de retorno</p>
+          <p class="kr-block__title">Payback</p>
           <p class="kr-block__value"><span data-output="payback" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> meses</span></p>
-          <p class="kr-block__unit">hasta amortizar el Activo</p>
+          <p class="kr-block__unit">tiempo hasta amortizar</p>
         </article>
         <article class="kr-block">
-          <p class="kr-block__title">Diferencial vs sector</p>
-          <p class="kr-block__value" data-output="roiDelta" data-format="signedPct">0%</p>
-          <p class="kr-block__unit">vs media del sector (<span data-output="roiMedioRef">250</span>%)</p>
+          <p class="kr-block__title">Capital neto · 3 años</p>
+          <p class="kr-block__value" data-output="capital3y" data-format="eur">0 €</p>
+          <p class="kr-block__unit">valor acumulado sin esfuerzo adicional</p>
         </article>
       </div>
     </div>
@@ -867,7 +878,8 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 
   const state = {
     tipo: 'Automatización', money: false, metrics: new Set(),
-    bench: { precio: 3500, roiMedio: 250 },
+    bench: { precio: 3500 },
+    roiTarget: 4,
     inputs: {
       h_antes_sem: 0, h_despues_sem: 0, P: 0,
       coste_antes_mes: 0, coste_despues_mes: 0, eh: 0,
@@ -913,8 +925,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   requestAnimationFrame(() => requestAnimationFrame(moveSwitch));
   window.addEventListener('resize', moveSwitch);
 
-  /* NAV step buttons · ACORDEÓN SECUENCIAL
-     Cierra la fase actual antes de abrir la siguiente. */
+  /* NAV step buttons · cierra fase actual + abre siguiente */
   root.querySelectorAll('[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
       const current = btn.closest('.kr-step');
@@ -922,7 +933,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       if (current && current !== target) current.open = false;
       if (target) {
         target.open = true;
-        // Pequeño delay para que el cierre de la actual no pelee con el scroll a la nueva
         setTimeout(() => {
           target.querySelector('summary').scrollIntoView({ behavior:'smooth', block:'start' });
         }, 60);
@@ -972,7 +982,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     compute();
   });
 
-  /* BENCH inputs (Step 4) */
+  /* BENCH input · precio */
   root.querySelectorAll('[data-bench]').forEach(inp => {
     const key = inp.dataset.bench;
     inp.addEventListener('input', () => {
@@ -980,6 +990,31 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       compute();
     });
   });
+
+  /* ROI target buttons */
+  root.querySelectorAll('[data-roi-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      root.querySelectorAll('[data-roi-target]').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      state.roiTarget = +btn.dataset.roiTarget;
+      compute();
+    });
+  });
+  /* Aplicar precio sugerido */
+  const applyBtn = root.querySelector('[data-apply-suggested]');
+  if (applyBtn) {
+    applyBtn.addEventListener('click', () => {
+      const i = state.inputs;
+      const horasAnio = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P) * S;
+      const varCoste = (i.coste_antes_mes - i.coste_despues_mes) * 12;
+      const ahorroNeto = state.money ? (horasAnio * i.eh) + varCoste : 0;
+      if (ahorroNeto <= 0 || state.roiTarget <= 0) return;
+      const sugerido = ahorroNeto / state.roiTarget;
+      const precioInp = root.querySelector('[data-bench="precio"]');
+      precioInp.value = Math.round(sugerido / 100) * 100;
+      state.bench.precio = +precioInp.value;
+      compute();
+    });
+  }
 
   /* SLIDERS */
   function getKey(field) { return field.dataset.input; }
@@ -1048,13 +1083,15 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const costeAntesAnio    = i.coste_antes_mes * 12;
     const costeDespuesAnio  = i.coste_despues_mes * 12;
     const varCoste          = costeAntesAnio - costeDespuesAnio;
-    const ahorroNeto        = state.money ? (horasAnio * i.eh) + varCoste : 0;
+    const valorTiempo       = state.money ? horasAnio * i.eh : 0;
+    const ahorroNeto        = state.money ? valorTiempo + varCoste : 0;
 
     setOut('horasSemana', horasSemana);
     setOut('horasAnio',   horasAnio);
     setOut('costeAntesAnio', costeAntesAnio);
     setOut('costeDespuesAnio', costeDespuesAnio);
     setOut('varCoste',  varCoste);
+    setOut('valorTiempo', valorTiempo);
     setOut('ahorroNeto', ahorroNeto);
     setOut('ahorroNetoHero', ahorroNeto);
 
@@ -1099,17 +1136,19 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     setOut('pctConocimiento', i.pct_conocimiento_sistema);
     setOut('factorEscala', i.factor_escalabilidad);
 
-    /* ROI · Payback · Diferencial sector */
+    /* Propuesta · ROI · Payback · Capital 3y · Sugerencia */
     const precio = Math.max(0, b.precio);
-    const roiMedio = b.roiMedio;
     const roiPct  = (state.money && precio > 0) ? (ahorroNeto / precio) * 100 : 0;
     const payback = (state.money && ahorroNeto > 0) ? (precio / ahorroNeto) * 12 : 0;
-    const roiDelta = roiPct - roiMedio;
-    setOut('precioRef',   precio);
-    setOut('roiPct',      roiPct);
-    setOut('payback',     payback);
-    setOut('roiDelta',    roiDelta);
-    setOut('roiMedioRef', roiMedio);
+    const capital3y = ahorroNeto * 3;
+    const precioSugerido = (state.money && state.roiTarget > 0 && ahorroNeto > 0) ? ahorroNeto / state.roiTarget : 0;
+
+    setOut('precioRef', precio);
+    setOut('roiPct',    roiPct);
+    setOut('payback',   payback);
+    setOut('capital3y', capital3y);
+    setOut('precioSugerido', precioSugerido);
+    setOut('roiTargetX', state.roiTarget);
 
     /* Validación */
     const warn = root.querySelector('[data-warn]');
@@ -1122,7 +1161,7 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     });
   }
 
-  /* EXPORT PDF (print window) */
+  /* EXPORT PDF · estética Kairos */
   function generarPropuestaPDF() {
     const i = state.inputs, b = state.bench;
     const nombre = root.querySelector('[data-meta="nombreActivo"]').value.trim() || 'Activo Kairos';
@@ -1131,99 +1170,184 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const horasSemana = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P);
     const horasAnio   = horasSemana * S;
     const varCoste    = (i.coste_antes_mes - i.coste_despues_mes) * 12;
-    const ahorroNeto  = state.money ? (horasAnio * i.eh) + varCoste : 0;
+    const valorTiempo = state.money ? horasAnio * i.eh : 0;
+    const ahorroNeto  = state.money ? valorTiempo + varCoste : 0;
     const roiPct      = (state.money && b.precio > 0) ? (ahorroNeto / b.precio) * 100 : 0;
     const payback     = (state.money && ahorroNeto > 0) ? (b.precio / ahorroNeto) * 12 : 0;
-    const roiDelta    = roiPct - b.roiMedio;
+    const capital3y   = ahorroNeto * 3;
+    const fte         = horasAnio / H_FTE;
 
-    const fila = (titulo, valor, sub='') =>
-      `<div class="pp-block"><div class="pp-block-t">${titulo}</div><div class="pp-block-v">${valor}</div>${sub?`<div class="pp-block-s">${sub}</div>`:''}</div>`;
+    const fecha = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
 
-    const blocks = [];
-    blocks.push(fila('Horas liberadas / año', fmt(horasAnio,'int'), `${fmt(horasSemana,'num1')} h/sem · 48 sem`));
-    if (state.money) blocks.push(fila('ROI · año 1', fmt(roiPct,'int')+' %', `Retorno ${fmt(ahorroNeto,'eur')} · Inversión ${fmt(b.precio,'eur')}`));
-    blocks.push(fila('Variación coste de uso', fmt(varCoste,'eur')+'/año', `Antes ${fmt(i.coste_antes_mes*12,'eur')} → Después ${fmt(i.coste_despues_mes*12,'eur')}`));
+    const logoSvg = `<svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><g fill="#F96302"><rect x="13" y="10" width="9" height="44" rx="1.5"/><path d="M22 30 L40 10 L52 10 L31 32 L52 54 L40 54 L22 34 Z"/></g></svg>`;
 
+    /* Núcleo blocks · arriba · lo que gana */
+    const nucleoCard = state.money
+      ? `<div class="pp-hero">
+           <div class="pp-hero-label">Capital neto ahorrado · año 1</div>
+           <div class="pp-hero-value">${fmt(ahorroNeto,'eur')}</div>
+           <div class="pp-hero-sub">${fmt(horasAnio,'int')} h liberadas/año · ${fmt(fte,'num1')} FTE equivalente</div>
+         </div>`
+      : `<div class="pp-hero">
+           <div class="pp-hero-label">Horas liberadas · año 1</div>
+           <div class="pp-hero-value">${fmt(horasAnio,'int')} <span>h</span></div>
+           <div class="pp-hero-sub">${fmt(horasSemana,'num1')} h/semana · ${fmt(fte,'num1')} FTE equivalente</div>
+         </div>`;
+
+    /* Propuesta · precio + ROI + payback + 3y */
+    const propuestaCard = state.money ? `
+      <div class="pp-section-h">Propuesta</div>
+      <div class="pp-grid pp-grid-3">
+        <div class="pp-block"><div class="pp-block-t">Inversión</div><div class="pp-block-v">${fmt(b.precio,'eur')}</div></div>
+        <div class="pp-block pp-block-accent"><div class="pp-block-t">ROI año 1</div><div class="pp-block-v">${fmt(roiPct,'int')}<span>%</span></div></div>
+        <div class="pp-block"><div class="pp-block-t">Payback</div><div class="pp-block-v">${fmt(payback,'num1')}<span>m</span></div></div>
+      </div>
+      <div class="pp-row">
+        <div class="pp-row-t">Capital neto acumulado · 3 años</div>
+        <div class="pp-row-v">${fmt(capital3y,'eur')}</div>
+      </div>` : `
+      <div class="pp-section-h">Propuesta</div>
+      <div class="pp-row">
+        <div class="pp-row-t">Inversión</div>
+        <div class="pp-row-v">${fmt(b.precio,'eur')}</div>
+      </div>
+      <div class="pp-note pp-note-warn">Activa el cálculo en € en la calculadora para incluir ROI, payback y capital a 3 años.</div>
+    `;
+
+    /* Complementarias · solo las activadas */
+    const comp = [];
     if (state.metrics.has('aceleracion')) {
       const pct = i.lt_antes_h > 0 ? ((i.lt_antes_h - i.lt_despues_h)/i.lt_antes_h)*100 : 0;
-      blocks.push(fila('Reducción del lead time', fmt(Math.max(0,pct),'num1')+' %', `${i.lt_antes_h}h → ${i.lt_despues_h}h`));
+      comp.push({ t:'Reducción del lead time', v: fmt(Math.max(0,pct),'num1')+' %', s: `${fmt(i.lt_antes_h,'num1')} h → ${fmt(i.lt_despues_h,'num1')} h` });
     }
     if (state.metrics.has('errores')) {
       const r = i.pct_errores_antes > 0 ? ((i.pct_errores_antes - ERR_POST)/i.pct_errores_antes)*100 : 0;
-      blocks.push(fila('Reducción de errores', fmt(Math.max(0,r),'num1')+' %', `${i.pct_errores_antes}% → 3,43%`));
+      comp.push({ t:'Reducción de errores', v: fmt(Math.max(0,r),'num1')+' %', s: `${fmt(i.pct_errores_antes,'num1')} % → 3,43 %` });
     }
     if (state.metrics.has('duplicidades')) {
       const h = i.h_antes_sem * i.P * S * (i.pct_duplicidades/100);
-      blocks.push(fila('Horas duplicadas eliminadas', fmt(h,'int')+' h/año'));
+      comp.push({ t:'Horas duplicadas eliminadas', v: fmt(h,'int')+' h/año', s: `${i.pct_duplicidades} % del tiempo era duplicado` });
     }
     if (state.metrics.has('capacidadFTE')) {
-      const fte = horasAnio / H_FTE;
-      blocks.push(fila('Capacidad sin contratar', fmt(fte,'num1')+' FTE', fmt(fte*i.coste_FTE_anual,'eur')));
+      comp.push({ t:'Capacidad sin contratar', v: fmt(fte,'num1')+' FTE', s: fmt(fte * i.coste_FTE_anual,'eur')+'/año equivalente' });
     }
-    if (state.metrics.has('factorBus'))
-      blocks.push(fila('Δ Factor bus', fmt(i.criticas_despues - i.criticas_antes,'signed')+' personas críticas', `${i.criticas_antes} → ${i.criticas_despues}`));
+    if (state.metrics.has('factorBus')) {
+      comp.push({ t:'Δ Factor bus', v: fmt(i.criticas_despues - i.criticas_antes,'signed')+' personas', s: `${i.criticas_antes} → ${i.criticas_despues} críticas` });
+    }
     if (state.metrics.has('apalancamiento')) {
       const la = Math.max(0, J_SEM - i.h_antes_sem);
       const ld = Math.max(0, J_SEM - i.h_despues_sem);
       const v = la > 0 ? ld/la : 0;
-      blocks.push(fila('Apalancamiento operativo', fmt(v,'num1')+'×', `${fmt(la,'num1')}h → ${fmt(ld,'num1')}h libres/sem`));
+      comp.push({ t:'Apalancamiento operativo', v: fmt(v,'num1')+'×', s: `${fmt(la,'num1')} h → ${fmt(ld,'num1')} h libres/sem` });
     }
     if (state.metrics.has('densidadKairos')) {
       const k = horasAnio * (i.pct_estrategico/100);
-      blocks.push(fila('Tiempo Kairós', fmt(k,'int')+' h/año', `${i.pct_estrategico}% del tiempo liberado a alto valor`));
+      comp.push({ t:'Tiempo Kairós', v: fmt(k,'int')+' h/año', s: `${i.pct_estrategico} % del tiempo liberado a alto valor` });
     }
     if (state.metrics.has('momentum')) {
       const f = i.iter_despues > 0 ? i.iter_antes/i.iter_despues : 0;
-      blocks.push(fila('Momentum', fmt(f,'num1')+'×', `${i.iter_antes} → ${i.iter_despues} intentos`));
+      comp.push({ t:'Momentum', v: fmt(f,'num1')+'×', s: `${i.iter_antes} → ${i.iter_despues} intentos` });
     }
-    if (state.metrics.has('autonomiaActivo'))
-      blocks.push(fila('Autonomía del Activo', i.pct_conocimiento_sistema+'% know-how', `${fmt(i.factor_escalabilidad,'num1')}× escalabilidad`));
+    if (state.metrics.has('autonomiaActivo')) {
+      comp.push({ t:'Autonomía del Activo', v: i.pct_conocimiento_sistema+' %', s: `${fmt(i.factor_escalabilidad,'num1')}× escalabilidad` });
+    }
 
-    const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Propuesta · ${nombre}</title>
+    const compHtml = comp.length
+      ? `<div class="pp-section-h">Métricas complementarias</div>
+         <div class="pp-grid pp-grid-2">
+           ${comp.map(c => `<div class="pp-block"><div class="pp-block-t">${c.t}</div><div class="pp-block-v">${c.v}</div>${c.s ? `<div class="pp-block-s">${c.s}</div>` : ''}</div>`).join('')}
+         </div>`
+      : '';
+
+    const html = `<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8">
+<title>Propuesta · ${nombre}</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
 <style>
-  @page { size: A4; margin: 18mm 16mm; }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif; color:#191919; background:#fff; line-height:1.5;}
-  .pp-h{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:2px solid #F96302;margin-bottom:22px;}
-  .pp-logo{width:46px;height:46px;background:#F96302;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:22px;letter-spacing:-2px;}
-  .pp-t{flex:1;}
-  .pp-t1{font-size:11px;font-weight:700;color:#F96302;letter-spacing:.12em;text-transform:uppercase;}
-  .pp-t2{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-top:2px;}
-  .pp-meta{font-size:11px;color:#666;text-align:right;}
-  .pp-summary{background:linear-gradient(180deg,#fff5ee 0%,#fff 100%);border:1px solid #F96302;border-radius:10px;padding:18px 20px;margin-bottom:22px;}
-  .pp-sum-t{font-size:10px;font-weight:700;color:#F96302;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
-  .pp-sum-v{font-size:32px;font-weight:900;color:#F96302;letter-spacing:-.03em;}
-  .pp-sum-s{font-size:13px;color:#444;margin-top:4px;}
-  .pp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .pp-block{border:1px solid #e3e3e3;border-radius:8px;padding:12px 14px;page-break-inside:avoid;}
-  .pp-block-t{font-size:10px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.06em;}
-  .pp-block-v{font-size:18px;font-weight:900;color:#191919;letter-spacing:-.02em;margin-top:3px;}
-  .pp-block-s{font-size:11px;color:#666;margin-top:3px;}
-  .pp-foot{margin-top:26px;padding-top:14px;border-top:1px solid #e3e3e3;display:flex;justify-content:space-between;font-size:10px;color:#888;}
-  .pp-note{margin-top:14px;padding:10px 14px;background:#fff5ee;border-left:3px solid #F96302;border-radius:4px;font-size:11px;color:#555;}
-  @media print { .pp-noprint{display:none;} body{-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
-  .pp-noprint{position:fixed;top:14px;right:14px;background:#F96302;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;}
-</style></head><body>
-<button class="pp-noprint" onclick="window.print()">⤓ Imprimir / PDF</button>
-<div class="pp-h">
-  <div class="pp-logo">K</div>
-  <div class="pp-t"><div class="pp-t1">Activos Kairos · Propuesta de Valor</div><div class="pp-t2">${nombre}</div></div>
-  <div class="pp-meta">${tipo}<br>${new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'})}</div>
-</div>
-${state.money ? `<div class="pp-summary">
-  <div class="pp-sum-t">ROI año 1</div>
-  <div class="pp-sum-v">${fmt(roiPct,'int')} %</div>
-  <div class="pp-sum-s">Retorno: <b>${fmt(ahorroNeto,'eur')}/año</b> · Inversión: <b>${fmt(b.precio,'eur')}</b> · Payback: <b>${fmt(payback,'num1')} meses</b><br>Diferencial vs media sector (${b.roiMedio}%): <b>${roiDelta>=0?'+':''}${fmt(Math.round(roiDelta),'int')} pp</b></div>
-</div>` : ''}
-<div class="pp-grid">${blocks.join('')}</div>
-<div class="pp-note">Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. Las cifras mostradas son anuales.</div>
-<div class="pp-foot"><span>Activos Kairos · activoskairos.com</span><span>Generado por la Calculadora ROI</span></div>
+  @page { size: A4; margin: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background:#191919; }
+  body {
+    font-family:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:#fff; line-height:1.5;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    padding: 22mm 38mm;
+  }
+  .pp-h { display:flex; align-items:center; gap:12px; padding-bottom:16px; border-bottom:1px solid #2a2a2a; margin-bottom:22px; }
+  .pp-logo { width:40px; height:40px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; }
+  .pp-h-meta { flex:1; min-width:0; }
+  .pp-h-eyebrow { font-size:9px; font-weight:700; color:#F96302; letter-spacing:.14em; text-transform:uppercase; }
+  .pp-h-name { font-size:18px; font-weight:900; letter-spacing:-.025em; color:#fff; margin-top:2px; line-height:1.15; }
+  .pp-h-date { font-size:9.5px; color:#8a8a8a; text-align:right; white-space:nowrap; }
+  .pp-h-date b { display:block; color:#d6d6d6; font-weight:700; font-size:10px; margin-bottom:2px; letter-spacing:.04em; }
+
+  .pp-section-h { font-size:9px; font-weight:800; color:#F96302; letter-spacing:.14em; text-transform:uppercase; margin:22px 0 8px 0; padding-bottom:5px; border-bottom:1px solid #2a2a2a; }
+  .pp-section-h:first-of-type { margin-top:0; }
+
+  .pp-hero { background:linear-gradient(180deg, rgba(249,99,2,.10) 0%, #1f1f1f 80%); border:1px solid rgba(249,99,2,.35); border-radius:12px; padding:18px 20px; margin-bottom:6px; }
+  .pp-hero-label { font-size:9px; font-weight:700; color:#d6d6d6; letter-spacing:.10em; text-transform:uppercase; }
+  .pp-hero-value { font-size:34px; font-weight:900; color:#F96302; letter-spacing:-.03em; line-height:1.05; margin-top:4px; font-variant-numeric:tabular-nums; }
+  .pp-hero-value span { font-size:18px; color:#8a8a8a; font-weight:700; margin-left:4px; }
+  .pp-hero-sub { font-size:11px; color:#d6d6d6; margin-top:6px; }
+
+  .pp-grid { display:grid; gap:8px; margin-top:8px; }
+  .pp-grid-2 { grid-template-columns:repeat(2, 1fr); }
+  .pp-grid-3 { grid-template-columns:repeat(3, 1fr); }
+  .pp-block { background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 12px; page-break-inside:avoid; }
+  .pp-block-accent { border-color:rgba(249,99,2,.45); background:linear-gradient(180deg, rgba(249,99,2,.08) 0%, #1f1f1f 80%); }
+  .pp-block-t { font-size:8.5px; font-weight:700; color:#8a8a8a; letter-spacing:.10em; text-transform:uppercase; }
+  .pp-block-v { font-size:18px; font-weight:900; color:#fff; letter-spacing:-.02em; margin-top:3px; font-variant-numeric:tabular-nums; }
+  .pp-block-accent .pp-block-v { color:#F96302; }
+  .pp-block-v span { font-size:11px; color:#8a8a8a; font-weight:700; margin-left:2px; }
+  .pp-block-s { font-size:9.5px; color:#8a8a8a; margin-top:3px; line-height:1.35; }
+
+  .pp-row { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:11px 14px; background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; margin-top:8px; }
+  .pp-row-t { font-size:10px; font-weight:700; color:#d6d6d6; letter-spacing:.04em; }
+  .pp-row-v { font-size:16px; font-weight:900; color:#F96302; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+
+  .pp-note { margin-top:18px; padding:10px 14px; background:rgba(249,99,2,.05); border-left:2px solid #F96302; border-radius:4px; font-size:10px; color:#d6d6d6; line-height:1.5; }
+  .pp-note-warn { background:rgba(255,181,71,.06); border-left-color:#ffb547; color:#ffb547; }
+
+  .pp-foot { margin-top:24px; padding-top:12px; border-top:1px solid #2a2a2a; display:flex; justify-content:space-between; font-size:9px; color:#8a8a8a; letter-spacing:.04em; }
+  .pp-foot b { color:#d6d6d6; font-weight:700; }
+
+  .pp-noprint { position:fixed; top:14px; right:14px; background:#F96302; color:#0a0a0a; border:none; padding:9px 16px; border-radius:8px; font-family:'Satoshi',-apple-system,sans-serif; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 18px rgba(249,99,2,.4); letter-spacing:-.01em; }
+  .pp-noprint:hover { background:#ff7a26; }
+  @media print { .pp-noprint { display:none; } body { padding: 22mm 38mm; } }
+</style>
+</head><body>
+  <button class="pp-noprint" onclick="window.print()">⤓ Imprimir / PDF</button>
+
+  <div class="pp-h">
+    <div class="pp-logo">${logoSvg}</div>
+    <div class="pp-h-meta">
+      <div class="pp-h-eyebrow">Activos Kairos · Propuesta de Valor</div>
+      <div class="pp-h-name">${nombre}</div>
+    </div>
+    <div class="pp-h-date"><b>${tipo}</b>${fecha}</div>
+  </div>
+
+  <div class="pp-section-h">Lo que ganas</div>
+  ${nucleoCard}
+  ${(state.money && varCoste !== 0) ? `<div class="pp-row"><div class="pp-row-t">Variación coste de uso · año</div><div class="pp-row-v">${fmt(varCoste,'eur')}</div></div>` : ''}
+
+  ${propuestaCard}
+
+  ${compHtml}
+
+  <div class="pp-note">Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. Las cifras mostradas son anuales salvo donde se indique lo contrario.</div>
+
+  <div class="pp-foot">
+    <span><b>activoskairos.com</b></span>
+    <span>Generado ${fecha}</span>
+  </div>
 </body></html>`;
 
     const w = window.open('', 'propuesta-kairos', 'width=900,height=1200');
     if (!w) { alert('Permite las ventanas emergentes para generar la propuesta.'); return; }
     w.document.open(); w.document.write(html); w.document.close();
-    setTimeout(() => { try { w.focus(); w.print(); } catch(e){} }, 350);
+    setTimeout(() => { try { w.focus(); w.print(); } catch(e){} }, 400);
   }
 
   root.querySelectorAll('[data-export-pdf]').forEach(btn => {
