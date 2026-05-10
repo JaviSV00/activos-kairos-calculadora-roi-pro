@@ -817,14 +817,14 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
       <p class="kr-section-sub">Fija el precio que vas a facturar y comprueba ROI, payback y capital acumulado a 3 años. El selector de ROI objetivo te sugiere precio en directo.</p>
 
       <div class="kr-bench-grid">
-        <div class="kr-bench">
-          <div class="kr-bench-label">Precio propuesta</div>
-          <div class="kr-bench-control">
-            <input type="number" class="kr-bench-input" data-bench="precio" value="3500" min="0" step="100" inputmode="numeric">
-            <span class="kr-bench-unit">€</span>
+          <div class="kr-bench" style="margin-bottom:1.1rem;">
+            <div class="kr-bench-label">Precio propuesta</div>
+            <div class="kr-bench-control">
+              <input type="number" class="kr-bench-input" data-bench="precio" value="3500" min="0" step="100" inputmode="numeric">
+              <span class="kr-bench-unit">€</span>
+            </div>
+            <div class="kr-bench-help">Precio al que vas a facturar este Activo al cliente.</div>
           </div>
-          <div class="kr-bench-help">Precio al que vas a facturar este Activo al cliente.</div>
-        </div>
         <div class="kr-bench">
           <div class="kr-bench-label">ROI objetivo · sugerencia de precio</div>
           <div class="kr-roi-target" role="radiogroup" aria-label="ROI objetivo">
@@ -853,10 +853,10 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
           <p class="kr-block__unit">tiempo hasta amortizar</p>
         </article>
         <article class="kr-block">
-          <p class="kr-block__title">Capital neto · 3 años</p>
-          <p class="kr-block__value" data-output="capital3y" data-format="eur">0 €</p>
-          <p class="kr-block__unit">valor acumulado sin esfuerzo adicional</p>
-        </article>
+            <p class="kr-block__title">Capital neto · año 1</p>
+            <p class="kr-block__value" data-output="ahorroNeto" data-format="eur">0 €</p>
+            <p class="kr-block__unit">valor anual generado por el Activo</p>
+          </article>
       </div>
     </div>
   </details>
@@ -879,7 +879,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
   const state = {
     tipo: 'Automatización', money: false, metrics: new Set(),
     bench: { precio: 3500 },
-    roiTarget: 4,
     inputs: {
       h_antes_sem: 0, h_despues_sem: 0, P: 0,
       coste_antes_mes: 0, coste_despues_mes: 0, eh: 0,
@@ -991,14 +990,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     });
   });
 
-  /* ROI target buttons */
-  root.querySelectorAll('[data-roi-target]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      root.querySelectorAll('[data-roi-target]').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
-      state.roiTarget = +btn.dataset.roiTarget;
-      compute();
-    });
-  });
   /* Aplicar precio sugerido */
   const applyBtn = root.querySelector('[data-apply-suggested]');
   if (applyBtn) {
@@ -1140,15 +1131,10 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const precio = Math.max(0, b.precio);
     const roiPct  = (state.money && precio > 0) ? (ahorroNeto / precio) * 100 : 0;
     const payback = (state.money && ahorroNeto > 0) ? (precio / ahorroNeto) * 12 : 0;
-    const capital3y = ahorroNeto * 3;
-    const precioSugerido = (state.money && state.roiTarget > 0 && ahorroNeto > 0) ? ahorroNeto / state.roiTarget : 0;
 
     setOut('precioRef', precio);
     setOut('roiPct',    roiPct);
     setOut('payback',   payback);
-    setOut('capital3y', capital3y);
-    setOut('precioSugerido', precioSugerido);
-    setOut('roiTargetX', state.roiTarget);
 
     /* Validación */
     const warn = root.querySelector('[data-warn]');
@@ -1174,13 +1160,11 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
     const ahorroNeto  = state.money ? valorTiempo + varCoste : 0;
     const roiPct      = (state.money && b.precio > 0) ? (ahorroNeto / b.precio) * 100 : 0;
     const payback     = (state.money && ahorroNeto > 0) ? (b.precio / ahorroNeto) * 12 : 0;
-    const capital3y   = ahorroNeto * 3;
     const fte         = horasAnio / H_FTE;
 
     const fecha = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
 
-    const logoSvg = `<svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><g fill="#F96302"><rect x="13" y="10" width="9" height="44" rx="1.5"/><path d="M22 30 L40 10 L52 10 L31 32 L52 54 L40 54 L22 34 Z"/></g></svg>`;
-
+     const logoSvg = `<img src="./Logo_Kairos_Fondo_Transparente.png" alt="Kairos" style="width:40px;height:40px;display:block;">`;
     /* Núcleo blocks · arriba · lo que gana */
     const nucleoCard = state.money
       ? `<div class="pp-hero">
@@ -1202,10 +1186,10 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
         <div class="pp-block pp-block-accent"><div class="pp-block-t">ROI año 1</div><div class="pp-block-v">${fmt(roiPct,'int')}<span>%</span></div></div>
         <div class="pp-block"><div class="pp-block-t">Payback</div><div class="pp-block-v">${fmt(payback,'num1')}<span>m</span></div></div>
       </div>
-      <div class="pp-row">
-        <div class="pp-row-t">Capital neto acumulado · 3 años</div>
-        <div class="pp-row-v">${fmt(capital3y,'eur')}</div>
-      </div>` : `
+           <div class="pp-row">
+       <div class="pp-row-t">Capital neto · año 1</div>
+       <div class="pp-row-v">${fmt(ahorroNeto,'eur')}</div>
+     </div>` : `
       <div class="pp-section-h">Propuesta</div>
       <div class="pp-row">
         <div class="pp-row-t">Inversión</div>
