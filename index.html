@@ -1,9 +1,9 @@
 <!-- =========================================================
-     CALCULADORA ROI · ACTIVOS KAIROS · v11
-     · Núcleo: Capital Neto Ahorrado (sustituye ROI año 1)
-     · Fase 4: Precio propuesta + ROI objetivo + Capital 3 años
-     · PDF: columna estrecha, fondo #191919, logo Kairos, Satoshi
-     ========================================================= -->
+	CALCULADORA ROI · ACTIVOS KAIROS · v12
+	· Núcleo: Capital Neto Ahorrado
+	· Fase 4: Precio propuesta + ROI año 1 + Payback + Capital año 1
+	· PDF: columna estrecha, fondo #191919, logo Kairos, Satoshi
+	========================================================= -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,39 +20,38 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 @property --kr-fill { syntax: '<number>'; inherits: true; initial-value: 0; }
 
 .kairos-roi {
-  --kr-bg:#191919; --kr-surface:#1f1f1f; --kr-surface-2:#242424;
-  --kr-text:#fff; --kr-text-soft:#d6d6d6; --kr-muted:#8a8a8a;
-  --kr-accent:#F96302; --kr-accent-2:#ff7a26; --kr-warn:#ffb547;
-  --kr-border:#2a2a2a; --kr-border-2:#3a3a3a;
-  --kr-font-display:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --kr-font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --kr-fs-h1:clamp(1.55rem, 1.4vw + 1.05rem, 2.05rem);
-  --kr-fs-step:clamp(1rem, .5vw + .9rem, 1.2rem);
-  --kr-fs-out:clamp(1.7rem, 2.2vw + .8rem, 2.6rem);
-  --kr-radius:28px; --kr-radius-sm:18px; --kr-radius-btn:12px;
-  --kr-gap:1rem; --kr-pad:clamp(1.4rem, 1.8vw + .7rem, 2.4rem);
-  --kr-maxw:1180px;
-  --kr-shadow:0 20px 60px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.04) inset;
-  --kr-thumb:22px; --kr-track-h:6px;
-  --kr-ease:cubic-bezier(.32,.72,.16,1);
-  --kr-t-fast:160ms; --kr-t-med:240ms;
-  interpolate-size: allow-keywords;
+	--kr-bg:#191919; --kr-surface:#1f1f1f; --kr-surface-2:#242424;
+	--kr-text:#fff; --kr-text-soft:#d6d6d6; --kr-muted:#8a8a8a;
+	--kr-accent:#F96302; --kr-accent-2:#ff7a26; --kr-warn:#ffb547;
+	--kr-border:#2a2a2a; --kr-border-2:#3a3a3a;
+	--kr-font-display:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+	--kr-font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+	--kr-fs-h1:clamp(1.55rem, 1.4vw + 1.05rem, 2.05rem);
+	--kr-fs-step:clamp(1rem, .5vw + .9rem, 1.2rem);
+	--kr-radius:28px; --kr-radius-sm:18px; --kr-radius-btn:12px;
+	--kr-pad:clamp(1.4rem, 1.8vw + .7rem, 2.4rem);
+	--kr-maxw:1180px;
+	--kr-shadow:0 20px 60px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.04) inset;
+	--kr-thumb:22px; --kr-track-h:6px;
+	--kr-ease:cubic-bezier(.32,.72,.16,1);
+	--kr-t-fast:160ms; --kr-t-med:240ms;
+	interpolate-size: allow-keywords;
 }
 .kairos-roi, .kairos-roi *, .kairos-roi *::before, .kairos-roi *::after { box-sizing:border-box; }
 .kairos-roi {
-  font-family:var(--kr-font-display); color:var(--kr-text);
-  background:radial-gradient(circle at 0% 0%, rgba(249,99,2,.10) 0%, transparent 45%),radial-gradient(circle at 100% 100%, rgba(249,99,2,.06) 0%, transparent 50%),var(--kr-bg);
-  border:1px solid var(--kr-border); border-radius:var(--kr-radius);
-  padding:var(--kr-pad); max-width:var(--kr-maxw); margin:2.5rem auto;
-  box-shadow:var(--kr-shadow); line-height:1.5;
-  position:relative; overflow:hidden; isolation:isolate;
+	font-family:var(--kr-font-display); color:var(--kr-text);
+	background:radial-gradient(circle at 0% 0%, rgba(249,99,2,.10) 0%, transparent 45%),radial-gradient(circle at 100% 100%, rgba(249,99,2,.06) 0%, transparent 50%),var(--kr-bg);
+	border:1px solid var(--kr-border); border-radius:var(--kr-radius);
+	padding:var(--kr-pad); max-width:var(--kr-maxw); margin:2.5rem auto;
+	box-shadow:var(--kr-shadow); line-height:1.5;
+	position:relative; overflow:hidden; isolation:isolate;
 }
 .kairos-roi::before {
-  content:""; position:absolute; width:380px; height:380px; border-radius:50%;
-  background:radial-gradient(circle, rgba(249,99,2,.32) 0%, rgba(249,99,2,.10) 40%, transparent 70%);
-  top:-120px; right:-120px; filter:blur(40px);
-  animation:kairos-orb 18s ease-in-out infinite alternate;
-  z-index:-1; pointer-events:none;
+	content:""; position:absolute; width:380px; height:380px; border-radius:50%;
+	background:radial-gradient(circle, rgba(249,99,2,.32) 0%, rgba(249,99,2,.10) 40%, transparent 70%);
+	top:-120px; right:-120px; filter:blur(40px);
+	animation:kairos-orb 18s ease-in-out infinite alternate;
+	z-index:-1; pointer-events:none;
 }
 @keyframes kairos-orb { 0%{transform:translate(0,0) scale(1);opacity:.85} 50%{transform:translate(-40px,30px) scale(1.08);opacity:1} 100%{transform:translate(20px,60px) scale(.95);opacity:.7} }
 @media (prefers-reduced-motion: reduce){.kairos-roi::before{animation:none}}
@@ -124,21 +123,21 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-metric-group-title { font-size:.7rem; font-weight:700; color:var(--kr-muted); letter-spacing:.08em; text-transform:uppercase; margin:0 0 .65rem 0; }
 .kr-metric-list { display:grid; grid-auto-rows: minmax(5.8rem, auto); gap:.45rem; align-items:stretch; }
 .kr-metric-chip {
-  display:flex; align-items:flex-start; gap:.6rem;
-  padding:.6rem .7rem; border-radius:10px;
-  background:transparent; border:1px solid var(--kr-border-2);
-  color:var(--kr-text-soft); cursor:pointer; user-select:none;
-  min-height:100%;
-  transition:background var(--kr-t-fast) var(--kr-ease), border-color var(--kr-t-fast) var(--kr-ease), color var(--kr-t-fast) var(--kr-ease);
+	display:flex; align-items:flex-start; gap:.6rem;
+	padding:.6rem .7rem; border-radius:10px;
+	background:transparent; border:1px solid var(--kr-border-2);
+	color:var(--kr-text-soft); cursor:pointer; user-select:none;
+	min-height:100%;
+	transition:background var(--kr-t-fast) var(--kr-ease), border-color var(--kr-t-fast) var(--kr-ease), color var(--kr-t-fast) var(--kr-ease);
 }
 .kr-metric-chip:hover { border-color:var(--kr-accent); color:var(--kr-text); }
 .kr-metric-chip input { display:none; }
 .kr-metric-chip-dot {
-  margin-top:3px;
-  width:14px; height:14px; border-radius:4px;
-  border:1.5px solid var(--kr-border-2);
-  display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
-  transition:background var(--kr-t-fast) var(--kr-ease), border-color var(--kr-t-fast) var(--kr-ease);
+	margin-top:3px;
+	width:14px; height:14px; border-radius:4px;
+	border:1.5px solid var(--kr-border-2);
+	display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+	transition:background var(--kr-t-fast) var(--kr-ease), border-color var(--kr-t-fast) var(--kr-ease);
 }
 .kr-metric-chip-dot::after { content:""; width:6px; height:6px; border-radius:1px; background:#0a0a0a; opacity:0; transition:opacity var(--kr-t-fast) var(--kr-ease); }
 .kr-metric-chip[data-checked="true"] { background:rgba(249,99,2,.10); border-color:var(--kr-accent); color:var(--kr-text); }
@@ -215,8 +214,8 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-warn[data-visible="true"] { display:block; }
 
 /* STEP 4 · PROPUESTA */
-.kr-bench-grid { display:grid; grid-template-columns:1fr; gap:.85rem; }
-@media (min-width:640px){ .kr-bench-grid { grid-template-columns:repeat(2, 1fr); } }
+.kr-bench-single { display:grid; grid-template-columns:1fr; gap:.85rem; }
+@media (min-width:640px){ .kr-bench-single { grid-template-columns:minmax(0, 22rem); } }
 .kr-bench { padding:.95rem 1.05rem; background:var(--kr-surface-2); border:1px solid var(--kr-border); border-radius:14px; display:flex; flex-direction:column; gap:.55rem; }
 .kr-bench-label { font-size:.78rem; font-weight:700; color:var(--kr-text); }
 .kr-bench-control { display:inline-flex; align-items:baseline; gap:.4rem; padding:.4rem .65rem; background:var(--kr-bg); border:1px solid var(--kr-border-2); border-radius:10px; transition:border-color var(--kr-t-fast) var(--kr-ease); }
@@ -226,15 +225,6 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 .kr-bench-input[type=number] { -moz-appearance:textfield; }
 .kr-bench-unit { font-size:.85rem; font-weight:700; color:var(--kr-accent); flex-shrink:0; }
 .kr-bench-help { font-family:var(--kr-font-body); font-size:.72rem; color:var(--kr-muted); line-height:1.4; }
-.kr-bench-help b { color:var(--kr-text-soft); font-weight:700; }
-
-/* ROI target selector */
-.kr-roi-target { display:inline-flex; gap:.25rem; padding:3px; background:var(--kr-bg); border:1px solid var(--kr-border-2); border-radius:10px; align-self:flex-start; }
-.kr-roi-btn { padding:.4rem .75rem; border:none; background:transparent; color:var(--kr-text-soft); font-family:var(--kr-font-display); font-weight:700; font-size:.85rem; border-radius:7px; cursor:pointer; transition:background var(--kr-t-fast) var(--kr-ease), color var(--kr-t-fast) var(--kr-ease); font-variant-numeric:tabular-nums; }
-.kr-roi-btn:hover { color:var(--kr-text); }
-.kr-roi-btn[aria-pressed="true"] { background:var(--kr-accent); color:#0a0a0a; }
-.kr-link { background:none; border:none; padding:0; color:var(--kr-accent); font-family:var(--kr-font-display); font-weight:700; font-size:inherit; cursor:pointer; text-decoration:underline; text-underline-offset:3px; transition:color var(--kr-t-fast) var(--kr-ease); }
-.kr-link:hover { color:var(--kr-accent-2); }
 
 .kairos-roi__cta { margin-top:1.5rem; padding-top:1.4rem; border-top:1px solid var(--kr-border); display:flex; flex-direction:column; gap:1rem; align-items:flex-start; }
 @media (min-width:640px){ .kairos-roi__cta { flex-direction:row; justify-content:space-between; align-items:center; } }
@@ -249,1097 +239,1066 @@ html,body{margin:0;padding:0;background:#191919;min-height:100%}
 
 <div class="kairos-roi" role="region" aria-labelledby="kairos-roi-h1">
 
-  <header class="kairos-roi__header">
-    <span class="kairos-roi__logo" aria-label="Activos Kairos">
-      <img class="kairos-roi__logo-img" src="./Logo_Kairos_Fondo_Transparente.png" alt="" width="52" height="52" decoding="async" onerror="this.parentElement.classList.add('kairos-roi__logo--fallback');" />
-      <svg class="kairos-roi__logo-svg" viewBox="0 0 64 64" aria-hidden="true">
-        <g fill="#F96302"><rect x="13" y="10" width="9" height="44" rx="1.5"/><path d="M22 30 L40 10 L52 10 L31 32 L52 54 L40 54 L22 34 Z"/></g>
-      </svg>
-    </span>
-    <h1 id="kairos-roi-h1" class="kairos-roi__h1">Calculadora ROI · <em>Activos Kairos</em></h1>
-    <div class="kairos-roi__hero-stat" aria-live="polite">
-      <span class="kairos-roi__hero-num" data-output="horasAnio" data-format="int">0</span>
-      <span class="kairos-roi__hero-unit">h/año liberadas</span>
-      <span class="kairos-roi__hero-sep" data-money-only hidden>·</span>
-      <span class="kairos-roi__hero-num" data-output="ahorroNetoHero" data-format="eur" data-money-only hidden>0&nbsp;€</span>
-    </div>
-  </header>
+	<header class="kairos-roi__header">
+		<span class="kairos-roi__logo" aria-label="Activos Kairos">
+			<img class="kairos-roi__logo-img" src="./Logo_Kairos_Fondo_Transparente.png" alt="" width="52" height="52" decoding="async" onerror="this.parentElement.classList.add('kairos-roi__logo--fallback');" />
+			<svg class="kairos-roi__logo-svg" viewBox="0 0 64 64" aria-hidden="true">
+				<g fill="#F96302"><rect x="13" y="10" width="9" height="44" rx="1.5"/><path d="M22 30 L40 10 L52 10 L31 32 L52 54 L40 54 L22 34 Z"/></g>
+			</svg>
+		</span>
+		<h1 id="kairos-roi-h1" class="kairos-roi__h1">Calculadora ROI · <em>Activos Kairos</em></h1>
+		<div class="kairos-roi__hero-stat" aria-live="polite">
+			<span class="kairos-roi__hero-num" data-output="horasAnio" data-format="int">0</span>
+			<span class="kairos-roi__hero-unit">h/año liberadas</span>
+			<span class="kairos-roi__hero-sep" data-money-only hidden>·</span>
+			<span class="kairos-roi__hero-num" data-output="ahorroNetoHero" data-format="eur" data-money-only hidden>0 €</span>
+		</div>
+	</header>
 
-  <div class="kairos-roi__meta">
-    <label class="kairos-roi__meta-name">
-      <span class="kairos-roi__meta-label">Activo Kairos</span>
-      <input class="kairos-roi__meta-input" type="text" data-meta="nombreActivo" placeholder="Nombre del Activo Kairos" autocomplete="off" />
-    </label>
-    <div class="kr-switch" data-active="Automatización" role="radiogroup" aria-label="Tipo de Activo">
-      <span class="kr-switch__indicator" aria-hidden="true"></span>
-      <button type="button" class="kr-switch__btn" data-tipo="Automatización" aria-pressed="true">Automatización</button>
-      <button type="button" class="kr-switch__btn" data-tipo="Sistema" aria-pressed="false">Sistema</button>
-    </div>
-  </div>
+	<div class="kairos-roi__meta">
+		<label class="kairos-roi__meta-name">
+			<span class="kairos-roi__meta-label">Activo Kairos</span>
+			<input class="kairos-roi__meta-input" type="text" data-meta="nombreActivo" placeholder="Nombre del Activo Kairos" autocomplete="off" />
+		</label>
+		<div class="kr-switch" data-active="Automatización" role="radiogroup" aria-label="Tipo de Activo">
+			<span class="kr-switch__indicator" aria-hidden="true"></span>
+			<button type="button" class="kr-switch__btn" data-tipo="Automatización" aria-pressed="true">Automatización</button>
+			<button type="button" class="kr-switch__btn" data-tipo="Sistema" aria-pressed="false">Sistema</button>
+		</div>
+	</div>
 
-  <!-- STEP 1 · MÉTRICAS -->
-  <details class="kr-step" data-step="metricas" open>
-    <summary>
-      <span class="kr-step__num">1</span>
-      <span class="kr-step__title">Métricas a mostrar</span>
-      <span class="kr-step__hint">Elige las palancas extra para este caso</span>
-      <span class="kr-step__chevron" aria-hidden="true">▾</span>
-    </summary>
-    <div class="kr-step__body">
-      <p class="kr-section-sub">Activa las métricas que cuentan la historia de este Activo en este cliente. Núcleo siempre se muestra.</p>
+	<!-- STEP 1 · MÉTRICAS -->
+	<details class="kr-step" data-step="metricas" open>
+		<summary>
+			<span class="kr-step__num">1</span>
+			<span class="kr-step__title">Métricas a mostrar</span>
+			<span class="kr-step__hint">Elige las palancas extra para este caso</span>
+			<span class="kr-step__chevron" aria-hidden="true">▾</span>
+		</summary>
+		<div class="kr-step__body">
+			<p class="kr-section-sub">Activa las métricas que cuentan la historia de este Activo en este cliente. Núcleo siempre se muestra.</p>
 
-      <details class="kr-formulas">
-        <summary>
-          <span class="kr-formulas__icon" aria-hidden="true">ƒ</span>
-          <span>Ver fórmulas matemáticas</span>
-          <span class="kr-formulas__chev" aria-hidden="true">▾</span>
-        </summary>
-        <div class="kr-formulas__body">
-          <p class="kr-formulas__group">Núcleo</p>
-          <ul class="kr-formulas__list">
-            <li><b>Horas liberadas/año</b> = (h_antes_sem − h_después_sem) × Personas × 48</li>
-            <li><b>Variación coste de uso/año</b> = (Coste_antes − Coste_después) × 12</li>
-            <li><b>Capital neto ahorrado/año</b> = Horas/año × €/h + Variación coste de uso/año</li>
-            <li><b>ROI año 1 (%)</b> = Capital neto ÷ Precio propuesta × 100</li>
-            <li><b>Payback (meses)</b> = Precio propuesta ÷ Capital neto × 12</li>
-            <li><b>Capital neto a 3 años</b> = Capital neto/año × 3 <i>(el Activo se sigue amortizando)</i></li>
-          </ul>
-          <p class="kr-formulas__group">Operativas</p>
-          <ul class="kr-formulas__list">
-            <li><b>Reducción del lead time</b> = (lt_antes − lt_después) ÷ lt_antes × 100</li>
-            <li><b>Reducción de errores</b> = (%_errores_antes − 3,43 %) ÷ %_errores_antes × 100 <i>(3,43 % = media post-Activo en Kairos)</i></li>
-            <li><b>Horas duplicadas eliminadas/año</b> = Horas_antes_totales × %_duplicidades</li>
-          </ul>
-          <p class="kr-formulas__group">Estratégicas</p>
-          <ul class="kr-formulas__list">
-            <li><b>FTE liberado</b> = Horas/año ÷ 1.760</li>
-            <li><b>Capacidad € sin contratar</b> = FTE × Coste FTE anual</li>
-            <li><b>Δ Factor bus</b> = Críticas después − Críticas antes <i>(negativo = mejor)</i></li>
-            <li><b>Apalancamiento operativo</b> = (40 − h_después_sem) ÷ (40 − h_antes_sem) <i>(jornada de referencia: 40 h/sem)</i></li>
-          </ul>
-          <p class="kr-formulas__group">Filosofía Kairos</p>
-          <ul class="kr-formulas__list">
-            <li><b>Tiempo Kairós</b> = Horas/año × % alto valor</li>
-            <li><b>Tiempo Cronos</b> = Horas/año − Tiempo Kairós</li>
-            <li><b>Momentum</b> = iter_antes ÷ iter_después <i>(×N veces más eficiente)</i></li>
-            <li><b>Autonomía</b>: % know-how en sistema · ×N escalabilidad <i>(dos lecturas independientes)</i></li>
-          </ul>
-          <p class="kr-formulas__note">Constantes: 48 sem laborables/año · 1 FTE = 1.760 h/año · Jornada referencia = 40 h/sem · Media post-errores Kairos = 3,43 %.</p>
-        </div>
-      </details>
+			<details class="kr-formulas">
+				<summary>
+					<span class="kr-formulas__icon" aria-hidden="true">ƒ</span>
+					<span>Ver fórmulas matemáticas</span>
+					<span class="kr-formulas__chev" aria-hidden="true">▾</span>
+				</summary>
+				<div class="kr-formulas__body">
+					<p class="kr-formulas__group">Núcleo</p>
+					<ul class="kr-formulas__list">
+						<li><b>Horas liberadas/año</b> = (h_antes_sem − h_después_sem) × Personas × 48</li>
+						<li><b>Variación coste de uso/año</b> = (Coste_antes − Coste_después) × 12</li>
+						<li><b>Capital neto ahorrado/año</b> = Horas/año × €/h + Variación coste de uso/año</li>
+						<li><b>ROI año 1 (%)</b> = Capital neto ÷ Precio propuesta × 100</li>
+						<li><b>Payback (meses)</b> = Precio propuesta ÷ Capital neto × 12</li>
+					</ul>
+					<p class="kr-formulas__group">Operativas</p>
+					<ul class="kr-formulas__list">
+						<li><b>Reducción del lead time</b> = (lt_antes − lt_después) ÷ lt_antes × 100</li>
+						<li><b>Reducción de errores</b> = (%_errores_antes − 3,43 %) ÷ %_errores_antes × 100 <i>(3,43 % = media post-Activo en Kairos)</i></li>
+						<li><b>Horas duplicadas eliminadas/año</b> = Horas_antes_totales × %_duplicidades</li>
+					</ul>
+					<p class="kr-formulas__group">Estratégicas</p>
+					<ul class="kr-formulas__list">
+						<li><b>FTE liberado</b> = Horas/año ÷ 1.760</li>
+						<li><b>Capacidad € sin contratar</b> = FTE × Coste FTE anual</li>
+						<li><b>Δ Factor bus</b> = Críticas después − Críticas antes <i>(negativo = mejor)</i></li>
+						<li><b>Apalancamiento operativo</b> = (40 − h_después_sem) ÷ (40 − h_antes_sem) <i>(jornada de referencia: 40 h/sem)</i></li>
+					</ul>
+					<p class="kr-formulas__group">Filosofía Kairos</p>
+					<ul class="kr-formulas__list">
+						<li><b>Tiempo Kairós</b> = Horas/año × % alto valor</li>
+						<li><b>Tiempo Cronos</b> = Horas/año − Tiempo Kairós</li>
+						<li><b>Momentum</b> = iter_antes ÷ iter_después <i>(×N veces más eficiente)</i></li>
+						<li><b>Autonomía</b>: % know-how en sistema · ×N escalabilidad <i>(dos lecturas independientes)</i></li>
+					</ul>
+					<p class="kr-formulas__note">Constantes: 48 sem laborables/año · 1 FTE = 1.760 h/año · Jornada referencia = 40 h/sem · Media post-errores Kairos = 3,43 %.</p>
+				</div>
+			</details>
 
-      <div class="kr-metric-groups">
+			<div class="kr-metric-groups">
 
-        <div class="kr-metric-group">
-          <p class="kr-metric-group-title">Operativas</p>
-          <div class="kr-metric-list">
-            <label class="kr-metric-chip" data-metric="aceleracion">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Aceleración del lead time</span>
-                <span class="kr-metric-chip-desc">Cuánto se reduce el tiempo total de un proceso de extremo a extremo. Antes vs después.</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="errores">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Reducción de errores</span>
-                <span class="kr-metric-chip-desc">Cuánto baja la tasa de error vs. la media post-Activo de Kairos (3,43 %).</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="duplicidades">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Eliminación de duplicidades</span>
-                <span class="kr-metric-chip-desc">Horas/año que se hacían dos o tres veces y ahora se hacen una.</span>
-              </span>
-            </label>
-          </div>
-        </div>
+				<div class="kr-metric-group">
+					<p class="kr-metric-group-title">Operativas</p>
+					<div class="kr-metric-list">
+						<label class="kr-metric-chip" data-metric="aceleracion">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Aceleración del lead time</span>
+								<span class="kr-metric-chip-desc">Cuánto se reduce el tiempo total de un proceso de extremo a extremo. Antes vs después.</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="errores">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Reducción de errores</span>
+								<span class="kr-metric-chip-desc">Cuánto baja la tasa de error vs. la media post-Activo de Kairos (3,43 %).</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="duplicidades">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Eliminación de duplicidades</span>
+								<span class="kr-metric-chip-desc">Horas/año que se hacían dos o tres veces y ahora se hacen una.</span>
+							</span>
+						</label>
+					</div>
+				</div>
 
-        <div class="kr-metric-group">
-          <p class="kr-metric-group-title">Estratégicas</p>
-          <div class="kr-metric-list">
-            <label class="kr-metric-chip" data-metric="capacidadFTE">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Capacidad sin contratar</span>
-                <span class="kr-metric-chip-desc">Las horas liberadas traducidas a "personas equivalentes" no contratadas.</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="factorBus">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Factor bus</span>
-                <span class="kr-metric-chip-desc">Personas críticas que dejan de ser punto único de fallo.</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="apalancamiento">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Apalancamiento operativo</span>
-                <span class="kr-metric-chip-desc">Multiplicador de tiempo disponible del equipo tras la implementación. Sobre jornada de 40 h/sem.</span>
-              </span>
-            </label>
-          </div>
-        </div>
+				<div class="kr-metric-group">
+					<p class="kr-metric-group-title">Estratégicas</p>
+					<div class="kr-metric-list">
+						<label class="kr-metric-chip" data-metric="capacidadFTE">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Capacidad sin contratar</span>
+								<span class="kr-metric-chip-desc">Las horas liberadas traducidas a "personas equivalentes" no contratadas.</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="factorBus">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Factor bus</span>
+								<span class="kr-metric-chip-desc">Personas críticas que dejan de ser punto único de fallo.</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="apalancamiento">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Apalancamiento operativo</span>
+								<span class="kr-metric-chip-desc">Multiplicador de tiempo disponible del equipo tras la implementación. Sobre jornada de 40 h/sem.</span>
+							</span>
+						</label>
+					</div>
+				</div>
 
-        <div class="kr-metric-group">
-          <p class="kr-metric-group-title">Filosofía Kairos</p>
-          <div class="kr-metric-list">
-            <label class="kr-metric-chip" data-metric="densidadKairos">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Densidad Kairós</span>
-                <span class="kr-metric-chip-desc">Horas/año reinvertidas en alto valor (Kairós) frente a tiempo operativo (Cronos).</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="momentum">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Momentum</span>
-                <span class="kr-metric-chip-desc">Cuántos intentos hacían falta antes para hacerlo bien y cuántos ahora.</span>
-              </span>
-            </label>
-            <label class="kr-metric-chip" data-metric="autonomiaActivo">
-              <span class="kr-metric-chip-dot"></span><input type="checkbox">
-              <span class="kr-metric-chip-text">
-                <span class="kr-metric-chip-name">Autonomía del Activo</span>
-                <span class="kr-metric-chip-desc">Cuánto del Activo vive en el sistema y cuánto puede escalar sin sumar personas.</span>
-              </span>
-            </label>
-          </div>
-        </div>
+				<div class="kr-metric-group">
+					<p class="kr-metric-group-title">Filosofía Kairos</p>
+					<div class="kr-metric-list">
+						<label class="kr-metric-chip" data-metric="densidadKairos">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Densidad Kairós</span>
+								<span class="kr-metric-chip-desc">Horas/año reinvertidas en alto valor (Kairós) frente a tiempo operativo (Cronos).</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="momentum">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Momentum</span>
+								<span class="kr-metric-chip-desc">Cuántos intentos hacían falta antes para hacerlo bien y cuántos ahora.</span>
+							</span>
+						</label>
+						<label class="kr-metric-chip" data-metric="autonomiaActivo">
+							<span class="kr-metric-chip-dot"></span><input type="checkbox">
+							<span class="kr-metric-chip-text">
+								<span class="kr-metric-chip-name">Autonomía del Activo</span>
+								<span class="kr-metric-chip-desc">Cuánto del Activo vive en el sistema y cuánto puede escalar sin sumar personas.</span>
+							</span>
+						</label>
+					</div>
+				</div>
 
-      </div>
+			</div>
 
-      <div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="inputs">Continuar</button></div>
-    </div>
-  </details>
+			<div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="inputs">Continuar</button></div>
+		</div>
+	</details>
 
-  <!-- STEP 2 · INPUTS -->
-  <details class="kr-step" data-step="inputs">
-    <summary>
-      <span class="kr-step__num">2</span>
-      <span class="kr-step__title">Inputs · Antes vs Después</span>
-      <span class="kr-step__hint">Datos del cliente</span>
-      <span class="kr-step__chevron" aria-hidden="true">▾</span>
-    </summary>
-    <div class="kr-step__body">
-      <p class="kr-section-sub">Todo se mide comparando el "antes" del Activo con el "después". Los campos por métrica aparecen al activarla arriba.</p>
+	<!-- STEP 2 · INPUTS -->
+	<details class="kr-step" data-step="inputs">
+		<summary>
+			<span class="kr-step__num">2</span>
+			<span class="kr-step__title">Inputs · Antes vs Después</span>
+			<span class="kr-step__hint">Datos del cliente</span>
+			<span class="kr-step__chevron" aria-hidden="true">▾</span>
+		</summary>
+		<div class="kr-step__body">
+			<p class="kr-section-sub">Todo se mide comparando el "antes" del Activo con el "después". Los campos por métrica aparecen al activarla arriba.</p>
 
-      <div class="kr-money-bar">
-        <button type="button" class="kr-toggle-mini" data-money-toggle aria-pressed="false">
-          <span class="kr-toggle-mini-dot" aria-hidden="true"></span>Activar cálculo en €
-        </button>
-      </div>
+			<div class="kr-money-bar">
+				<button type="button" class="kr-toggle-mini" data-money-toggle aria-pressed="false">
+					<span class="kr-toggle-mini-dot" aria-hidden="true"></span>Activar cálculo en €
+				</button>
+			</div>
 
-      <div class="kr-inputs">
+			<div class="kr-inputs">
 
-        <div class="kr-field" data-input="h_antes_sem">
-          <div class="kr-field-head">
-            <div><div class="kr-label">Horas/persona/sem · Antes</div><div class="kr-hint">Tiempo que dedicaba cada persona al proceso antes del Activo.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h/sem</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1">0</div>
-            <input class="kr-slider" type="range" min="0" max="40" step="0.5" value="0" aria-label="Horas por persona y semana antes" />
-            <div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="h_antes_sem">
+					<div class="kr-field-head">
+						<div><div class="kr-label">Horas/persona/sem · Antes</div><div class="kr-hint">Tiempo que dedicaba cada persona al proceso antes del Activo.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h/sem</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1">0</div>
+						<input class="kr-slider" type="range" min="0" max="40" step="0.5" value="0" aria-label="Horas por persona y semana antes" />
+						<div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="h_despues_sem">
-          <div class="kr-field-head">
-            <div><div class="kr-label">Horas/persona/sem · Después</div><div class="kr-hint">Tiempo que dedicará cada persona tras el Activo.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h/sem</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1">0</div>
-            <input class="kr-slider" type="range" min="0" max="40" step="0.5" value="0" aria-label="Horas por persona y semana después" />
-            <div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="h_despues_sem">
+					<div class="kr-field-head">
+						<div><div class="kr-label">Horas/persona/sem · Después</div><div class="kr-hint">Tiempo que dedicará cada persona tras el Activo.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h/sem</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1">0</div>
+						<input class="kr-slider" type="range" min="0" max="40" step="0.5" value="0" aria-label="Horas por persona y semana después" />
+						<div class="kr-scale"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="P">
-          <div class="kr-field-head">
-            <div><div class="kr-label">Personas afectadas</div><div class="kr-hint">Quién hacía el proceso antes (incluye revisión).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">personas</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int">0</div>
-            <input class="kr-slider" type="range" min="0" max="200" step="1" value="0" aria-label="Personas afectadas" />
-            <div class="kr-scale"><span>0</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="P">
+					<div class="kr-field-head">
+						<div><div class="kr-label">Personas afectadas</div><div class="kr-hint">Quién hacía el proceso antes (incluye revisión).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">personas</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int">0</div>
+						<input class="kr-slider" type="range" min="0" max="200" step="1" value="0" aria-label="Personas afectadas" />
+						<div class="kr-scale"><span>0</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="coste_antes_mes">
-          <div class="kr-field-head">
-            <div><div class="kr-label">Coste de uso · Antes</div><div class="kr-hint">Herramientas/licencias del flujo anterior (€/mes).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/mes</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
-            <input class="kr-slider" type="range" min="0" max="2000" step="10" value="0" aria-label="Coste antes en euros al mes" />
-            <div class="kr-scale"><span>0 €</span><span>400</span><span>800</span><span>1.2k</span><span>1.6k</span><span>2k</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="coste_antes_mes">
+					<div class="kr-field-head">
+						<div><div class="kr-label">Coste de uso · Antes</div><div class="kr-hint">Herramientas/licencias del flujo anterior (€/mes).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/mes</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
+						<input class="kr-slider" type="range" min="0" max="2000" step="10" value="0" aria-label="Coste antes en euros al mes" />
+						<div class="kr-scale"><span>0 €</span><span>400</span><span>800</span><span>1.2k</span><span>1.6k</span><span>2k</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="coste_despues_mes">
-          <div class="kr-field-head">
-            <div><div class="kr-label">Coste de uso · Después</div><div class="kr-hint">Coste mensual del nuevo Activo (membresías, IA, infra).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/mes</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
-            <input class="kr-slider" type="range" min="0" max="2000" step="10" value="0" aria-label="Coste después en euros al mes" />
-            <div class="kr-scale"><span>0 €</span><span>400</span><span>800</span><span>1.2k</span><span>1.6k</span><span>2k</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="coste_despues_mes">
+					<div class="kr-field-head">
+						<div><div class="kr-label">Coste de uso · Después</div><div class="kr-hint">Coste mensual del nuevo Activo (membresías, IA, infra).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/mes</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
+						<input class="kr-slider" type="range" min="0" max="2000" step="10" value="0" aria-label="Coste después en euros al mes" />
+						<div class="kr-scale"><span>0 €</span><span>400</span><span>800</span><span>1.2k</span><span>1.6k</span><span>2k</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="eh" data-money-field hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">€/hora del equipo</div><div class="kr-hint">Coste medio bruto por hora trabajada.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/h</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
-            <input class="kr-slider" type="range" min="0" max="200" step="1" value="0" aria-label="Euros por hora del equipo" />
-            <div class="kr-scale"><span>0 €</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="eh" data-money-field hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">€/hora del equipo</div><div class="kr-hint">Coste medio bruto por hora trabajada.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/h</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
+						<input class="kr-slider" type="range" min="0" max="200" step="1" value="0" aria-label="Euros por hora del equipo" />
+						<div class="kr-scale"><span>0 €</span><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="lt_antes_h" data-needs-metric="aceleracion" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Lead time · Antes</div><div class="kr-hint">Tiempo total del proceso de extremo a extremo (horas).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1">0</div>
-            <input class="kr-slider" type="range" min="0" max="200" step="0.5" value="0" aria-label="Lead time antes" />
-            <div class="kr-scale"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="lt_antes_h" data-needs-metric="aceleracion" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Lead time · Antes</div><div class="kr-hint">Tiempo total del proceso de extremo a extremo (horas).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1">0</div>
+						<input class="kr-slider" type="range" min="0" max="200" step="0.5" value="0" aria-label="Lead time antes" />
+						<div class="kr-scale"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="lt_despues_h" data-needs-metric="aceleracion" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Lead time · Después</div><div class="kr-hint">Tiempo total tras el Activo (horas).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1">0</div>
-            <input class="kr-slider" type="range" min="0" max="200" step="0.5" value="0" aria-label="Lead time después" />
-            <div class="kr-scale"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="lt_despues_h" data-needs-metric="aceleracion" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Lead time · Después</div><div class="kr-hint">Tiempo total tras el Activo (horas).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">h</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1">0</div>
+						<input class="kr-slider" type="range" min="0" max="200" step="0.5" value="0" aria-label="Lead time después" />
+						<div class="kr-scale"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="pct_errores_antes" data-needs-metric="errores" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">% de errores · Antes</div><div class="kr-hint">Tasa de error del proceso previa al Activo. Post = 3,43 % (constante Kairos).</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1" data-suffix=" %">0 %</div>
-            <input class="kr-slider" type="range" min="0" max="50" step="0.5" value="0" aria-label="% errores antes" />
-            <div class="kr-scale"><span>0%</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="pct_errores_antes" data-needs-metric="errores" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">% de errores · Antes</div><div class="kr-hint">Tasa de error del proceso previa al Activo. Post = 3,43 % (constante Kairos).</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1" data-suffix=" %">0 %</div>
+						<input class="kr-slider" type="range" min="0" max="50" step="0.5" value="0" aria-label="% errores antes" />
+						<div class="kr-scale"><span>0%</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="pct_duplicidades" data-needs-metric="duplicidades" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">% del tiempo que era duplicado</div><div class="kr-hint">Sobre las horas-antes totales: qué porcentaje era trabajo duplicado.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
-            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% duplicidades" />
-            <div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="pct_duplicidades" data-needs-metric="duplicidades" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">% del tiempo que era duplicado</div><div class="kr-hint">Sobre las horas-antes totales: qué porcentaje era trabajo duplicado.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
+						<input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% duplicidades" />
+						<div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="coste_FTE_anual" data-needs-metric="capacidadFTE" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Coste FTE anual</div><div class="kr-hint">Coste empresa de un equivalente a jornada completa.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/año</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
-            <input class="kr-slider" type="range" min="0" max="100000" step="500" value="0" aria-label="Coste FTE anual" />
-            <div class="kr-scale"><span>0 €</span><span>25k</span><span>50k</span><span>75k</span><span>100k</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="coste_FTE_anual" data-needs-metric="capacidadFTE" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Coste FTE anual</div><div class="kr-hint">Coste empresa de un equivalente a jornada completa.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">€/año</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" €">0 €</div>
+						<input class="kr-slider" type="range" min="0" max="100000" step="500" value="0" aria-label="Coste FTE anual" />
+						<div class="kr-scale"><span>0 €</span><span>25k</span><span>50k</span><span>75k</span><span>100k</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="criticas_antes" data-needs-metric="factorBus" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Personas críticas · Antes</div><div class="kr-hint">¿De cuántas dependía el conocimiento clave?</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">pers.</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int">0</div>
-            <input class="kr-slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas antes" />
-            <div class="kr-scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="criticas_antes" data-needs-metric="factorBus" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Personas críticas · Antes</div><div class="kr-hint">¿De cuántas dependía el conocimiento clave?</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">pers.</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int">0</div>
+						<input class="kr-slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas antes" />
+						<div class="kr-scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="criticas_despues" data-needs-metric="factorBus" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Personas críticas · Después</div><div class="kr-hint">Tras el Activo, ¿de cuántas?</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">pers.</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int">0</div>
-            <input class="kr-slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas después" />
-            <div class="kr-scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="criticas_despues" data-needs-metric="factorBus" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Personas críticas · Después</div><div class="kr-hint">Tras el Activo, ¿de cuántas?</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">pers.</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int">0</div>
+						<input class="kr-slider" type="range" min="0" max="20" step="1" value="0" aria-label="Personas críticas después" />
+						<div class="kr-scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="pct_estrategico" data-needs-metric="densidadKairos" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">% del tiempo liberado a alto valor</div><div class="kr-hint">Cronos vs Kairós: cuánto se reinvierte en lo que mueve el negocio.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
-            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo a alto valor" />
-            <div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="pct_estrategico" data-needs-metric="densidadKairos" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">% del tiempo liberado a alto valor</div><div class="kr-hint">Cronos vs Kairós: cuánto se reinvierte en lo que mueve el negocio.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
+						<input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% del tiempo a alto valor" />
+						<div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="iter_antes" data-needs-metric="momentum" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Intentos para hacerlo bien · Antes</div><div class="kr-hint">Cuántas iteraciones costaba acertar antes del Activo.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">intentos</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int">1</div>
-            <input class="kr-slider" type="range" min="1" max="20" step="1" value="1" aria-label="Iteraciones antes" />
-            <div class="kr-scale"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="iter_antes" data-needs-metric="momentum" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Intentos para hacerlo bien · Antes</div><div class="kr-hint">Cuántas iteraciones costaba acertar antes del Activo.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">intentos</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int">1</div>
+						<input class="kr-slider" type="range" min="1" max="20" step="1" value="1" aria-label="Iteraciones antes" />
+						<div class="kr-scale"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="iter_despues" data-needs-metric="momentum" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Intentos para hacerlo bien · Después</div><div class="kr-hint">Iteraciones que cuesta acertar tras el Activo.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">intentos</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int">1</div>
-            <input class="kr-slider" type="range" min="1" max="20" step="1" value="1" aria-label="Iteraciones después" />
-            <div class="kr-scale"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="iter_despues" data-needs-metric="momentum" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Intentos para hacerlo bien · Después</div><div class="kr-hint">Iteraciones que cuesta acertar tras el Activo.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">intentos</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int">1</div>
+						<input class="kr-slider" type="range" min="1" max="20" step="1" value="1" aria-label="Iteraciones después" />
+						<div class="kr-scale"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="pct_conocimiento_sistema" data-needs-metric="autonomiaActivo" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">% del know-how en el sistema</div><div class="kr-hint">Documentado/automatizado, no en cabezas.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
-            <input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% know-how en sistema" />
-            <div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="pct_conocimiento_sistema" data-needs-metric="autonomiaActivo" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">% del know-how en el sistema</div><div class="kr-hint">Documentado/automatizado, no en cabezas.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="int" tabindex="0" role="spinbutton">0</span><span class="kr-current-unit">%</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="int" data-suffix=" %">0 %</div>
+						<input class="kr-slider" type="range" min="0" max="100" step="1" value="0" aria-label="% know-how en sistema" />
+						<div class="kr-scale"><span>0%</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+					</div>
+				</div>
 
-        <div class="kr-field" data-input="factor_escalabilidad" data-needs-metric="autonomiaActivo" hidden>
-          <div class="kr-field-head">
-            <div><div class="kr-label">Factor de escalabilidad</div><div class="kr-hint">Veces más volumen sin sumar personas.</div></div>
-            <div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">×</span></div>
-          </div>
-          <div class="kr-slider-wrap">
-            <div class="kr-bubble" data-format="num1" data-suffix="×">1×</div>
-            <input class="kr-slider" type="range" min="1" max="50" step="0.5" value="1" aria-label="Factor escalabilidad" />
-            <div class="kr-scale"><span>1×</span><span>10×</span><span>20×</span><span>30×</span><span>40×</span><span>50×</span></div>
-          </div>
-        </div>
+				<div class="kr-field" data-input="factor_escalabilidad" data-needs-metric="autonomiaActivo" hidden>
+					<div class="kr-field-head">
+						<div><div class="kr-label">Factor de escalabilidad</div><div class="kr-hint">Veces más volumen sin sumar personas.</div></div>
+						<div class="kr-current"><span class="kr-current-num" data-format="num1" tabindex="0" role="spinbutton">1</span><span class="kr-current-unit">×</span></div>
+					</div>
+					<div class="kr-slider-wrap">
+						<div class="kr-bubble" data-format="num1" data-suffix="×">1×</div>
+						<input class="kr-slider" type="range" min="1" max="50" step="0.5" value="1" aria-label="Factor escalabilidad" />
+						<div class="kr-scale"><span>1×</span><span>10×</span><span>20×</span><span>30×</span><span>40×</span><span>50×</span></div>
+					</div>
+				</div>
 
-      </div>
+			</div>
 
-      <div class="kr-warn" data-warn>Las horas/sem después no pueden superar las horas/sem antes.</div>
+			<div class="kr-warn" data-warn>Las horas/sem después no pueden superar las horas/sem antes.</div>
 
-      <div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="resultados">Ver resultados</button></div>
-    </div>
-  </details>
+			<div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="resultados">Ver resultados</button></div>
+		</div>
+	</details>
 
-  <!-- STEP 3 · RESULTADOS -->
-  <details class="kr-step" data-step="resultados">
-    <summary>
-      <span class="kr-step__num">3</span>
-      <span class="kr-step__title">Resultados</span>
-      <span class="kr-step__hint">Lectura ejecutiva del Activo</span>
-      <span class="kr-step__chevron" aria-hidden="true">▾</span>
-    </summary>
-    <div class="kr-step__body">
-      <div class="kr-results">
+	<!-- STEP 3 · RESULTADOS -->
+	<details class="kr-step" data-step="resultados">
+		<summary>
+			<span class="kr-step__num">3</span>
+			<span class="kr-step__title">Resultados</span>
+			<span class="kr-step__hint">Lectura ejecutiva del Activo</span>
+			<span class="kr-step__chevron" aria-hidden="true">▾</span>
+		</summary>
+		<div class="kr-step__body">
+			<div class="kr-results">
 
-        <section class="kr-section">
-          <p class="kr-section__title">Núcleo</p>
-          <div class="kr-blocks">
-            <article class="kr-block kr-block--accent">
-              <p class="kr-block__title">Horas liberadas / año</p>
-              <p class="kr-block__value kr-block__value--accent" data-output="horasAnio" data-format="int">0</p>
-              <p class="kr-block__unit"><span data-output="horasSemana" data-format="num1">0</span> h/semana · 48 sem laborables</p>
-            </article>
-            <article class="kr-block kr-block--accent" data-money-only hidden>
-              <p class="kr-block__title">Capital neto ahorrado / año</p>
-              <p class="kr-block__value kr-block__value--accent" data-output="ahorroNeto" data-format="eur">0 €</p>
-              <p class="kr-block__unit">valor anual generado por el Activo</p>
-              <div class="kr-block__delta">
-                <span><b>Tiempo:</b> <span data-output="valorTiempo" data-format="eur">0 €</span></span>
-                <span><b>Coste de uso:</b> <span data-output="varCoste" data-format="eur">0 €</span></span>
-              </div>
-            </article>
-            <article class="kr-block">
-              <p class="kr-block__title">Variación coste de uso</p>
-              <p class="kr-block__value" data-output="varCoste" data-format="eur">0 €</p>
-              <p class="kr-block__unit">€/año · positivo = ahorro</p>
-              <div class="kr-block__delta">
-                <span><b>Antes:</b> <span data-output="costeAntesAnio" data-format="eur">0</span></span>
-                <span><b>Después:</b> <span data-output="costeDespuesAnio" data-format="eur">0</span></span>
-              </div>
-            </article>
-          </div>
-          <p class="kr-amort-note">💡 Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. El valor mostrado es anual.</p>
-        </section>
+				<section class="kr-section">
+					<p class="kr-section__title">Núcleo</p>
+					<div class="kr-blocks">
+						<article class="kr-block kr-block--accent">
+							<p class="kr-block__title">Horas liberadas / año</p>
+							<p class="kr-block__value kr-block__value--accent" data-output="horasAnio" data-format="int">0</p>
+							<p class="kr-block__unit"><span data-output="horasSemana" data-format="num1">0</span> h/semana · 48 sem laborables</p>
+						</article>
+						<article class="kr-block kr-block--accent" data-money-only hidden>
+							<p class="kr-block__title">Capital neto ahorrado / año</p>
+							<p class="kr-block__value kr-block__value--accent" data-output="ahorroNeto" data-format="eur">0 €</p>
+							<p class="kr-block__unit">valor anual generado por el Activo</p>
+							<div class="kr-block__delta">
+								<span><b>Tiempo:</b> <span data-output="valorTiempo" data-format="eur">0 €</span></span>
+								<span><b>Coste de uso:</b> <span data-output="varCoste" data-format="eur">0 €</span></span>
+							</div>
+						</article>
+						<article class="kr-block">
+							<p class="kr-block__title">Variación coste de uso</p>
+							<p class="kr-block__value" data-output="varCoste" data-format="eur">0 €</p>
+							<p class="kr-block__unit">€/año · positivo = ahorro</p>
+							<div class="kr-block__delta">
+								<span><b>Antes:</b> <span data-output="costeAntesAnio" data-format="eur">0</span></span>
+								<span><b>Después:</b> <span data-output="costeDespuesAnio" data-format="eur">0</span></span>
+							</div>
+						</article>
+					</div>
+					<p class="kr-amort-note">💡 Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. El valor mostrado es anual.</p>
+				</section>
 
-        <section class="kr-section" data-section="operativas" hidden>
-          <p class="kr-section__title">Operativas</p>
-          <div class="kr-blocks">
-            <article class="kr-block" data-block-for="aceleracion" hidden>
-              <p class="kr-block__title">Reducción del lead time</p>
-              <p class="kr-block__value"><span data-output="pctLT" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> %</span></p>
-              <p class="kr-block__unit">más rápido extremo a extremo</p>
-              <div class="kr-block__delta">
-                <span><b>Antes:</b> <span data-output="ltAntes" data-format="num1">0</span> h</span>
-                <span><b>Después:</b> <span data-output="ltDespues" data-format="num1">0</span> h</span>
-              </div>
-            </article>
-            <article class="kr-block" data-block-for="errores" hidden>
-              <p class="kr-block__title">Reducción de errores</p>
-              <p class="kr-block__value"><span data-output="pctReduccionErrores" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> %</span></p>
-              <p class="kr-block__unit">menos errores vs media post-Activo</p>
-              <div class="kr-block__delta">
-                <span><b>Antes:</b> <span data-output="errAntes" data-format="num1">0</span>%</span>
-                <span><b>Post Kairos:</b> 3,43%</span>
-              </div>
-            </article>
-            <article class="kr-block" data-block-for="duplicidades" hidden>
-              <p class="kr-block__title">Horas duplicadas eliminadas</p>
-              <p class="kr-block__value" data-output="horasDuplicidades" data-format="int">0</p>
-              <p class="kr-block__unit">h/año que ahora se hacen una sola vez</p>
-            </article>
-          </div>
-        </section>
+				<section class="kr-section" data-section="operativas" hidden>
+					<p class="kr-section__title">Operativas</p>
+					<div class="kr-blocks">
+						<article class="kr-block" data-block-for="aceleracion" hidden>
+							<p class="kr-block__title">Reducción del lead time</p>
+							<p class="kr-block__value"><span data-output="pctLT" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> %</span></p>
+							<p class="kr-block__unit">más rápido extremo a extremo</p>
+							<div class="kr-block__delta">
+								<span><b>Antes:</b> <span data-output="ltAntes" data-format="num1">0</span> h</span>
+								<span><b>Después:</b> <span data-output="ltDespues" data-format="num1">0</span> h</span>
+							</div>
+						</article>
+						<article class="kr-block" data-block-for="errores" hidden>
+							<p class="kr-block__title">Reducción de errores</p>
+							<p class="kr-block__value"><span data-output="pctReduccionErrores" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> %</span></p>
+							<p class="kr-block__unit">menos errores vs media post-Activo</p>
+							<div class="kr-block__delta">
+								<span><b>Antes:</b> <span data-output="errAntes" data-format="num1">0</span>%</span>
+								<span><b>Post Kairos:</b> 3,43%</span>
+							</div>
+						</article>
+						<article class="kr-block" data-block-for="duplicidades" hidden>
+							<p class="kr-block__title">Horas duplicadas eliminadas</p>
+							<p class="kr-block__value" data-output="horasDuplicidades" data-format="int">0</p>
+							<p class="kr-block__unit">h/año que ahora se hacen una sola vez</p>
+						</article>
+					</div>
+				</section>
 
-        <section class="kr-section" data-section="estrategicas" hidden>
-          <p class="kr-section__title">Estratégicas</p>
-          <div class="kr-blocks">
-            <article class="kr-block" data-block-for="capacidadFTE" hidden>
-              <p class="kr-block__title">FTE liberado</p>
-              <p class="kr-block__value" data-output="fteEquiv" data-format="num1">0</p>
-              <p class="kr-block__unit">personas-año (1 FTE = 1.760 h)</p>
-            </article>
-            <article class="kr-block" data-block-for="capacidadFTE" hidden>
-              <p class="kr-block__title">Capacidad € sin contratar</p>
-              <p class="kr-block__value kr-block__value--accent" data-output="capacidadFTE" data-format="eur">0 €</p>
-              <p class="kr-block__unit">FTE × Coste FTE anual</p>
-            </article>
-            <article class="kr-block" data-block-for="factorBus" hidden>
-              <p class="kr-block__title">Δ Factor bus</p>
-              <p class="kr-block__value" data-output="deltaBus" data-format="signed">0</p>
-              <p class="kr-block__unit">personas críticas (negativo = mejor)</p>
-              <div class="kr-block__delta">
-                <span><b>Antes:</b> <span data-output="critAntes" data-format="int">0</span></span>
-                <span><b>Después:</b> <span data-output="critDespues" data-format="int">0</span></span>
-              </div>
-            </article>
-            <article class="kr-block kr-block--accent" data-block-for="apalancamiento" hidden>
-              <p class="kr-block__title">Apalancamiento operativo</p>
-              <p class="kr-block__value kr-block__value--accent"><span data-output="apalancamiento" data-format="num1">1</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
-              <p class="kr-block__unit">tiempo disponible del equipo tras el Activo</p>
-              <div class="kr-block__delta">
-                <span><b>Antes libre:</b> <span data-output="libreAntes" data-format="num1">40</span> h/sem</span>
-                <span><b>Ahora libre:</b> <span data-output="libreDespues" data-format="num1">40</span> h/sem</span>
-              </div>
-            </article>
-          </div>
-        </section>
+				<section class="kr-section" data-section="estrategicas" hidden>
+					<p class="kr-section__title">Estratégicas</p>
+					<div class="kr-blocks">
+						<article class="kr-block" data-block-for="capacidadFTE" hidden>
+							<p class="kr-block__title">FTE liberado</p>
+							<p class="kr-block__value" data-output="fteEquiv" data-format="num1">0</p>
+							<p class="kr-block__unit">personas-año (1 FTE = 1.760 h)</p>
+						</article>
+						<article class="kr-block" data-block-for="capacidadFTE" hidden>
+							<p class="kr-block__title">Capacidad € sin contratar</p>
+							<p class="kr-block__value kr-block__value--accent" data-output="capacidadFTE" data-format="eur">0 €</p>
+							<p class="kr-block__unit">FTE × Coste FTE anual</p>
+						</article>
+						<article class="kr-block" data-block-for="factorBus" hidden>
+							<p class="kr-block__title">Δ Factor bus</p>
+							<p class="kr-block__value" data-output="deltaBus" data-format="signed">0</p>
+							<p class="kr-block__unit">personas críticas (negativo = mejor)</p>
+							<div class="kr-block__delta">
+								<span><b>Antes:</b> <span data-output="critAntes" data-format="int">0</span></span>
+								<span><b>Después:</b> <span data-output="critDespues" data-format="int">0</span></span>
+							</div>
+						</article>
+						<article class="kr-block kr-block--accent" data-block-for="apalancamiento" hidden>
+							<p class="kr-block__title">Apalancamiento operativo</p>
+							<p class="kr-block__value kr-block__value--accent"><span data-output="apalancamiento" data-format="num1">1</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
+							<p class="kr-block__unit">tiempo disponible del equipo tras el Activo</p>
+							<div class="kr-block__delta">
+								<span><b>Antes libre:</b> <span data-output="libreAntes" data-format="num1">40</span> h/sem</span>
+								<span><b>Ahora libre:</b> <span data-output="libreDespues" data-format="num1">40</span> h/sem</span>
+							</div>
+						</article>
+					</div>
+				</section>
 
-        <section class="kr-section" data-section="kairos" hidden>
-          <p class="kr-section__title">Filosofía Kairos</p>
-          <div class="kr-blocks">
-            <article class="kr-block kr-block--accent" data-block-for="densidadKairos" hidden>
-              <p class="kr-block__title">Tiempo Kairós</p>
-              <p class="kr-block__value kr-block__value--accent" data-output="horasKairos" data-format="int">0</p>
-              <p class="kr-block__unit">h/año en alto valor</p>
-            </article>
-            <article class="kr-block" data-block-for="densidadKairos" hidden>
-              <p class="kr-block__title">Tiempo Cronos</p>
-              <p class="kr-block__value" data-output="horasCronos" data-format="int">0</p>
-              <p class="kr-block__unit">h/año en operativo</p>
-            </article>
-            <article class="kr-block" data-block-for="momentum" hidden>
-              <p class="kr-block__title">Momentum</p>
-              <p class="kr-block__value"><span data-output="factorMomentum" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
-              <p class="kr-block__unit">veces más eficiente al hacerlo</p>
-              <div class="kr-block__delta">
-                <span><b>Antes:</b> <span data-output="iterAntes" data-format="int">0</span> int.</span>
-                <span><b>Después:</b> <span data-output="iterDespues" data-format="int">0</span> int.</span>
-              </div>
-            </article>
-            <article class="kr-block" data-block-for="autonomiaActivo" hidden>
-              <p class="kr-block__title">Know-how en sistema</p>
-              <p class="kr-block__value"><span data-output="pctConocimiento" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
-              <p class="kr-block__unit">documentado, no en cabezas</p>
-            </article>
-            <article class="kr-block" data-block-for="autonomiaActivo" hidden>
-              <p class="kr-block__title">Capacidad de escalar</p>
-              <p class="kr-block__value"><span data-output="factorEscala" data-format="num1">1</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
-              <p class="kr-block__unit">volumen soportable sin sumar personas</p>
-            </article>
-          </div>
-        </section>
+				<section class="kr-section" data-section="kairos" hidden>
+					<p class="kr-section__title">Filosofía Kairos</p>
+					<div class="kr-blocks">
+						<article class="kr-block kr-block--accent" data-block-for="densidadKairos" hidden>
+							<p class="kr-block__title">Tiempo Kairós</p>
+							<p class="kr-block__value kr-block__value--accent" data-output="horasKairos" data-format="int">0</p>
+							<p class="kr-block__unit">h/año en alto valor</p>
+						</article>
+						<article class="kr-block" data-block-for="densidadKairos" hidden>
+							<p class="kr-block__title">Tiempo Cronos</p>
+							<p class="kr-block__value" data-output="horasCronos" data-format="int">0</p>
+							<p class="kr-block__unit">h/año en operativo</p>
+						</article>
+						<article class="kr-block" data-block-for="momentum" hidden>
+							<p class="kr-block__title">Momentum</p>
+							<p class="kr-block__value"><span data-output="factorMomentum" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
+							<p class="kr-block__unit">veces más eficiente al hacerlo</p>
+							<div class="kr-block__delta">
+								<span><b>Antes:</b> <span data-output="iterAntes" data-format="int">0</span> int.</span>
+								<span><b>Después:</b> <span data-output="iterDespues" data-format="int">0</span> int.</span>
+							</div>
+						</article>
+						<article class="kr-block" data-block-for="autonomiaActivo" hidden>
+							<p class="kr-block__title">Know-how en sistema</p>
+							<p class="kr-block__value"><span data-output="pctConocimiento" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
+							<p class="kr-block__unit">documentado, no en cabezas</p>
+						</article>
+						<article class="kr-block" data-block-for="autonomiaActivo" hidden>
+							<p class="kr-block__title">Capacidad de escalar</p>
+							<p class="kr-block__value"><span data-output="factorEscala" data-format="num1">1</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">×</span></p>
+							<p class="kr-block__unit">volumen soportable sin sumar personas</p>
+						</article>
+					</div>
+				</section>
 
-      </div>
+			</div>
 
-      <div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="propuesta">Plantear propuesta</button></div>
-    </div>
-  </details>
+			<div class="kr-step-nav"><button type="button" class="kr-step-next" data-next="propuesta">Plantear propuesta</button></div>
+		</div>
+	</details>
 
-  <!-- STEP 4 · PROPUESTA -->
-  <details class="kr-step" data-step="propuesta">
-    <summary>
-      <span class="kr-step__num">4</span>
-      <span class="kr-step__title">Propuesta</span>
-      <span class="kr-step__hint">Pon precio · genera el PDF</span>
-      <span class="kr-step__chevron" aria-hidden="true">▾</span>
-    </summary>
-    <div class="kr-step__body">
-      <p class="kr-section-sub">Fija el precio que vas a facturar y comprueba ROI, payback y capital acumulado a 3 años. El selector de ROI objetivo te sugiere precio en directo.</p>
+	<!-- STEP 4 · PROPUESTA -->
+	<details class="kr-step" data-step="propuesta">
+		<summary>
+			<span class="kr-step__num">4</span>
+			<span class="kr-step__title">Propuesta</span>
+			<span class="kr-step__hint">Pon precio · genera el PDF</span>
+			<span class="kr-step__chevron" aria-hidden="true">▾</span>
+		</summary>
+		<div class="kr-step__body">
+			<p class="kr-section-sub">Fija el precio que vas a facturar y comprueba ROI año 1 y payback.</p>
 
-      <div class="kr-bench-grid">
-          <div class="kr-bench" style="margin-bottom:1.1rem;">
-            <div class="kr-bench-label">Precio propuesta</div>
-            <div class="kr-bench-control">
-              <input type="number" class="kr-bench-input" data-bench="precio" value="3500" min="0" step="100" inputmode="numeric">
-              <span class="kr-bench-unit">€</span>
-            </div>
-            <div class="kr-bench-help">Precio al que vas a facturar este Activo al cliente.</div>
-          </div>
-        <div class="kr-bench">
-          <div class="kr-bench-label">ROI objetivo · sugerencia de precio</div>
-          <div class="kr-roi-target" role="radiogroup" aria-label="ROI objetivo">
-            <button type="button" class="kr-roi-btn" data-roi-target="3" aria-pressed="false">3×</button>
-            <button type="button" class="kr-roi-btn" data-roi-target="4" aria-pressed="true">4×</button>
-            <button type="button" class="kr-roi-btn" data-roi-target="5" aria-pressed="false">5×</button>
-            <button type="button" class="kr-roi-btn" data-roi-target="6" aria-pressed="false">6×</button>
-          </div>
-          <div class="kr-bench-help">A <b><span data-output="roiTargetX">4</span>×</b> facturarías <b><span data-output="precioSugerido" data-format="eur">0 €</span></b> · <button type="button" class="kr-link" data-apply-suggested>aplicar</button></div>
-        </div>
-      </div>
+			<div class="kr-bench-single">
+				<div class="kr-bench">
+					<div class="kr-bench-label">Precio propuesta</div>
+					<div class="kr-bench-control">
+						<input type="number" class="kr-bench-input" data-bench="precio" value="3500" min="0" step="100" inputmode="numeric">
+						<span class="kr-bench-unit">€</span>
+					</div>
+					<div class="kr-bench-help">Precio al que vas a facturar este Activo al cliente.</div>
+				</div>
+			</div>
 
-      <div class="kr-blocks" style="margin-top:1.1rem;">
-        <article class="kr-block kr-block--accent">
-          <p class="kr-block__title">ROI año 1</p>
-          <p class="kr-block__value kr-block__value--accent"><span data-output="roiPct" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
-          <p class="kr-block__unit">sobre la inversión propuesta</p>
-          <div class="kr-block__delta">
-            <span><b>Capital neto:</b> <span data-output="ahorroNeto" data-format="eur">0 €</span></span>
-            <span><b>Inversión:</b> <span data-output="precioRef" data-format="eur">3.500 €</span></span>
-          </div>
-        </article>
-        <article class="kr-block">
-          <p class="kr-block__title">Payback</p>
-          <p class="kr-block__value"><span data-output="payback" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> meses</span></p>
-          <p class="kr-block__unit">tiempo hasta amortizar</p>
-        </article>
-        <article class="kr-block">
-            <p class="kr-block__title">Capital neto · año 1</p>
-            <p class="kr-block__value" data-output="ahorroNeto" data-format="eur">0 €</p>
-            <p class="kr-block__unit">valor anual generado por el Activo</p>
-          </article>
-      </div>
-    </div>
-  </details>
+			<div class="kr-blocks" style="margin-top:1.1rem;">
+				<article class="kr-block kr-block--accent">
+					<p class="kr-block__title">ROI año 1</p>
+					<p class="kr-block__value kr-block__value--accent"><span data-output="roiPct" data-format="int">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;">%</span></p>
+					<p class="kr-block__unit">sobre la inversión propuesta</p>
+					<div class="kr-block__delta">
+						<span><b>Capital neto:</b> <span data-output="ahorroNeto" data-format="eur">0 €</span></span>
+						<span><b>Inversión:</b> <span data-output="precioRef" data-format="eur">3.500 €</span></span>
+					</div>
+				</article>
+				<article class="kr-block">
+					<p class="kr-block__title">Payback</p>
+					<p class="kr-block__value"><span data-output="payback" data-format="num1">0</span><span style="font-size:1rem;color:var(--kr-muted);font-weight:700;"> meses</span></p>
+					<p class="kr-block__unit">tiempo hasta amortizar</p>
+				</article>
+				<article class="kr-block">
+					<p class="kr-block__title">Capital neto · año 1</p>
+					<p class="kr-block__value" data-output="ahorroNeto" data-format="eur">0 €</p>
+					<p class="kr-block__unit">valor anual generado por el Activo</p>
+				</article>
+			</div>
+		</div>
+	</details>
 
-  <div class="kairos-roi__cta">
-    <p class="kairos-roi__cta-text">¿Listo para llevarlo a propuesta?</p>
-    <button type="button" class="kairos-roi__cta-btn" data-export-pdf>Generar propuesta PDF</button>
-  </div>
+	<div class="kairos-roi__cta">
+		<p class="kairos-roi__cta-text">¿Listo para llevarlo a propuesta?</p>
+		<button type="button" class="kairos-roi__cta-btn" data-export-pdf>Generar propuesta PDF</button>
+	</div>
 
 </div>
 
 <script>
 (() => {
-  const root = document.querySelector('.kairos-roi');
-  if (!root) return;
+	const root = document.querySelector('.kairos-roi');
+	if (!root) return;
 
-  const ERR_POST = 3.43;
-  const S = 48, H_FTE = 1760, J_SEM = 40;
+	/* ----- Constantes ----- */
+	const ERR_POST = 3.43;
+	const S = 48, H_FTE = 1760, J_SEM = 40;
 
-  const state = {
-    tipo: 'Automatización', money: false, metrics: new Set(),
-    bench: { precio: 3500 },
-    inputs: {
-      h_antes_sem: 0, h_despues_sem: 0, P: 0,
-      coste_antes_mes: 0, coste_despues_mes: 0, eh: 0,
-      lt_antes_h: 0, lt_despues_h: 0,
-      pct_errores_antes: 0, pct_duplicidades: 0,
-      coste_FTE_anual: 0, criticas_antes: 0, criticas_despues: 0,
-      pct_estrategico: 0,
-      iter_antes: 1, iter_despues: 1,
-      pct_conocimiento_sistema: 0, factor_escalabilidad: 1
-    }
-  };
+	/* ----- Estado ----- */
+	const state = {
+		tipo: 'Automatización',
+		money: false,
+		metrics: new Set(),
+		bench: { precio: 3500 },
+		inputs: {
+			h_antes_sem: 0, h_despues_sem: 0, P: 0,
+			coste_antes_mes: 0, coste_despues_mes: 0, eh: 0,
+			lt_antes_h: 0, lt_despues_h: 0,
+			pct_errores_antes: 0, pct_duplicidades: 0,
+			coste_FTE_anual: 0, criticas_antes: 0, criticas_despues: 0,
+			pct_estrategico: 0,
+			iter_antes: 1, iter_despues: 1,
+			pct_conocimiento_sistema: 0, factor_escalabilidad: 1
+		}
+	};
 
-  const nfInt = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
-  const nf1   = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 });
-  const nfEur = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0, style:'currency', currency:'EUR' });
-  const fmt = (val, kind, suffix='') => {
-    if (!isFinite(val)) val = 0;
-    if (kind === 'eur')       return nfEur.format(Math.round(val));
-    if (kind === 'num1')      return nf1.format(val);
-    if (kind === 'signed')    return (val > 0 ? '+' : '') + nfInt.format(val);
-    if (kind === 'signedPct') return (val > 0 ? '+' : '') + nfInt.format(Math.round(val)) + '%';
-    return nfInt.format(val) + suffix;
-  };
+	/* ----- Formato ----- */
+	const nfInt = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
+	const nf1   = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 });
+	const nfEur = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0, style:'currency', currency:'EUR' });
+	const fmt = (val, kind, suffix='') => {
+		if (!isFinite(val)) val = 0;
+		if (kind === 'eur')    return nfEur.format(Math.round(val));
+		if (kind === 'num1')   return nf1.format(val);
+		if (kind === 'signed') return (val > 0 ? '+' : '') + nfInt.format(val);
+		return nfInt.format(val) + suffix;
+	};
 
-  /* SWITCH tipo */
-  const switchEl = root.querySelector('.kr-switch');
-  const switchInd = switchEl.querySelector('.kr-switch__indicator');
-  const moveSwitch = () => {
-    const a = switchEl.querySelector('.kr-switch__btn[aria-pressed="true"]');
-    if (!a) return;
-    const r = a.getBoundingClientRect(), p = switchEl.getBoundingClientRect();
-    switchInd.style.width = r.width + 'px';
-    switchInd.style.transform = `translateX(${r.left - p.left - 3}px)`;
-  };
-  switchEl.querySelectorAll('.kr-switch__btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      switchEl.querySelectorAll('.kr-switch__btn').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
-      state.tipo = btn.dataset.tipo;
-      switchEl.dataset.active = state.tipo;
-      moveSwitch();
-    });
-  });
-  requestAnimationFrame(() => requestAnimationFrame(moveSwitch));
-  window.addEventListener('resize', moveSwitch);
+	/* ----- Switch tipo ----- */
+	const switchEl = root.querySelector('.kr-switch');
+	const switchInd = switchEl.querySelector('.kr-switch__indicator');
+	const moveSwitch = () => {
+		const a = switchEl.querySelector('.kr-switch__btn[aria-pressed="true"]');
+		if (!a) return;
+		const r = a.getBoundingClientRect(), p = switchEl.getBoundingClientRect();
+		switchInd.style.width = r.width + 'px';
+		switchInd.style.transform = `translateX(${r.left - p.left - 3}px)`;
+	};
+	switchEl.querySelectorAll('.kr-switch__btn').forEach(btn => {
+		btn.addEventListener('click', () => {
+			switchEl.querySelectorAll('.kr-switch__btn').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+			state.tipo = btn.dataset.tipo;
+			switchEl.dataset.active = state.tipo;
+			moveSwitch();
+		});
+	});
+	requestAnimationFrame(() => requestAnimationFrame(moveSwitch));
+	window.addEventListener('resize', moveSwitch);
 
-  /* NAV step buttons · cierra fase actual + abre siguiente */
-  root.querySelectorAll('[data-next]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const current = btn.closest('.kr-step');
-      const target = root.querySelector(`.kr-step[data-step="${btn.dataset.next}"]`);
-      if (current && current !== target) current.open = false;
-      if (target) {
-        target.open = true;
-        setTimeout(() => {
-          target.querySelector('summary').scrollIntoView({ behavior:'smooth', block:'start' });
-        }, 60);
-      }
-    });
-  });
+	/* ----- Navegación entre fases ----- */
+	root.querySelectorAll('[data-next]').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const current = btn.closest('.kr-step');
+			const target = root.querySelector(`.kr-step[data-step="${btn.dataset.next}"]`);
+			if (current && current !== target) current.open = false;
+			if (target) {
+				target.open = true;
+				setTimeout(() => target.querySelector('summary').scrollIntoView({ behavior:'smooth', block:'start' }), 60);
+			}
+		});
+	});
 
-  /* METRIC chips */
-  root.querySelectorAll('.kr-metric-chip').forEach(chip => {
-    const cb = chip.querySelector('input');
-    chip.addEventListener('click', e => {
-      if (e.target.tagName !== 'INPUT') { e.preventDefault(); cb.checked = !cb.checked; }
-      const m = chip.dataset.metric;
-      if (cb.checked) state.metrics.add(m); else state.metrics.delete(m);
-      chip.dataset.checked = cb.checked ? 'true' : 'false';
-      syncFieldsVisibility(); syncResultsVisibility(); compute();
-    });
-  });
+	/* ----- Métricas (chips) ----- */
+	root.querySelectorAll('.kr-metric-chip').forEach(chip => {
+		const cb = chip.querySelector('input');
+		chip.addEventListener('click', e => {
+			if (e.target.tagName !== 'INPUT') { e.preventDefault(); cb.checked = !cb.checked; }
+			const m = chip.dataset.metric;
+			if (cb.checked) state.metrics.add(m); else state.metrics.delete(m);
+			chip.dataset.checked = cb.checked ? 'true' : 'false';
+			syncFieldsVisibility();
+			syncResultsVisibility();
+			compute();
+		});
+	});
 
-  function syncFieldsVisibility() {
-    root.querySelectorAll('.kr-field[data-needs-metric]').forEach(f => {
-      f.hidden = !state.metrics.has(f.dataset.needsMetric);
-    });
-  }
-  function syncResultsVisibility() {
-    root.querySelectorAll('[data-block-for]').forEach(b => {
-      b.hidden = !state.metrics.has(b.dataset.blockFor);
-    });
-    const sectionMap = {
-      operativas: ['aceleracion','errores','duplicidades'],
-      estrategicas: ['capacidadFTE','factorBus','apalancamiento'],
-      kairos: ['densidadKairos','momentum','autonomiaActivo']
-    };
-    Object.entries(sectionMap).forEach(([key, metrics]) => {
-      const sec = root.querySelector(`[data-section="${key}"]`);
-      if (sec) sec.hidden = !metrics.some(m => state.metrics.has(m));
-    });
-  }
+	function syncFieldsVisibility() {
+		root.querySelectorAll('.kr-field[data-needs-metric]').forEach(f => {
+			f.hidden = !state.metrics.has(f.dataset.needsMetric);
+		});
+	}
 
-  /* MONEY toggle */
-  const moneyBtn = root.querySelector('[data-money-toggle]');
-  moneyBtn.addEventListener('click', () => {
-    state.money = !state.money;
-    moneyBtn.setAttribute('aria-pressed', state.money ? 'true' : 'false');
-    root.querySelectorAll('[data-money-only]').forEach(el => el.hidden = !state.money);
-    root.querySelectorAll('[data-money-field]').forEach(el => el.hidden = !state.money);
-    compute();
-  });
+	const SECTION_MAP = {
+		operativas: ['aceleracion','errores','duplicidades'],
+		estrategicas: ['capacidadFTE','factorBus','apalancamiento'],
+		kairos: ['densidadKairos','momentum','autonomiaActivo']
+	};
+	function syncResultsVisibility() {
+		root.querySelectorAll('[data-block-for]').forEach(b => {
+			b.hidden = !state.metrics.has(b.dataset.blockFor);
+		});
+		Object.entries(SECTION_MAP).forEach(([key, metrics]) => {
+			const sec = root.querySelector(`[data-section="${key}"]`);
+			if (sec) sec.hidden = !metrics.some(m => state.metrics.has(m));
+		});
+	}
 
-  /* BENCH input · precio */
-  root.querySelectorAll('[data-bench]').forEach(inp => {
-    const key = inp.dataset.bench;
-    inp.addEventListener('input', () => {
-      state.bench[key] = Math.max(0, +inp.value || 0);
-      compute();
-    });
-  });
+	/* ----- Money toggle ----- */
+	const moneyBtn = root.querySelector('[data-money-toggle]');
+	moneyBtn.addEventListener('click', () => {
+		state.money = !state.money;
+		moneyBtn.setAttribute('aria-pressed', state.money ? 'true' : 'false');
+		root.querySelectorAll('[data-money-only]').forEach(el => el.hidden = !state.money);
+		root.querySelectorAll('[data-money-field]').forEach(el => el.hidden = !state.money);
+		compute();
+	});
 
-  /* Aplicar precio sugerido */
-  const applyBtn = root.querySelector('[data-apply-suggested]');
-  if (applyBtn) {
-    applyBtn.addEventListener('click', () => {
-      const i = state.inputs;
-      const horasAnio = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P) * S;
-      const varCoste = (i.coste_antes_mes - i.coste_despues_mes) * 12;
-      const ahorroNeto = state.money ? (horasAnio * i.eh) + varCoste : 0;
-      if (ahorroNeto <= 0 || state.roiTarget <= 0) return;
-      const sugerido = ahorroNeto / state.roiTarget;
-      const precioInp = root.querySelector('[data-bench="precio"]');
-      precioInp.value = Math.round(sugerido / 100) * 100;
-      state.bench.precio = +precioInp.value;
-      compute();
-    });
-  }
+	/* ----- Bench input · precio ----- */
+	root.querySelectorAll('[data-bench]').forEach(inp => {
+		const key = inp.dataset.bench;
+		inp.addEventListener('input', () => {
+			state.bench[key] = Math.max(0, +inp.value || 0);
+			compute();
+		});
+	});
 
-  /* SLIDERS */
-  function getKey(field) { return field.dataset.input; }
-  function setFieldValue(field, raw) {
-    const slider = field.querySelector('.kr-slider');
-    const min = +slider.min, max = +slider.max;
-    let v = Math.max(min, Math.min(max, +raw || 0));
-    slider.value = v;
-    state.inputs[getKey(field)] = +slider.value;
-    paintField(field);
-  }
-  function paintField(field) {
-    const slider = field.querySelector('.kr-slider');
-    const v = +slider.value;
-    const min = +slider.min, max = +slider.max;
-    const pct = max > min ? ((v - min) / (max - min)) * 100 : 0;
-    slider.style.setProperty('--kr-fill', pct);
-    const bubble = field.querySelector('.kr-bubble');
-    if (bubble) {
-      bubble.style.left = pct + '%';
-      bubble.textContent = fmt(v, bubble.dataset.format || 'int', bubble.dataset.suffix || '');
-    }
-    const num = field.querySelector('.kr-current-num');
-    if (num && !num.classList.contains('is-editing')) num.textContent = fmt(v, num.dataset.format || 'int');
-  }
+	/* ----- Sliders ----- */
+	const getKey = field => field.dataset.input;
 
-  root.querySelectorAll('.kr-field').forEach(field => {
-    const slider = field.querySelector('.kr-slider');
-    const wrap = field.querySelector('.kr-slider-wrap');
-    state.inputs[getKey(field)] = +slider.value;
-    slider.addEventListener('input', () => {
-      state.inputs[getKey(field)] = +slider.value;
-      paintField(field); compute();
-    });
-    slider.addEventListener('pointerdown', () => wrap.dataset.active = 'true');
-    slider.addEventListener('pointerup',   () => wrap.dataset.active = 'false');
-    slider.addEventListener('blur',        () => wrap.dataset.active = 'false');
-    const num = field.querySelector('.kr-current-num');
-    if (num) {
-      num.addEventListener('focus', () => {
-        num.classList.add('is-editing'); num.contentEditable = 'true';
-        num.textContent = String(state.inputs[getKey(field)]);
-        const r = document.createRange(); r.selectNodeContents(num);
-        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-      });
-      const commit = () => {
-        if (!num.classList.contains('is-editing')) return;
-        const raw = parseFloat((num.textContent || '0').replace(',', '.').replace(/[^\d.\-]/g, ''));
-        setFieldValue(field, raw);
-        num.classList.remove('is-editing'); num.contentEditable = 'false'; compute();
-      };
-      num.addEventListener('blur', commit);
-      num.addEventListener('keydown', e => {
-        if (e.key === 'Enter') { e.preventDefault(); num.blur(); }
-        if (e.key === 'Escape') { num.textContent = fmt(state.inputs[getKey(field)], num.dataset.format || 'int'); num.blur(); }
-      });
-    }
-    paintField(field);
-  });
+	function setFieldValue(field, raw) {
+		const slider = field.querySelector('.kr-slider');
+		const min = +slider.min, max = +slider.max;
+		const v = Math.max(min, Math.min(max, +raw || 0));
+		slider.value = v;
+		state.inputs[getKey(field)] = +slider.value;
+		paintField(field);
+	}
 
-  /* COMPUTE */
-  function compute() {
-    const i = state.inputs, b = state.bench;
-    const horasSemana = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P);
-    const horasAnio   = horasSemana * S;
-    const costeAntesAnio    = i.coste_antes_mes * 12;
-    const costeDespuesAnio  = i.coste_despues_mes * 12;
-    const varCoste          = costeAntesAnio - costeDespuesAnio;
-    const valorTiempo       = state.money ? horasAnio * i.eh : 0;
-    const ahorroNeto        = state.money ? valorTiempo + varCoste : 0;
+	function paintField(field) {
+		const slider = field.querySelector('.kr-slider');
+		const v = +slider.value;
+		const min = +slider.min, max = +slider.max;
+		const pct = max > min ? ((v - min) / (max - min)) * 100 : 0;
+		slider.style.setProperty('--kr-fill', pct);
+		const bubble = field.querySelector('.kr-bubble');
+		if (bubble) {
+			bubble.style.left = pct + '%';
+			bubble.textContent = fmt(v, bubble.dataset.format || 'int', bubble.dataset.suffix || '');
+		}
+		const num = field.querySelector('.kr-current-num');
+		if (num && !num.classList.contains('is-editing')) {
+			num.textContent = fmt(v, num.dataset.format || 'int');
+		}
+	}
 
-    setOut('horasSemana', horasSemana);
-    setOut('horasAnio',   horasAnio);
-    setOut('costeAntesAnio', costeAntesAnio);
-    setOut('costeDespuesAnio', costeDespuesAnio);
-    setOut('varCoste',  varCoste);
-    setOut('valorTiempo', valorTiempo);
-    setOut('ahorroNeto', ahorroNeto);
-    setOut('ahorroNetoHero', ahorroNeto);
+	root.querySelectorAll('.kr-field').forEach(field => {
+		const slider = field.querySelector('.kr-slider');
+		const wrap = field.querySelector('.kr-slider-wrap');
+		state.inputs[getKey(field)] = +slider.value;
 
-    /* Operativas */
-    const pctLT = i.lt_antes_h > 0 ? ((i.lt_antes_h - i.lt_despues_h) / i.lt_antes_h) * 100 : 0;
-    setOut('pctLT', Math.max(0, pctLT));
-    setOut('ltAntes', i.lt_antes_h);
-    setOut('ltDespues', i.lt_despues_h);
+		slider.addEventListener('input', () => {
+			state.inputs[getKey(field)] = +slider.value;
+			paintField(field);
+			compute();
+		});
+		slider.addEventListener('pointerdown', () => wrap.dataset.active = 'true');
+		slider.addEventListener('pointerup',   () => wrap.dataset.active = 'false');
+		slider.addEventListener('blur',        () => wrap.dataset.active = 'false');
 
-    const pctRedErr = i.pct_errores_antes > 0 ? ((i.pct_errores_antes - ERR_POST) / i.pct_errores_antes) * 100 : 0;
-    setOut('pctReduccionErrores', Math.max(0, pctRedErr));
-    setOut('errAntes', i.pct_errores_antes);
+		const num = field.querySelector('.kr-current-num');
+		if (num) {
+			num.addEventListener('focus', () => {
+				num.classList.add('is-editing');
+				num.contentEditable = 'true';
+				num.textContent = String(state.inputs[getKey(field)]);
+				const r = document.createRange(); r.selectNodeContents(num);
+				const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+			});
+			const commit = () => {
+				if (!num.classList.contains('is-editing')) return;
+				const raw = parseFloat((num.textContent || '0').replace(',', '.').replace(/[^\d.\-]/g, ''));
+				setFieldValue(field, raw);
+				num.classList.remove('is-editing');
+				num.contentEditable = 'false';
+				compute();
+			};
+			num.addEventListener('blur', commit);
+			num.addEventListener('keydown', e => {
+				if (e.key === 'Enter') { e.preventDefault(); num.blur(); }
+				if (e.key === 'Escape') { num.textContent = fmt(state.inputs[getKey(field)], num.dataset.format || 'int'); num.blur(); }
+			});
+		}
+		paintField(field);
+	});
 
-    const horasAntesTotales = i.h_antes_sem * i.P * S;
-    setOut('horasDuplicidades', horasAntesTotales * (i.pct_duplicidades / 100));
+	/* ----- Compute ----- */
+	function compute() {
+		const i = state.inputs, b = state.bench;
 
-    /* Estratégicas */
-    const fte = horasAnio / H_FTE;
-    setOut('fteEquiv', fte);
-    setOut('capacidadFTE', fte * i.coste_FTE_anual);
-    setOut('deltaBus', i.criticas_despues - i.criticas_antes);
-    setOut('critAntes', i.criticas_antes);
-    setOut('critDespues', i.criticas_despues);
+		const horasSemana = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P);
+		const horasAnio   = horasSemana * S;
+		const costeAntesAnio   = i.coste_antes_mes * 12;
+		const costeDespuesAnio = i.coste_despues_mes * 12;
+		const varCoste    = costeAntesAnio - costeDespuesAnio;
+		const valorTiempo = state.money ? horasAnio * i.eh : 0;
+		const ahorroNeto  = state.money ? valorTiempo + varCoste : 0;
 
-    const libreAntes   = Math.max(0, J_SEM - i.h_antes_sem);
-    const libreDespues = Math.max(0, J_SEM - i.h_despues_sem);
-    const apalancamiento = libreAntes > 0 ? (libreDespues / libreAntes) : 0;
-    setOut('libreAntes', libreAntes);
-    setOut('libreDespues', libreDespues);
-    setOut('apalancamiento', apalancamiento);
+		setOut('horasSemana', horasSemana);
+		setOut('horasAnio', horasAnio);
+		setOut('costeAntesAnio', costeAntesAnio);
+		setOut('costeDespuesAnio', costeDespuesAnio);
+		setOut('varCoste', varCoste);
+		setOut('valorTiempo', valorTiempo);
+		setOut('ahorroNeto', ahorroNeto);
+		setOut('ahorroNetoHero', ahorroNeto);
 
-    /* Filosofía Kairos */
-    const horasKairos = horasAnio * (i.pct_estrategico / 100);
-    setOut('horasKairos', horasKairos);
-    setOut('horasCronos', horasAnio - horasKairos);
+		/* Operativas */
+		const pctLT = i.lt_antes_h > 0 ? ((i.lt_antes_h - i.lt_despues_h) / i.lt_antes_h) * 100 : 0;
+		setOut('pctLT', Math.max(0, pctLT));
+		setOut('ltAntes', i.lt_antes_h);
+		setOut('ltDespues', i.lt_despues_h);
 
-    const factorMomentum = i.iter_despues > 0 ? (i.iter_antes / i.iter_despues) : 0;
-    setOut('factorMomentum', factorMomentum);
-    setOut('iterAntes', i.iter_antes);
-    setOut('iterDespues', i.iter_despues);
+		const pctRedErr = i.pct_errores_antes > 0 ? ((i.pct_errores_antes - ERR_POST) / i.pct_errores_antes) * 100 : 0;
+		setOut('pctReduccionErrores', Math.max(0, pctRedErr));
+		setOut('errAntes', i.pct_errores_antes);
 
-    setOut('pctConocimiento', i.pct_conocimiento_sistema);
-    setOut('factorEscala', i.factor_escalabilidad);
+		const horasAntesTotales = i.h_antes_sem * i.P * S;
+		setOut('horasDuplicidades', horasAntesTotales * (i.pct_duplicidades / 100));
 
-    /* Propuesta · ROI · Payback · Capital 3y · Sugerencia */
-    const precio = Math.max(0, b.precio);
-    const roiPct  = (state.money && precio > 0) ? (ahorroNeto / precio) * 100 : 0;
-    const payback = (state.money && ahorroNeto > 0) ? (precio / ahorroNeto) * 12 : 0;
+		/* Estratégicas */
+		const fte = horasAnio / H_FTE;
+		setOut('fteEquiv', fte);
+		setOut('capacidadFTE', fte * i.coste_FTE_anual);
+		setOut('deltaBus', i.criticas_despues - i.criticas_antes);
+		setOut('critAntes', i.criticas_antes);
+		setOut('critDespues', i.criticas_despues);
 
-    setOut('precioRef', precio);
-    setOut('roiPct',    roiPct);
-    setOut('payback',   payback);
+		const libreAntes   = Math.max(0, J_SEM - i.h_antes_sem);
+		const libreDespues = Math.max(0, J_SEM - i.h_despues_sem);
+		const apalancamiento = libreAntes > 0 ? (libreDespues / libreAntes) : 0;
+		setOut('libreAntes', libreAntes);
+		setOut('libreDespues', libreDespues);
+		setOut('apalancamiento', apalancamiento);
 
-    /* Validación */
-    const warn = root.querySelector('[data-warn]');
-    warn.dataset.visible = (i.h_despues_sem > i.h_antes_sem) ? 'true' : 'false';
-  }
+		/* Filosofía Kairos */
+		const horasKairos = horasAnio * (i.pct_estrategico / 100);
+		setOut('horasKairos', horasKairos);
+		setOut('horasCronos', horasAnio - horasKairos);
 
-  function setOut(name, val) {
-    root.querySelectorAll(`[data-output="${name}"]`).forEach(el => {
-      el.textContent = fmt(val, el.dataset.format || 'int');
-    });
-  }
+		const factorMomentum = i.iter_despues > 0 ? (i.iter_antes / i.iter_despues) : 0;
+		setOut('factorMomentum', factorMomentum);
+		setOut('iterAntes', i.iter_antes);
+		setOut('iterDespues', i.iter_despues);
 
-  /* EXPORT PDF · estética Kairos */
-  function generarPropuestaPDF() {
-    const i = state.inputs, b = state.bench;
-    const nombre = root.querySelector('[data-meta="nombreActivo"]').value.trim() || 'Activo Kairos';
-    const tipo = state.tipo;
+		setOut('pctConocimiento', i.pct_conocimiento_sistema);
+		setOut('factorEscala', i.factor_escalabilidad);
 
-    const horasSemana = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P);
-    const horasAnio   = horasSemana * S;
-    const varCoste    = (i.coste_antes_mes - i.coste_despues_mes) * 12;
-    const valorTiempo = state.money ? horasAnio * i.eh : 0;
-    const ahorroNeto  = state.money ? valorTiempo + varCoste : 0;
-    const roiPct      = (state.money && b.precio > 0) ? (ahorroNeto / b.precio) * 100 : 0;
-    const payback     = (state.money && ahorroNeto > 0) ? (b.precio / ahorroNeto) * 12 : 0;
-    const fte         = horasAnio / H_FTE;
+		/* Propuesta */
+		const precio  = Math.max(0, b.precio);
+		const roiPct  = (state.money && precio > 0) ? (ahorroNeto / precio) * 100 : 0;
+		const payback = (state.money && ahorroNeto > 0) ? (precio / ahorroNeto) * 12 : 0;
+		setOut('precioRef', precio);
+		setOut('roiPct', roiPct);
+		setOut('payback', payback);
 
-    const fecha = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
+		/* Validación */
+		const warn = root.querySelector('[data-warn]');
+		warn.dataset.visible = (i.h_despues_sem > i.h_antes_sem) ? 'true' : 'false';
+	}
 
-     const logoSvg = `<img src="./Logo_Kairos_Fondo_Transparente.png" alt="Kairos" style="width:40px;height:40px;display:block;">`;
-    /* Núcleo blocks · arriba · lo que gana */
-    const nucleoCard = state.money
-      ? `<div class="pp-hero">
-           <div class="pp-hero-label">Capital neto ahorrado · año 1</div>
-           <div class="pp-hero-value">${fmt(ahorroNeto,'eur')}</div>
-           <div class="pp-hero-sub">${fmt(horasAnio,'int')} h liberadas/año · ${fmt(fte,'num1')} FTE equivalente</div>
-         </div>`
-      : `<div class="pp-hero">
-           <div class="pp-hero-label">Horas liberadas · año 1</div>
-           <div class="pp-hero-value">${fmt(horasAnio,'int')} <span>h</span></div>
-           <div class="pp-hero-sub">${fmt(horasSemana,'num1')} h/semana · ${fmt(fte,'num1')} FTE equivalente</div>
-         </div>`;
+	function setOut(name, val) {
+		root.querySelectorAll(`[data-output="${name}"]`).forEach(el => {
+			el.textContent = fmt(val, el.dataset.format || 'int');
+		});
+	}
 
-    /* Propuesta · precio + ROI + payback + 3y */
-    const propuestaCard = state.money ? `
-      <div class="pp-section-h">Propuesta</div>
-      <div class="pp-grid pp-grid-3">
-        <div class="pp-block"><div class="pp-block-t">Inversión</div><div class="pp-block-v">${fmt(b.precio,'eur')}</div></div>
-        <div class="pp-block pp-block-accent"><div class="pp-block-t">ROI año 1</div><div class="pp-block-v">${fmt(roiPct,'int')}<span>%</span></div></div>
-        <div class="pp-block"><div class="pp-block-t">Payback</div><div class="pp-block-v">${fmt(payback,'num1')}<span>m</span></div></div>
-      </div>
-           <div class="pp-row">
-       <div class="pp-row-t">Capital neto · año 1</div>
-       <div class="pp-row-v">${fmt(ahorroNeto,'eur')}</div>
-     </div>` : `
-      <div class="pp-section-h">Propuesta</div>
-      <div class="pp-row">
-        <div class="pp-row-t">Inversión</div>
-        <div class="pp-row-v">${fmt(b.precio,'eur')}</div>
-      </div>
-      <div class="pp-note pp-note-warn">Activa el cálculo en € en la calculadora para incluir ROI, payback y capital a 3 años.</div>
-    `;
+	/* ----- Export PDF ----- */
+	function generarPropuestaPDF() {
+		const i = state.inputs, b = state.bench;
+		const nombre = root.querySelector('[data-meta="nombreActivo"]').value.trim() || 'Activo Kairos';
+		const tipo = state.tipo;
 
-    /* Complementarias · solo las activadas */
-    const comp = [];
-    if (state.metrics.has('aceleracion')) {
-      const pct = i.lt_antes_h > 0 ? ((i.lt_antes_h - i.lt_despues_h)/i.lt_antes_h)*100 : 0;
-      comp.push({ t:'Reducción del lead time', v: fmt(Math.max(0,pct),'num1')+' %', s: `${fmt(i.lt_antes_h,'num1')} h → ${fmt(i.lt_despues_h,'num1')} h` });
-    }
-    if (state.metrics.has('errores')) {
-      const r = i.pct_errores_antes > 0 ? ((i.pct_errores_antes - ERR_POST)/i.pct_errores_antes)*100 : 0;
-      comp.push({ t:'Reducción de errores', v: fmt(Math.max(0,r),'num1')+' %', s: `${fmt(i.pct_errores_antes,'num1')} % → 3,43 %` });
-    }
-    if (state.metrics.has('duplicidades')) {
-      const h = i.h_antes_sem * i.P * S * (i.pct_duplicidades/100);
-      comp.push({ t:'Horas duplicadas eliminadas', v: fmt(h,'int')+' h/año', s: `${i.pct_duplicidades} % del tiempo era duplicado` });
-    }
-    if (state.metrics.has('capacidadFTE')) {
-      comp.push({ t:'Capacidad sin contratar', v: fmt(fte,'num1')+' FTE', s: fmt(fte * i.coste_FTE_anual,'eur')+'/año equivalente' });
-    }
-    if (state.metrics.has('factorBus')) {
-      comp.push({ t:'Δ Factor bus', v: fmt(i.criticas_despues - i.criticas_antes,'signed')+' personas', s: `${i.criticas_antes} → ${i.criticas_despues} críticas` });
-    }
-    if (state.metrics.has('apalancamiento')) {
-      const la = Math.max(0, J_SEM - i.h_antes_sem);
-      const ld = Math.max(0, J_SEM - i.h_despues_sem);
-      const v = la > 0 ? ld/la : 0;
-      comp.push({ t:'Apalancamiento operativo', v: fmt(v,'num1')+'×', s: `${fmt(la,'num1')} h → ${fmt(ld,'num1')} h libres/sem` });
-    }
-    if (state.metrics.has('densidadKairos')) {
-      const k = horasAnio * (i.pct_estrategico/100);
-      comp.push({ t:'Tiempo Kairós', v: fmt(k,'int')+' h/año', s: `${i.pct_estrategico} % del tiempo liberado a alto valor` });
-    }
-    if (state.metrics.has('momentum')) {
-      const f = i.iter_despues > 0 ? i.iter_antes/i.iter_despues : 0;
-      comp.push({ t:'Momentum', v: fmt(f,'num1')+'×', s: `${i.iter_antes} → ${i.iter_despues} intentos` });
-    }
-    if (state.metrics.has('autonomiaActivo')) {
-      comp.push({ t:'Autonomía del Activo', v: i.pct_conocimiento_sistema+' %', s: `${fmt(i.factor_escalabilidad,'num1')}× escalabilidad` });
-    }
+		const horasSemana = Math.max(0, (i.h_antes_sem - i.h_despues_sem) * i.P);
+		const horasAnio   = horasSemana * S;
+		const varCoste    = (i.coste_antes_mes - i.coste_despues_mes) * 12;
+		const valorTiempo = state.money ? horasAnio * i.eh : 0;
+		const ahorroNeto  = state.money ? valorTiempo + varCoste : 0;
+		const roiPct      = (state.money && b.precio > 0) ? (ahorroNeto / b.precio) * 100 : 0;
+		const payback     = (state.money && ahorroNeto > 0) ? (b.precio / ahorroNeto) * 12 : 0;
+		const fte         = horasAnio / H_FTE;
 
-    const compHtml = comp.length
-      ? `<div class="pp-section-h">Métricas complementarias</div>
-         <div class="pp-grid pp-grid-2">
-           ${comp.map(c => `<div class="pp-block"><div class="pp-block-t">${c.t}</div><div class="pp-block-v">${c.v}</div>${c.s ? `<div class="pp-block-s">${c.s}</div>` : ''}</div>`).join('')}
-         </div>`
-      : '';
+		const fecha = new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'long', year:'numeric' });
 
-    const html = `<!DOCTYPE html><html lang="es"><head>
+		const logoSvg = `<img src="./Logo_Kairos_Fondo_Transparente.png" alt="Kairos" style="width:40px;height:40px;display:block;">`;
+
+		const nucleoCard = state.money
+			? `<div class="pp-hero">
+					<div class="pp-hero-label">Capital neto ahorrado · año 1</div>
+					<div class="pp-hero-value">${fmt(ahorroNeto,'eur')}</div>
+					<div class="pp-hero-sub">${fmt(horasAnio,'int')} h liberadas/año · ${fmt(fte,'num1')} FTE equivalente</div>
+				</div>`
+			: `<div class="pp-hero">
+					<div class="pp-hero-label">Horas liberadas · año 1</div>
+					<div class="pp-hero-value">${fmt(horasAnio,'int')} <span>h</span></div>
+					<div class="pp-hero-sub">${fmt(horasSemana,'num1')} h/semana · ${fmt(fte,'num1')} FTE equivalente</div>
+				</div>`;
+
+		const propuestaCard = state.money
+			? `<div class="pp-section-h">Propuesta</div>
+				<div class="pp-grid pp-grid-3">
+					<div class="pp-block"><div class="pp-block-t">Inversión</div><div class="pp-block-v">${fmt(b.precio,'eur')}</div></div>
+					<div class="pp-block pp-block-accent"><div class="pp-block-t">ROI año 1</div><div class="pp-block-v">${fmt(roiPct,'int')}<span>%</span></div></div>
+					<div class="pp-block"><div class="pp-block-t">Payback</div><div class="pp-block-v">${fmt(payback,'num1')}<span>m</span></div></div>
+				</div>
+				<div class="pp-row">
+					<div class="pp-row-t">Capital neto · año 1</div>
+					<div class="pp-row-v">${fmt(ahorroNeto,'eur')}</div>
+				</div>`
+			: `<div class="pp-section-h">Propuesta</div>
+				<div class="pp-row">
+					<div class="pp-row-t">Inversión</div>
+					<div class="pp-row-v">${fmt(b.precio,'eur')}</div>
+				</div>
+				<div class="pp-note pp-note-warn">Activa el cálculo en € en la calculadora para incluir ROI año 1 y payback.</div>`;
+
+		/* Métricas complementarias activas */
+		const comp = [];
+		if (state.metrics.has('aceleracion')) {
+			const pct = i.lt_antes_h > 0 ? ((i.lt_antes_h - i.lt_despues_h) / i.lt_antes_h) * 100 : 0;
+			comp.push({ t:'Reducción del lead time', v: fmt(Math.max(0,pct),'num1') + ' %', s: `${fmt(i.lt_antes_h,'num1')} h → ${fmt(i.lt_despues_h,'num1')} h` });
+		}
+		if (state.metrics.has('errores')) {
+			const r = i.pct_errores_antes > 0 ? ((i.pct_errores_antes - ERR_POST) / i.pct_errores_antes) * 100 : 0;
+			comp.push({ t:'Reducción de errores', v: fmt(Math.max(0,r),'num1') + ' %', s: `${fmt(i.pct_errores_antes,'num1')} % → 3,43 %` });
+		}
+		if (state.metrics.has('duplicidades')) {
+			const h = i.h_antes_sem * i.P * S * (i.pct_duplicidades / 100);
+			comp.push({ t:'Horas duplicadas eliminadas', v: fmt(h,'int') + ' h/año', s: `${i.pct_duplicidades} % del tiempo era duplicado` });
+		}
+		if (state.metrics.has('capacidadFTE')) {
+			comp.push({ t:'Capacidad sin contratar', v: fmt(fte,'num1') + ' FTE', s: fmt(fte * i.coste_FTE_anual,'eur') + '/año equivalente' });
+		}
+		if (state.metrics.has('factorBus')) {
+			comp.push({ t:'Δ Factor bus', v: fmt(i.criticas_despues - i.criticas_antes,'signed') + ' personas', s: `${i.criticas_antes} → ${i.criticas_despues} críticas` });
+		}
+		if (state.metrics.has('apalancamiento')) {
+			const la = Math.max(0, J_SEM - i.h_antes_sem);
+			const ld = Math.max(0, J_SEM - i.h_despues_sem);
+			const v = la > 0 ? ld / la : 0;
+			comp.push({ t:'Apalancamiento operativo', v: fmt(v,'num1') + '×', s: `${fmt(la,'num1')} h → ${fmt(ld,'num1')} h libres/sem` });
+		}
+		if (state.metrics.has('densidadKairos')) {
+			const k = horasAnio * (i.pct_estrategico / 100);
+			comp.push({ t:'Tiempo Kairós', v: fmt(k,'int') + ' h/año', s: `${i.pct_estrategico} % del tiempo liberado a alto valor` });
+		}
+		if (state.metrics.has('momentum')) {
+			const f = i.iter_despues > 0 ? i.iter_antes / i.iter_despues : 0;
+			comp.push({ t:'Momentum', v: fmt(f,'num1') + '×', s: `${i.iter_antes} → ${i.iter_despues} intentos` });
+		}
+		if (state.metrics.has('autonomiaActivo')) {
+			comp.push({ t:'Autonomía del Activo', v: i.pct_conocimiento_sistema + ' %', s: `${fmt(i.factor_escalabilidad,'num1')}× escalabilidad` });
+		}
+
+		const compHtml = comp.length
+			? `<div class="pp-section-h">Métricas complementarias</div>
+				<div class="pp-grid pp-grid-2">
+					${comp.map(c => `<div class="pp-block"><div class="pp-block-t">${c.t}</div><div class="pp-block-v">${c.v}</div>${c.s ? `<div class="pp-block-s">${c.s}</div>` : ''}</div>`).join('')}
+				</div>`
+			: '';
+
+		const html = `<!DOCTYPE html><html lang="es"><head>
 <meta charset="UTF-8">
 <title>Propuesta · ${nombre}</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
 <style>
-  @page { size: A4; margin: 0; }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background:#191919; }
-  body {
-    font-family:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    color:#fff; line-height:1.5;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
-    padding: 22mm 38mm;
-  }
-  .pp-h { display:flex; align-items:center; gap:12px; padding-bottom:16px; border-bottom:1px solid #2a2a2a; margin-bottom:22px; }
-  .pp-logo { width:40px; height:40px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; }
-  .pp-h-meta { flex:1; min-width:0; }
-  .pp-h-eyebrow { font-size:9px; font-weight:700; color:#F96302; letter-spacing:.14em; text-transform:uppercase; }
-  .pp-h-name { font-size:18px; font-weight:900; letter-spacing:-.025em; color:#fff; margin-top:2px; line-height:1.15; }
-  .pp-h-date { font-size:9.5px; color:#8a8a8a; text-align:right; white-space:nowrap; }
-  .pp-h-date b { display:block; color:#d6d6d6; font-weight:700; font-size:10px; margin-bottom:2px; letter-spacing:.04em; }
-
-  .pp-section-h { font-size:9px; font-weight:800; color:#F96302; letter-spacing:.14em; text-transform:uppercase; margin:22px 0 8px 0; padding-bottom:5px; border-bottom:1px solid #2a2a2a; }
-  .pp-section-h:first-of-type { margin-top:0; }
-
-  .pp-hero { background:linear-gradient(180deg, rgba(249,99,2,.10) 0%, #1f1f1f 80%); border:1px solid rgba(249,99,2,.35); border-radius:12px; padding:18px 20px; margin-bottom:6px; }
-  .pp-hero-label { font-size:9px; font-weight:700; color:#d6d6d6; letter-spacing:.10em; text-transform:uppercase; }
-  .pp-hero-value { font-size:34px; font-weight:900; color:#F96302; letter-spacing:-.03em; line-height:1.05; margin-top:4px; font-variant-numeric:tabular-nums; }
-  .pp-hero-value span { font-size:18px; color:#8a8a8a; font-weight:700; margin-left:4px; }
-  .pp-hero-sub { font-size:11px; color:#d6d6d6; margin-top:6px; }
-
-  .pp-grid { display:grid; gap:8px; margin-top:8px; }
-  .pp-grid-2 { grid-template-columns:repeat(2, 1fr); }
-  .pp-grid-3 { grid-template-columns:repeat(3, 1fr); }
-  .pp-block { background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 12px; page-break-inside:avoid; }
-  .pp-block-accent { border-color:rgba(249,99,2,.45); background:linear-gradient(180deg, rgba(249,99,2,.08) 0%, #1f1f1f 80%); }
-  .pp-block-t { font-size:8.5px; font-weight:700; color:#8a8a8a; letter-spacing:.10em; text-transform:uppercase; }
-  .pp-block-v { font-size:18px; font-weight:900; color:#fff; letter-spacing:-.02em; margin-top:3px; font-variant-numeric:tabular-nums; }
-  .pp-block-accent .pp-block-v { color:#F96302; }
-  .pp-block-v span { font-size:11px; color:#8a8a8a; font-weight:700; margin-left:2px; }
-  .pp-block-s { font-size:9.5px; color:#8a8a8a; margin-top:3px; line-height:1.35; }
-
-  .pp-row { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:11px 14px; background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; margin-top:8px; }
-  .pp-row-t { font-size:10px; font-weight:700; color:#d6d6d6; letter-spacing:.04em; }
-  .pp-row-v { font-size:16px; font-weight:900; color:#F96302; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
-
-  .pp-note { margin-top:18px; padding:10px 14px; background:rgba(249,99,2,.05); border-left:2px solid #F96302; border-radius:4px; font-size:10px; color:#d6d6d6; line-height:1.5; }
-  .pp-note-warn { background:rgba(255,181,71,.06); border-left-color:#ffb547; color:#ffb547; }
-
-  .pp-foot { margin-top:24px; padding-top:12px; border-top:1px solid #2a2a2a; display:flex; justify-content:space-between; font-size:9px; color:#8a8a8a; letter-spacing:.04em; }
-  .pp-foot b { color:#d6d6d6; font-weight:700; }
-
-  .pp-noprint { position:fixed; top:14px; right:14px; background:#F96302; color:#0a0a0a; border:none; padding:9px 16px; border-radius:8px; font-family:'Satoshi',-apple-system,sans-serif; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 18px rgba(249,99,2,.4); letter-spacing:-.01em; }
-  .pp-noprint:hover { background:#ff7a26; }
-  @media print { .pp-noprint { display:none; } body { padding: 22mm 38mm; } }
+@page { size: A4; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background:#191919; }
+body { font-family:'Satoshi',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; color:#fff; line-height:1.5; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding: 22mm 38mm; }
+.pp-h { display:flex; align-items:center; gap:12px; padding-bottom:16px; border-bottom:1px solid #2a2a2a; margin-bottom:22px; }
+.pp-logo { width:40px; height:40px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; }
+.pp-h-meta { flex:1; min-width:0; }
+.pp-h-eyebrow { font-size:9px; font-weight:700; color:#F96302; letter-spacing:.14em; text-transform:uppercase; }
+.pp-h-name { font-size:18px; font-weight:900; letter-spacing:-.025em; color:#fff; margin-top:2px; line-height:1.15; }
+.pp-h-date { font-size:9.5px; color:#8a8a8a; text-align:right; white-space:nowrap; }
+.pp-h-date b { display:block; color:#d6d6d6; font-weight:700; font-size:10px; margin-bottom:2px; letter-spacing:.04em; }
+.pp-section-h { font-size:9px; font-weight:800; color:#F96302; letter-spacing:.14em; text-transform:uppercase; margin:22px 0 8px 0; padding-bottom:5px; border-bottom:1px solid #2a2a2a; }
+.pp-section-h:first-of-type { margin-top:0; }
+.pp-hero { background:linear-gradient(180deg, rgba(249,99,2,.10) 0%, #1f1f1f 80%); border:1px solid rgba(249,99,2,.35); border-radius:12px; padding:18px 20px; margin-bottom:6px; }
+.pp-hero-label { font-size:9px; font-weight:700; color:#d6d6d6; letter-spacing:.10em; text-transform:uppercase; }
+.pp-hero-value { font-size:34px; font-weight:900; color:#F96302; letter-spacing:-.03em; line-height:1.05; margin-top:4px; font-variant-numeric:tabular-nums; }
+.pp-hero-value span { font-size:18px; color:#8a8a8a; font-weight:700; margin-left:4px; }
+.pp-hero-sub { font-size:11px; color:#d6d6d6; margin-top:6px; }
+.pp-grid { display:grid; gap:8px; margin-top:8px; }
+.pp-grid-2 { grid-template-columns:repeat(2, 1fr); }
+.pp-grid-3 { grid-template-columns:repeat(3, 1fr); }
+.pp-block { background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 12px; page-break-inside:avoid; }
+.pp-block-accent { border-color:rgba(249,99,2,.45); background:linear-gradient(180deg, rgba(249,99,2,.08) 0%, #1f1f1f 80%); }
+.pp-block-t { font-size:8.5px; font-weight:700; color:#8a8a8a; letter-spacing:.10em; text-transform:uppercase; }
+.pp-block-v { font-size:18px; font-weight:900; color:#fff; letter-spacing:-.02em; margin-top:3px; font-variant-numeric:tabular-nums; }
+.pp-block-accent .pp-block-v { color:#F96302; }
+.pp-block-v span { font-size:11px; color:#8a8a8a; font-weight:700; margin-left:2px; }
+.pp-block-s { font-size:9.5px; color:#8a8a8a; margin-top:3px; line-height:1.35; }
+.pp-row { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:11px 14px; background:#1f1f1f; border:1px solid #2a2a2a; border-radius:10px; margin-top:8px; }
+.pp-row-t { font-size:10px; font-weight:700; color:#d6d6d6; letter-spacing:.04em; }
+.pp-row-v { font-size:16px; font-weight:900; color:#F96302; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.pp-note { margin-top:18px; padding:10px 14px; background:rgba(249,99,2,.05); border-left:2px solid #F96302; border-radius:4px; font-size:10px; color:#d6d6d6; line-height:1.5; }
+.pp-note-warn { background:rgba(255,181,71,.06); border-left-color:#ffb547; color:#ffb547; }
+.pp-foot { margin-top:24px; padding-top:12px; border-top:1px solid #2a2a2a; display:flex; justify-content:space-between; font-size:9px; color:#8a8a8a; letter-spacing:.04em; }
+.pp-foot b { color:#d6d6d6; font-weight:700; }
+.pp-noprint { position:fixed; top:14px; right:14px; background:#F96302; color:#0a0a0a; border:none; padding:9px 16px; border-radius:8px; font-family:'Satoshi',-apple-system,sans-serif; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 18px rgba(249,99,2,.4); letter-spacing:-.01em; }
+.pp-noprint:hover { background:#ff7a26; }
+@media print { .pp-noprint { display:none; } body { padding: 22mm 38mm; } }
 </style>
 </head><body>
-  <button class="pp-noprint" onclick="window.print()">⤓ Imprimir / PDF</button>
-
-  <div class="pp-h">
-    <div class="pp-logo">${logoSvg}</div>
-    <div class="pp-h-meta">
-      <div class="pp-h-eyebrow">Activos Kairos · Propuesta de Valor</div>
-      <div class="pp-h-name">${nombre}</div>
-    </div>
-    <div class="pp-h-date"><b>${tipo}</b>${fecha}</div>
-  </div>
-
-  <div class="pp-section-h">Lo que ganas</div>
-  ${nucleoCard}
-  ${(state.money && varCoste !== 0) ? `<div class="pp-row"><div class="pp-row-t">Variación coste de uso · año</div><div class="pp-row-v">${fmt(varCoste,'eur')}</div></div>` : ''}
-
-  ${propuestaCard}
-
-  ${compHtml}
-
-  <div class="pp-note">Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. Las cifras mostradas son anuales salvo donde se indique lo contrario.</div>
-
-  <div class="pp-foot">
-    <span><b>activoskairos.com</b></span>
-    <span>Generado ${fecha}</span>
-  </div>
+<button class="pp-noprint" onclick="window.print()">⤓ Imprimir / PDF</button>
+<div class="pp-h">
+	<div class="pp-logo">${logoSvg}</div>
+	<div class="pp-h-meta">
+		<div class="pp-h-eyebrow">Activos Kairos · Propuesta de Valor</div>
+		<div class="pp-h-name">${nombre}</div>
+	</div>
+	<div class="pp-h-date"><b>${tipo}</b>${fecha}</div>
+</div>
+<div class="pp-section-h">Lo que ganas</div>
+${nucleoCard}
+${(state.money && varCoste !== 0) ? `<div class="pp-row"><div class="pp-row-t">Variación coste de uso · año</div><div class="pp-row-v">${fmt(varCoste,'eur')}</div></div>` : ''}
+${propuestaCard}
+${compHtml}
+<div class="pp-note">Este Activo se sigue amortizando cada año a partir del segundo, sin esfuerzo adicional. Las cifras mostradas son anuales salvo donde se indique lo contrario.</div>
+<div class="pp-foot">
+	<span><b>activoskairos.com</b></span>
+	<span>Generado ${fecha}</span>
+</div>
 </body></html>`;
 
-    const w = window.open('', 'propuesta-kairos', 'width=900,height=1200');
-    if (!w) { alert('Permite las ventanas emergentes para generar la propuesta.'); return; }
-    w.document.open(); w.document.write(html); w.document.close();
-    setTimeout(() => { try { w.focus(); w.print(); } catch(e){} }, 400);
-  }
+		const w = window.open('', 'propuesta-kairos', 'width=900,height=1200');
+		if (!w) { alert('Permite las ventanas emergentes para generar la propuesta.'); return; }
+		w.document.open(); w.document.write(html); w.document.close();
+		setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 400);
+	}
 
-  root.querySelectorAll('[data-export-pdf]').forEach(btn => {
-    btn.addEventListener('click', generarPropuestaPDF);
-  });
+	root.querySelectorAll('[data-export-pdf]').forEach(btn => {
+		btn.addEventListener('click', generarPropuestaPDF);
+	});
 
-  /* INIT */
-  syncFieldsVisibility(); syncResultsVisibility(); compute();
+	/* ----- Init ----- */
+	syncFieldsVisibility();
+	syncResultsVisibility();
+	compute();
 })();
 </script>
 
